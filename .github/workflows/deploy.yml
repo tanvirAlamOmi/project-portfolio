@@ -9,6 +9,7 @@ jobs:
   build-and-deploy:
     name: Build Next.js & Upload via FTP
     runs-on: ubuntu-latest
+    environment: FTP_SERVER
 
     steps:
       - name: Checkout code
@@ -28,14 +29,37 @@ jobs:
 
       - name: Deploy to ebnhost via FTP (lftp)
         env:
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER || vars.FTP_SERVER || 'ftp.sejuti.com' }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME || vars.FTP_USERNAME || 'era@sejuti.com' }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD || vars.FTP_PASSWORD }}
+          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR || vars.FTP_SERVER_DIR || '/home/sejutico/sejuti.com/era' }}
         run: |
-          sudo apt-get install -y lftp
-          lftp -c "
-            set ftp:ssl-allow no;
-            set net:timeout 30;
-            set net:max-retries 3;
-            open -u 'era@sejuti.com','$FTP_PASSWORD' 'ftp.sejuti.com';
-            mirror --reverse --delete --verbose --parallel=4 ./out/ '/home/sejutico/sejuti.com/era/';
-            bye
-          "
+          if [ -z "$FTP_PASSWORD" ]; then
+            echo "::error::FTP_PASSWORD is missing or empty! Please verify the secret in GitHub Settings."
+            exit 1
+          fi
+
+          echo "Installing lftp..."
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+          echo "Connecting to $FTP_SERVER as $FTP_USERNAME..."
+
+          lftp <<EOF
+          set ftp:ssl-allow yes
+          set ftp:ssl-force false
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate no
+          set ftp:passive-mode true
+          set net:timeout 30
+          set net:max-retries 3
+
+          open "$FTP_SERVER"
+          user "$FTP_USERNAME" "$FTP_PASSWORD"
+
+          # Attempt cd to directory if needed (cPanel FTP sub-accounts are often already jailed into their folder)
+          cd "$FTP_SERVER_DIR" || echo "Notice: Staying in current FTP root directory"
+          pwd
+
+          mirror --reverse --delete --verbose=3 ./out/ ./
+          bye
+          EOF
