@@ -44,7 +44,7 @@ jobs:
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
           # e.g.  /public_html/portfolio/   (the subfolder on ebnhost)
           # ── Behaviour ─────────────────────────────────────────────────────
-          dangerous-clean-slate: true            # set true only on first deploy
+          dangerous-clean-slate: false            # set true only on first deploy
           exclude: |
             **/.git*
             **/.git*/**
