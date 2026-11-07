@@ -11,42 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js (match your local version)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4. Build the static site → produces the /out folder
       - name: Build Next.js (static export)
         run: npm run build
 
-      # 5. Upload the /out folder to your cPanel hosting via FTP
-      #    Uses: https://github.com/SamKirkland/FTP-Deploy-Action
       - name: Deploy to ebnhost via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          # ── FTP credentials stored as GitHub Secrets ──────────────────────
-          server: ${{ secrets.FTP_SERVER }}       # e.g.  ftp.yourdomain.com
-          username: ${{ secrets.FTP_USERNAME }}   # your cPanel FTP username
-          password: ${{ secrets.FTP_PASSWORD }}   # your cPanel FTP password
-          # ── Paths ──────────────────────────────────────────────────────────
-          local-dir: ./out/                       # Next.js static output folder
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          # e.g.  /public_html/portfolio/   (the subfolder on ebnhost)
-          # ── Behaviour ─────────────────────────────────────────────────────
-          dangerous-clean-slate: false            # set true only on first deploy
+          dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-
