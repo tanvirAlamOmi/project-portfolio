@@ -1,3 +1,5 @@
+import { asset } from "@/utils/asset";
+
 export type ProjectCategory = 'websites' | 'apps' | 'softwares' | 'branding' | 'marketing';
 
 export interface Project {
@@ -30,8 +32,8 @@ export const projects: Project[] = [
     tags: ["UX & UI Design", "Branding", "Print & Digital Marketing"],
     year: "2024",
     featured: true,
-    coverImage: "/assets/projects/aamar-pharma-mockup.png",
-    mockupImage: "/assets/images/work-mockup.png",
+    coverImage: asset("/assets/projects/aamar-pharma-mockup.png"),
+    mockupImage: asset("/assets/images/work-mockup.png"),
     summary: "Designed a comprehensive online pharmacy solution, featuring a customer app for ordering medicines and an admin panel for managing and processing orders efficiently.",
     deliverables: ["Mobile iOS & Android App", "Web Dashboard", "Design System", "Brand Identity"],
     caseStudyUrl: "/work/aamar-pharma"
@@ -46,8 +48,8 @@ export const projects: Project[] = [
     tags: ["UX & UI Design", "Web Development", "Content Strategy"],
     year: "2023",
     featured: true,
-    coverImage: "/assets/clients/daahuk.png",
-    mockupImage: "/assets/projects/aamar-pharma-mockup.png",
+    coverImage: asset("/assets/clients/daahuk.png"),
+    mockupImage: asset("/assets/projects/aamar-pharma-mockup.png"),
     summary: "Created a modern visual storytelling website celebrating wild expeditions and thoughtful travel experiences across South Asia.",
     deliverables: ["Responsive Web Platform", "Editorial UI", "CMS Integration"],
     caseStudyUrl: "/work/daahuk-travel"
@@ -62,8 +64,8 @@ export const projects: Project[] = [
     tags: ["SaaS UX", "Data Visualization", "Design System"],
     year: "2024",
     featured: true,
-    coverImage: "/assets/clients/arbree-solutions.png",
-    mockupImage: "/assets/projects/aamar-pharma-mockup.png",
+    coverImage: asset("/assets/clients/arbree-solutions.png"),
+    mockupImage: asset("/assets/projects/aamar-pharma-mockup.png"),
     summary: "Engineered high-density data visualizations and customizable dashboards for real-time business telemetry and operations monitoring.",
     deliverables: ["SaaS Architecture", "Component Library", "Interactive Charts"],
     caseStudyUrl: "/work/arbree-analytics"
@@ -78,8 +80,8 @@ export const projects: Project[] = [
     tags: ["Brand Identity", "Design Guidelines", "Print Collateral"],
     year: "2023",
     featured: false,
-    coverImage: "/assets/clients/elevate-solutions.png",
-    mockupImage: "/assets/projects/aamar-pharma-mockup.png",
+    coverImage: asset("/assets/clients/elevate-solutions.png"),
+    mockupImage: asset("/assets/projects/aamar-pharma-mockup.png"),
     summary: "Developed a comprehensive brand book, typographic rules, and pitch materials reflecting technical precision and corporate leadership.",
     deliverables: ["Brand Identity System", "Stationery", "Social Media Kit"],
     caseStudyUrl: "/work/elevate-solutions-brand"

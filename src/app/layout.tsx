@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     description: "Crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/assets/logo.png", width: 300, height: 300, alt: "Sejuti Mehjabin Logo" }],
+    images: [{ url: "/era/assets/logo.png", width: 300, height: 300, alt: "Sejuti Mehjabin Logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sejuti Mehjabin | Multidisciplinary UX & UI Designer",
     description: "Crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
-    images: ["/assets/logo.png"],
+    images: ["/era/assets/logo.png"],
   },
 };
 

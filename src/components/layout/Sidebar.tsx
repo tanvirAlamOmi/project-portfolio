@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { asset } from '@/utils/asset';
 
 interface NavItem {
   id: string;
@@ -12,11 +13,11 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: 'home', label: 'HOME', href: '/#home', iconSrc: '/assets/icons/nav-home.svg' },
-  { id: 'about', label: 'ABOUT', href: '/#about', iconSrc: '/assets/icons/nav-about.svg' },
-  { id: 'work', label: 'WORK', href: '/#work', iconSrc: '/assets/icons/nav-work.svg' },
-  { id: 'blogs', label: 'BLOGS', href: '/#blogs', iconSrc: '/assets/icons/nav-blogs.svg' },
-  { id: 'contact', label: 'CONTACT', href: '/#contact', iconSrc: '/assets/icons/nav-contact.svg' },
+  { id: 'home', label: 'HOME', href: '/#home', iconSrc: asset('/assets/icons/nav-home.svg') },
+  { id: 'about', label: 'ABOUT', href: '/#about', iconSrc: asset('/assets/icons/nav-about.svg') },
+  { id: 'work', label: 'WORK', href: '/#work', iconSrc: asset('/assets/icons/nav-work.svg') },
+  { id: 'blogs', label: 'BLOGS', href: '/#blogs', iconSrc: asset('/assets/icons/nav-blogs.svg') },
+  { id: 'contact', label: 'CONTACT', href: '/#contact', iconSrc: asset('/assets/icons/nav-contact.svg') },
 ];
 
 export default function Sidebar() {
@@ -64,7 +65,7 @@ export default function Sidebar() {
         <Link href="/#home" className="flex items-center gap-2.5">
           <div className="w-10 h-10 rounded-full overflow-hidden border border-[var(--accent)] shadow-sm">
             <Image
-              src="/assets/icons/logo.svg"
+              src={asset("/assets/icons/logo.svg")}
               alt="Sejuti"
               width={40}
               height={40}
@@ -86,12 +87,12 @@ export default function Sidebar() {
           >
             {theme === 'light' ? (
               <>
-                <img src="/assets/icons/icon-sun.svg" alt="Sun" className="w-3.5 h-3.5" />
+                <img src={asset("/assets/icons/icon-sun.svg")} alt="Sun" className="w-3.5 h-3.5" />
                 <span className="text-[10px] tracking-wider text-gradient">LIGHT</span>
               </>
             ) : (
               <>
-                <img src="/assets/icons/icon-moon.svg" alt="Moon" className="w-3.5 h-3.5" />
+                <img src={asset("/assets/icons/icon-moon.svg")} alt="Moon" className="w-3.5 h-3.5" />
                 <span className="text-[10px] tracking-wider text-[var(--ink)]">DARK</span>
               </>
             )}
@@ -149,7 +150,7 @@ export default function Sidebar() {
         <Link href="/#home" className="group flex flex-col items-center mb-7">
           <div className="w-[100px] h-[100px] rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-sm">
             <Image
-              src="/assets/icons/logo.svg"
+              src={asset("/assets/icons/logo.svg")}
               alt="Sejuti"
               width={100}
               height={100}
@@ -189,7 +190,7 @@ export default function Sidebar() {
                     theme === 'dark' ? 'opacity-100 scale-110 drop-shadow' : 'opacity-40'
                   }`}
                 >
-                  <img src="/assets/icons/icon-moon.svg" alt="Moon" className="w-3.5 h-3.5" />
+                  <img src={asset("/assets/icons/icon-moon.svg")} alt="Moon" className="w-3.5 h-3.5" />
                 </div>
 
                 {/* Sliding indicator dot */}
@@ -205,7 +206,7 @@ export default function Sidebar() {
                     theme === 'light' ? 'opacity-100 scale-110 drop-shadow' : 'opacity-40'
                   }`}
                 >
-                  <img src="/assets/icons/icon-sun.svg" alt="Sun" className="w-3.5 h-3.5" />
+                  <img src={asset("/assets/icons/icon-sun.svg")} alt="Sun" className="w-3.5 h-3.5" />
                 </div>
               </button>
 
@@ -242,7 +243,7 @@ export default function Sidebar() {
                       }}
                     >
                       <img
-                        src={item.iconSrc}
+                        src={asset(item.iconSrc)}
                         alt={item.label}
                         className="w-full h-full object-contain"
                       />

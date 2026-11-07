@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import SectionLayout from '@/components/layout/SectionLayout';
+import { asset } from '@/utils/asset';
 
 /**
  * AboutSection — Matches Figma "about section" (Node 2666:846) & home_defult-new pixel-for-pixel
@@ -94,7 +95,7 @@ export default function AboutSection() {
             >
               <div className="relative w-12 h-12 mb-1 flex items-center justify-center">
                 <Image
-                  src="/assets/icons/about-ux-ui.png"
+                  src={asset("/assets/icons/about-ux-ui.png")}
                   alt="UX & UI Icon"
                   width={58}
                   height={58}
@@ -113,7 +114,7 @@ export default function AboutSection() {
               <div className="group flex flex-col items-center text-center">
                 <div className="relative w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 flex items-center justify-center">
                   <Image
-                    src="/assets/icons/about-website.png"
+                    src={asset("/assets/icons/about-website.png")}
                     alt="Website design"
                     width={116}
                     height={116}
@@ -129,7 +130,7 @@ export default function AboutSection() {
               <div className="group flex flex-col items-center text-center">
                 <div className="relative w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 flex items-center justify-center">
                   <Image
-                    src="/assets/icons/about-app.png"
+                    src={asset("/assets/icons/about-app.png")}
                     alt="App design"
                     width={103}
                     height={103}
@@ -145,7 +146,7 @@ export default function AboutSection() {
               <div className="group flex flex-col items-center text-center">
                 <div className="relative w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 flex items-center justify-center">
                   <Image
-                    src="/assets/icons/about-software.png"
+                    src={asset("/assets/icons/about-software.png")}
                     alt="Software UI design"
                     width={108}
                     height={108}
@@ -176,7 +177,7 @@ export default function AboutSection() {
                 style={{ background: 'var(--bg)' }}
               >
                 <Image
-                  src="/assets/icons/about-branding.png"
+                  src={asset("/assets/icons/about-branding.png")}
                   alt="Logo & Branding Icon"
                   width={59}
                   height={59}
@@ -207,7 +208,7 @@ export default function AboutSection() {
                 style={{ background: 'var(--bg)' }}
               >
                 <Image
-                  src="/assets/icons/about-marketing.png"
+                  src={asset("/assets/icons/about-marketing.png")}
                   alt="Print & Digital Marketing Icon"
                   width={55}
                   height={55}

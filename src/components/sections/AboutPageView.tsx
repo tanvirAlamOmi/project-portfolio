@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { asset } from '@/utils/asset';
 
 export default function AboutPageView() {
   const scrollTo = (id: string) => {
@@ -87,7 +88,7 @@ export default function AboutPageView() {
               {/* View Resume Button */}
               <div>
                 <a
-                  href="/assets/resume.pdf"
+                  href={asset("/assets/resume.pdf")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-solid inline-flex items-center gap-3 shadow-lg hover:shadow-[0_0_20px_rgba(222,67,19,0.4)] transition-all"
@@ -106,7 +107,7 @@ export default function AboutPageView() {
                 <div className="absolute inset-0 rounded-full border border-[var(--accent)]/30 scale-95" />
                 <div className="relative w-full h-full">
                   <Image
-                    src="/assets/images/about-portrait.png"
+                    src={asset("/assets/images/about-portrait.png")}
                     alt="Sejuti Mehjabin portrait"
                     fill
                     className="object-contain"
@@ -189,11 +190,11 @@ export default function AboutPageView() {
             }}
           >
             {[
-              { img: '/assets/images/about-infj.png', title: 'INFJ-A +\nNEURODIVERGENT' },
-              { img: '/assets/images/about-storyteller.png', title: 'VISUAL\nSTORYTELLER' },
-              { img: '/assets/images/about-nature.png', title: 'NATURE\nDREAMER' },
-              { img: '/assets/images/about-poetic.png', title: 'POETIC\nTHINKER' },
-              { img: '/assets/images/about-curator.png', title: 'AESTHETIC\nCURATOR' },
+              { img: asset('/assets/images/about-infj.png'), title: 'INFJ-A +\nNEURODIVERGENT' },
+              { img: asset('/assets/images/about-storyteller.png'), title: 'VISUAL\nSTORYTELLER' },
+              { img: asset('/assets/images/about-nature.png'), title: 'NATURE\nDREAMER' },
+              { img: asset('/assets/images/about-poetic.png'), title: 'POETIC\nTHINKER' },
+              { img: asset('/assets/images/about-curator.png'), title: 'AESTHETIC\nCURATOR' },
             ].map((item) => (
               <div key={item.title} className="flex flex-col items-center text-center group">
                 <div className="relative w-28 h-28 mb-3 flex items-center justify-center">
@@ -308,7 +309,7 @@ export default function AboutPageView() {
           >
             <div className="relative w-full max-w-[800px] h-[300px] sm:h-[400px]">
               <Image
-                src="/assets/images/about-certifications.png"
+                src={asset("/assets/images/about-certifications.png")}
                 alt="Sejuti Certifications"
                 fill
                 className="object-contain"
@@ -348,7 +349,7 @@ export default function AboutPageView() {
         >
           <div className="relative w-full max-w-[950px] h-[350px] sm:h-[500px]">
             <Image
-              src="/assets/images/about-brain.png"
+              src={asset("/assets/images/about-brain.png")}
               alt="Analytical and Creative Brain UX Infographic"
               fill
               className="object-contain"
@@ -416,7 +417,7 @@ export default function AboutPageView() {
             >
               <div className="relative w-28 h-28 mb-6 mx-auto">
                 <Image
-                  src="/assets/images/about-meraki.png"
+                  src={asset("/assets/images/about-meraki.png")}
                   alt="Meraki Principle"
                   fill
                   className="object-contain"
@@ -440,7 +441,7 @@ export default function AboutPageView() {
             >
               <div className="relative w-28 h-28 mb-6 mx-auto">
                 <Image
-                  src="/assets/images/about-significant.png"
+                  src={asset("/assets/images/about-significant.png")}
                   alt="Simple yet significant Principle"
                   fill
                   className="object-contain"

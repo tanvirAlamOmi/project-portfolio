@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SectionLayout from '@/components/layout/SectionLayout';
 import { projects } from '@/data/projects';
+import { asset } from '@/utils/asset';
 
 /**
  * FeaturedWorkSection — Figma "02 WORK" section (Node 2667:1129) — pixel-perfect
@@ -74,7 +75,7 @@ export default function FeaturedWorkSection() {
         >
           <div className="relative h-[88px] w-[191px]">
             <Image
-              src="/assets/icons/work-logo.png"
+              src={asset("/assets/icons/work-logo.png")}
               alt={proj.client}
               fill
               className="object-contain"

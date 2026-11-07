@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { asset } from '@/utils/asset';
 
 /**
  * HeroHeader — Figma "hero section" frames 66:3836 (light) / 2666:282 (dark)
@@ -69,7 +70,7 @@ export default function HeroHeader() {
             }}
           >
             <Image
-              src="/assets/hero-lightbulb.png"
+              src={asset("/assets/hero-lightbulb.png")}
               alt="Geometric lightbulb artwork"
               width={440}
               height={682}

@@ -1,5 +1,7 @@
 export type BlogCategory = 'Design' | 'Photography' | 'Writing';
 
+import { asset } from "@/utils/asset";
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -20,7 +22,7 @@ export const blogPosts: BlogPost[] = [
     category: "Design",
     date: "May 2024",
     readTime: "5 min read",
-    coverImage: "/assets/images/blog-design.png",
+    coverImage: asset("/assets/images/blog-design.png"),
     iconType: "design",
     excerpt: "Key learnings, transitions from IT into product design, and balancing business objectives with empathetic user experiences."
   },
@@ -31,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     category: "Photography",
     date: "August 2024",
     readTime: "3 min read",
-    coverImage: "/assets/images/blog-photography.png",
+    coverImage: asset("/assets/images/blog-photography.png"),
     iconType: "photo",
     excerpt: "Exploring natural illumination, fleeting atmospheric shifts, and how observational photography shapes digital visual pacing."
   },
@@ -42,7 +44,7 @@ export const blogPosts: BlogPost[] = [
     category: "Writing",
     date: "January 2025",
     readTime: "4 min read",
-    coverImage: "/assets/images/blog-writing.png",
+    coverImage: asset("/assets/images/blog-writing.png"),
     iconType: "write",
     excerpt: "Poetic reflections, contemplative journals, and rediscovering meaning through quiet observations of daily rituals."
   }

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SectionLayout from '@/components/layout/SectionLayout';
 import { blogPosts, BlogCategory } from '@/data/blogs';
+import { asset } from '@/utils/asset';
 
 /**
  * BlogsSection — Figma "03 BLOGS" section (Node 2667:1501) — pixel-perfect
@@ -110,9 +111,9 @@ const ICONS = {
 
 // Map blog categories to figma image assets
 const CARD_IMAGES: Record<BlogCategory, string> = {
-  Design: '/assets/images/blog-design.png',
-  Photography: '/assets/images/blog-photography.png',
-  Writing: '/assets/images/blog-writing.png',
+  Design: asset('/assets/images/blog-design.png'),
+  Photography: asset('/assets/images/blog-photography.png'),
+  Writing: asset('/assets/images/blog-writing.png'),
 };
 
 // ── Component ────────────────────────────────────────────────────────────────
