@@ -9,6 +9,7 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+
 const almarai = Almarai({
   subsets: ["arabic"],
   variable: "--font-almarai",
