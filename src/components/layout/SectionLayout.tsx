@@ -8,6 +8,7 @@
  */
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface SectionLayoutProps {
   id: string;
@@ -97,15 +98,13 @@ export default function SectionLayout({
             title={tabLabel}
           >
             {/* Top diamond */}
-            <svg width="15" height="17" viewBox="0 0 16 18" fill="none">
-              <defs>
-                <linearGradient id={diamId1} x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FEC163" />
-                  <stop offset="100%" stopColor="#DE4313" />
-                </linearGradient>
-              </defs>
-              <polygon points="8 0, 16 9, 8 18, 0 9" fill={`url(#${diamId1})`} />
-            </svg>
+            <Image
+              src="/btn-icon-dimond.png"
+              alt=""
+              width={18}
+              height={17}
+              className="w-[15px] h-[14px] object-contain flex-shrink-0"
+            />
 
             {/* Vertical text label */}
             <span
@@ -119,15 +118,13 @@ export default function SectionLayout({
             </span>
 
             {/* Bottom diamond */}
-            <svg width="15" height="17" viewBox="0 0 16 18" fill="none">
-              <defs>
-                <linearGradient id={diamId2} x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FEC163" />
-                  <stop offset="100%" stopColor="#DE4313" />
-                </linearGradient>
-              </defs>
-              <polygon points="8 0, 16 9, 8 18, 0 9" fill={`url(#${diamId2})`} />
-            </svg>
+            <Image
+              src="/btn-icon-dimond.png"
+              alt=""
+              width={18}
+              height={17}
+              className="w-[15px] h-[14px] object-contain flex-shrink-0"
+            />
           </Link>
         </div>
       </div>

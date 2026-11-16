@@ -1,0 +1,62 @@
+[
+  {
+    "id": "aamar-pharma",
+    "slug": "aamar-pharma",
+    "title": "DIGITAL PHARMACY PLATFORM: MEDICINE ORDERING AND DELIVERY SOLUTION",
+    "client": "Aamar Pharma",
+    "logo": "/assets/icons/work-logo.png",
+    "category": "apps",
+    "categoryLabel": "App Design & Development",
+    "tags": ["UX & UI Design", "Branding", "Print & Digital Marketing"],
+    "year": "2024",
+    "featured": true,
+    "coverImage": "/sliders/home-featured-work/aamar-pharma-mockup.png",
+    "summary": "Designed a comprehensive online pharmacy solution, featuring a customer app for ordering medicines and an admin panel for managing and processing orders efficiently.",
+    "caseStudyUrl": "/work/case-study/aamar-pharma"
+  },
+  {
+    "id": "daahuk-travel",
+    "slug": "daahuk-travel",
+    "title": "DAAHUK: ECO-CONSCIOUS TRAVEL & EXPEDITION PORTAL",
+    "client": "Daahuk",
+    "logo": "/assets/icons/work-logo.png",
+    "category": "websites",
+    "categoryLabel": "Website Design",
+    "tags": ["UX & UI Design", "Web Development", "Content Strategy"],
+    "year": "2023",
+    "featured": true,
+    "coverImage": "/assets/clients/daahuk.png",
+    "summary": "Created a modern visual storytelling website celebrating wild expeditions and thoughtful travel experiences across South Asia.",
+    "caseStudyUrl": "/work/case-study/daahuk-travel"
+  },
+  {
+    "id": "arbree-analytics",
+    "slug": "arbree-analytics",
+    "title": "ARBREE SOLUTIONS: ENTERPRISE DATA ANALYTICS & INSIGHTS",
+    "client": "Arbree Solutions",
+    "logo": "/assets/icons/work-logo.png",
+    "category": "softwares",
+    "categoryLabel": "Software & SaaS",
+    "tags": ["SaaS UX", "Data Visualization", "Design System"],
+    "year": "2024",
+    "featured": true,
+    "coverImage": "/assets/clients/arbree-solutions.png",
+    "summary": "Engineered high-density data visualizations and customizable dashboards for real-time business telemetry and operations monitoring.",
+    "caseStudyUrl": "/work/case-study/arbree-analytics"
+  },
+  {
+    "id": "elevate-solutions-brand",
+    "slug": "elevate-solutions-brand",
+    "title": "ELEVATE SOLUTIONS: CORPORATE IDENTITY & DIGITAL ASSETS",
+    "client": "Elevate Solutions",
+    "logo": "/assets/icons/work-logo.png",
+    "category": "branding",
+    "categoryLabel": "Logo & Branding",
+    "tags": ["Brand Identity", "Design Guidelines", "Print Collateral"],
+    "year": "2023",
+    "featured": true,
+    "coverImage": "/assets/clients/elevate-solutions.png",
+    "summary": "Developed a comprehensive brand book, typographic rules, and pitch materials reflecting technical precision and corporate leadership.",
+    "caseStudyUrl": "/work/case-study/elevate-solutions-brand"
+  }
+]

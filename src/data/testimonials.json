@@ -1,0 +1,42 @@
+[
+  {
+    "id": "daahuk",
+    "company": "Daahuk",
+    "logo": "/assets/clients/daahuk-c.png",
+    "author": "MAGFI REZA SIDDIQUE",
+    "role": "Founder & Director",
+    "quote": "Throughout the development process, Sejuti's attention to detail was remarkable. She showcased an exceptional eye for design, creating a visually appealing website that perfectly captured our organization's ethos.",
+    "image": "/sliders/home-testimonials/daahuk.png",
+    "avatar": "/sliders/home-testimonials/daahuk.png"
+  },
+  {
+    "id": "aamar-pharma",
+    "company": "Aamar Pharma",
+    "logo": "/assets/clients/aamar-pharma-c.png",
+    "author": "RAKIBUL HASAN",
+    "role": "Operations Head",
+    "quote": "Sejuti delivered a seamless experience for both our patient-facing mobile application and the dense order processing admin portal.",
+    "image": "/sliders/home-testimonials/aamar-pharma.png",
+    "avatar": "/sliders/home-testimonials/aamar-pharma.png"
+  },
+  {
+    "id": "arbree-solutions",
+    "company": "Arbree Solutions",
+    "logo": "/assets/clients/arbree-solutions-c.png",
+    "author": "TANVIR AHMED",
+    "role": "Chief Technology Officer",
+    "quote": "Her design translated complex telemetry data into intuitive dashboards that our enterprise customers love using every single day.",
+    "image": "/sliders/home-testimonials/arbree-solutions.png",
+    "avatar": "/sliders/home-testimonials/arbree-solutions.png"
+  },
+  {
+    "id": "elevate-solutions",
+    "company": "Elevate Solutions",
+    "logo": "/assets/clients/elevate-solutions-c.png",
+    "author": "SHAHRIN CHOWDHURY",
+    "role": "Head of Growth",
+    "quote": "Working with Sejuti elevated our brand identity to global standards. Her creative vision and execution are truly world-class.",
+    "image": "/sliders/home-testimonials/elevate-solutions.png",
+    "avatar": "/sliders/home-testimonials/elevate-solutions.png"
+  }
+]

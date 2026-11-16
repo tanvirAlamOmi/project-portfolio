@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Sans, Almarai, Merriweather, Concert_One } from "next/font/google";
+import { LoaderProvider } from "@/context/LoaderContext";
+import { ActiveSectionProvider } from "@/context/ActiveSectionContext";
+import SiteLoader from "@/components/ui/SiteLoader";
+import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -8,7 +12,6 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "700", "800", "900"],
   display: "swap",
 });
-
 
 const almarai = Almarai({
   subsets: ["arabic"],
@@ -33,6 +36,7 @@ const concertOne = Concert_One({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sejutimehjabin.com"),
   title: "Sejuti Mehjabin | Multidisciplinary UX & UI Designer",
   description: "Portfolio of Sejuti Mehjabin — crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
   keywords: ["UX Design", "UI Design", "Product Design", "Sejuti Mehjabin", "Digital Designer", "Portfolio"],
@@ -42,13 +46,13 @@ export const metadata: Metadata = {
     description: "Crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/era/assets/logo.png", width: 300, height: 300, alt: "Sejuti Mehjabin Logo" }],
+    images: [{ url: "/assets/logo.png", width: 300, height: 300, alt: "Sejuti Mehjabin Logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sejuti Mehjabin | Multidisciplinary UX & UI Designer",
     description: "Crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
-    images: ["/era/assets/logo.png"],
+    images: ["/assets/logo.png"],
   },
 };
 
@@ -63,7 +67,13 @@ export default function RootLayout({
       className={`${dmSans.variable} ${almarai.variable} ${merriweather.variable} ${concertOne.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-200">
-        {children}
+        {/* Animated Custom Cursor (Follows mouse, expands to VIEW button over interactive elements) */}
+        <CustomCursor />
+        <LoaderProvider>
+          {/* Global Site Loader (Transparent BG, Static Logo, 360deg Spinning Gradient Border) */}
+          <SiteLoader />
+          <ActiveSectionProvider>{children}</ActiveSectionProvider>
+        </LoaderProvider>
       </body>
     </html>
   );

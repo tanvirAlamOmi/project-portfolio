@@ -1,0 +1,137 @@
+"use client";
+
+import React from "react";
+import { useActiveSection } from "@/context/ActiveSectionContext";
+
+interface SectionBadgeProps {
+  num: string;
+  label: string;
+  className?: string;
+  isFilled?: boolean;
+}
+
+// Reusable section badge with dynamic outline-to-fill transition on active section
+export default function SectionBadge({
+  num,
+  label,
+  className = "",
+  isFilled,
+}: SectionBadgeProps) {
+  const { activeSection } = useActiveSection();
+
+  // If isFilled is explicitly provided, use it.
+  // Otherwise, automatically check if this section is the active one!
+  const normalizedLabel = label.toLowerCase();
+  const isActiveSection =
+    activeSection === "about" &&
+    (normalizedLabel.includes("about") || num === "01")
+      ? true
+      : activeSection === "work" &&
+        (normalizedLabel.includes("work") || num === "02")
+      ? true
+      : activeSection === "blogs" &&
+        (normalizedLabel.includes("blog") || num === "03")
+      ? true
+      : activeSection === "contact" &&
+        (normalizedLabel.includes("contact") || num === "04")
+      ? true
+      : false;
+
+  const filled = isFilled !== undefined ? isFilled : isActiveSection;
+
+  // Break on <br>, \n or automatically break "DESIGN APPROACH"
+  const rawLabel =
+    label === "DESIGN APPROACH" ? "DESIGN\nAPPROACH" : label;
+  const lines = rawLabel
+    .split(/\n|<br\s*\/?>/i)
+    .map((l) => l.trim())
+    .filter(Boolean);
+  const isMultiLine = lines.length > 1;
+
+  const safeLabel = rawLabel.replace(/[\s\n<>/]+/g, "-");
+  const labelGradId = `badge-label-grad-${num}-${safeLabel}`;
+
+  // Find longest line to compute width
+  const maxLineLength = Math.max(
+    ...lines.map((l) => l.length),
+    num.length * 2
+  );
+
+  // 180 for standard length (<= 7 chars like ABOUT, WORK, BLOGS, CONTACT, PROFILE, JOURNEY, DESIGN, APPROACH)
+  const viewBoxWidth =
+    maxLineLength > 7 ? Math.max(180, Math.ceil(maxLineLength * 25)) : 180;
+
+  // ViewBox height: 200 for single-line, 235 for two lines (bigger numbers)
+  const viewBoxHeight = isMultiLine ? 235 : 200;
+
+  // Center coordinate for SVG middle alignment
+  const centerX = viewBoxWidth / 2;
+
+  return (
+    <div
+      className={`flex flex-col justify-center items-center text-center select-none ${className}`}
+    >
+      <svg
+        viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+        className={`${
+          isMultiLine
+            ? "h-[165px] sm:h-[190px] lg:h-[210px]"
+            : "h-[140px] sm:h-[165px] lg:h-[185px]"
+        } w-auto max-w-full overflow-visible`}
+      >
+        <defs>
+          {/* Figma lightline Linear Gradient */}
+          <linearGradient id={labelGradId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="rgba(254, 193, 99, 1)" />
+            <stop offset="100%" stopColor="rgba(222, 67, 19, 1)" />
+          </linearGradient>
+
+          {/* Glow filter matching box-shadow: 0px 0px 4px 0px #E45D23 */}
+          <filter id={`numGlow-${num}`} x="-15%" y="-15%" width="130%" height="130%">
+            <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#E45D23" floodOpacity={filled ? "0.7" : "0.4"} />
+          </filter>
+        </defs>
+
+        {/* Soft Concert One number - glow shadow instead of outline border */}
+        <text
+          x={centerX}
+          y="120"
+          textAnchor="middle"
+          fill="none"
+          stroke="#E45D23"
+          strokeOpacity={filled ? "0.6" : "0.3"}
+          strokeWidth="1"
+          fontFamily="var(--font-concert-one), cursive"
+          fontSize="160"
+          letterSpacing="0.02em"
+          filter={`url(#numGlow-${num})`}
+          style={{ transition: "stroke-opacity 0.4s ease" }}
+        >
+          {num}
+        </text>
+
+        {/* Crisp Almarai text: 48px/42px - Smooth outline-to-fill transition */}
+        {lines.map((line, idx) => (
+          <text
+            key={idx}
+            x={centerX}
+            y={isMultiLine ? 165 + idx * 42 : 175}
+            textAnchor="middle"
+            fill={filled ? `url(#${labelGradId})` : "transparent"}
+            stroke={`url(#${labelGradId})`}
+            strokeWidth={filled ? "0.5" : "1.5"}
+            fontFamily="var(--font-almarai), sans-serif"
+            fontWeight="700"
+            fontSize={isMultiLine ? "42" : "48"}
+            letterSpacing="0"
+            style={{
+              transition: "fill 0.4s ease, stroke-width 0.4s ease",
+            }}
+          >
+            {line}
+          </text>
+        ))}
+      </svg>
+    </div>
+  );
+}

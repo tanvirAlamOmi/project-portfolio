@@ -1,462 +1,1072 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { asset } from '@/utils/asset';
+import SectionBadge from "@/components/ui/SectionBadge";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+const TABS = [
+  { id: "profile", label: "01. PROFILE" },
+  { id: "journey", label: "02. JOURNEY" },
+  { id: "expertise", label: "03. EXPERTISE" },
+  { id: "approach", label: "04. DESIGN APPROACH" },
+] as const;
+
+type TabId = (typeof TABS)[number]["id"];
+
+/**
+ * Signature Notched Sparkle Action Button
+ */
+function ActionSparkleButton({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick?: () => void;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      className="group inline-flex items-center cursor-pointer select-none"
+    >
+      <div className="relative w-13 h-13 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        <svg width="52" height="58" viewBox="0 0 52 58" fill="none">
+          <path
+            d="M 46 44.5 A 25 25 0 1 1 46 13.5"
+            stroke="url(#aboutSparkleGrad)"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <circle cx="26" cy="29" r="17" fill="url(#aboutSparkleGrad)" />
+          <path
+            d="M26 20L27.6 27.4L35 29L27.6 30.6L26 38L24.4 30.6L17 29L24.4 27.4L26 20Z"
+            fill="#FFF7E7"
+          />
+        </svg>
+      </div>
+
+      <span
+        className="font-almarai font-extrabold text-xs sm:text-sm tracking-[0.2em] text-transparent bg-clip-text transition-all uppercase whitespace-nowrap"
+        style={{
+          backgroundImage:
+            "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export default function AboutPageView() {
-  const scrollTo = (id: string) => {
+  const [activeTab, setActiveTab] = useState<TabId>("profile");
+
+  // Scroll listener to update active tab based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 220;
+      for (const tab of [...TABS].reverse()) {
+        const el = document.getElementById(tab.id);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveTab(tab.id);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    setActiveTab(id as TabId);
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const playAudio = () => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance("Sejuti");
+      utterance.lang = "bn-BD";
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
     }
   };
 
   return (
-    <div className="relative w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-12">
-      {/* ── TOP HERO PROFILE BOX ── */}
-      <section className="relative w-full mb-12">
-        {/* Top Header Bar */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[var(--ink-32)]">
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-dm font-bold text-sm tracking-wider uppercase text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+    <div className="w-full px-4 sm:px-6 lg:px-10 pt-16 sm:pt-20 lg:pt-24 pb-24">
+      {/* ── Global SVG Gradient Defs ── */}
+      <svg
+        width="0"
+        height="0"
+        className="absolute pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient
+            id="aboutSparkleGrad"
+            x1="0"
+            y1="0"
+            x2="1"
+            y2="1"
+            gradientTransform="rotate(129.89 0.5 0.5)"
           >
-            ← Back to Home
-          </Link>
-          <span className="font-almarai font-bold text-2xl lg:text-3xl text-[var(--ink)]">
+            <stop offset="-29.32%" stopColor="#FEC163" />
+            <stop offset="100%" stopColor="#DE4313" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {/* ── 01. ABOUT HERO CARD (Pixel-perfect matching Blogs Hero) ── */}
+      <div className="relative w-full bg-transparent min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] flex items-center pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20 pl-6 sm:pl-10 lg:pl-14 pr-6 sm:pr-10 lg:pr-14 mb-10">
+        {/* Top horizontal border line (starts at 0,0 and stops before About) */}
+        <div
+          className="absolute top-0 left-0 right-[150px] sm:right-[180px] h-[1.5px] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
+          }}
+        />
+
+        {/* Left vertical border line (starts at 0,0 to bottom) */}
+        <div
+          className="absolute top-0 left-0 bottom-0 w-[1.5px] pointer-events-none"
+          style={{
+            background: "linear-gradient(180deg, #FEC163 0%, #DE4313 100%)",
+          }}
+        />
+
+        {/* Bottom horizontal border line */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[1.5px] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
+          }}
+        />
+
+        {/* Right vertical border line (starts below About to bottom) */}
+        <div
+          className="absolute top-[28px] sm:top-[34px] right-0 bottom-0 w-[1.5px] pointer-events-none"
+          style={{
+            background: "linear-gradient(180deg, #FEC163 0%, #DE4313 100%)",
+          }}
+        />
+
+        {/* Top-Right About heading (font-weight: 500, centered on top line) */}
+        <div className="absolute top-0 right-4 sm:right-8 -translate-y-1/2 flex items-center select-none z-20">
+          <span className="font-dm font-medium text-3xl sm:text-4xl lg:text-[40px] text-[var(--ink)] tracking-tight leading-none">
             About
           </span>
         </div>
 
-        {/* Hero Card Container */}
-        <div
-          className="relative w-full p-6 sm:p-10 lg:p-12 overflow-hidden"
-          style={{
-            background:
-              'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-            border: '1.5px solid transparent',
-          }}
-        >
-          {/* Subtle warm glow behind photo */}
+        {/* ── Inner Artwork & Glow Frame with overflow-hidden ── */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          {/* Rich Ellipse Glow underneath Sejuti portrait */}
           <div
-            className="absolute top-10 right-10 w-96 h-96 rounded-full bg-[#DE4313] opacity-20 blur-[100px] pointer-events-none"
             aria-hidden="true"
+            className="absolute rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(222, 67, 19, 0.65) 0%, rgba(222, 67, 19, 0.28) 52%, transparent 75%)",
+              filter: "blur(75px)",
+              width: "480px",
+              height: "440px",
+              right: "20px",
+              bottom: "0px",
+            }}
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-7 flex flex-col justify-center">
-              <h1 className="font-almarai font-extrabold text-[44px] sm:text-[56px] lg:text-[68px] leading-tight text-[var(--ink)] tracking-tight mb-2">
-                SEJUTI
-              </h1>
+          {/* Soft ambient glow on left behind text */}
+          <div
+            aria-hidden="true"
+            className="absolute rounded-full"
+            style={{
+              background: "rgba(222, 67, 19, 0.12)",
+              filter: "blur(90px)",
+              width: "340px",
+              height: "260px",
+              left: "20px",
+              top: "60px",
+            }}
+          />
 
-              {/* Bengali name + pronunciation */}
-              <div className="flex items-center gap-3 mb-4 flex-wrap">
-                <span className="font-almarai font-bold text-[28px] sm:text-[34px] text-gradient">
-                  সেঁজুতি
-                </span>
-                <span className="font-merri italic text-[18px] sm:text-[20px] text-[var(--body-muted)]">
-                  /shay.joo.tee/
-                </span>
-                <button
-                  type="button"
-                  className="p-1 rounded-full text-[var(--accent)] hover:opacity-80 transition-opacity"
-                  title="Pronunciation audio"
-                  aria-label="Listen to pronunciation"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Name Etymology */}
-              <p className="font-merri italic text-[15px] sm:text-[16px] text-[var(--body-muted)] leading-relaxed mb-2 max-w-[580px]">
-                ([Sē̃juti] — evening light or lamp, light of the sunset, twilight)
-              </p>
-              <p className="font-almarai text-[16px] sm:text-[17px] text-[var(--body-text)] leading-relaxed mb-6 max-w-[580px]">
-                A name that means light in the dark — reflecting the values carried into work and beyond.
-              </p>
-
-              <p className="font-almarai font-semibold text-[14px] uppercase tracking-wider text-[var(--accent)] mb-8">
-                Also known as ERA.
-              </p>
-
-              {/* View Resume Button */}
-              <div>
-                <a
-                  href={asset("/assets/resume.pdf")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-solid inline-flex items-center gap-3 shadow-lg hover:shadow-[0_0_20px_rgba(222,67,19,0.4)] transition-all"
-                >
-                  <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
-                    ↓
-                  </span>
-                  VIEW RESUME
-                </a>
-              </div>
-            </div>
-
-            {/* Right Photo */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative w-64 sm:w-80 lg:w-96 aspect-square flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full border border-[var(--accent)]/30 scale-95" />
-                <div className="relative w-full h-full">
-                  <Image
-                    src={asset("/assets/images/about-portrait.png")}
-                    alt="Sejuti Mehjabin portrait"
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
+          {/* Sejuti portrait pinned to right bottom matching Figma */}
+          <div className="absolute right-4 sm:right-14 lg:right-16 bottom-0 w-[220px] sm:w-[220px] md:w-[270px] lg:w-[310px] xl:w-[330px] flex items-end justify-end">
+            <Image
+              src="/assets/about/sejuti.png"
+              alt="Sejuti Mehjabin"
+              width={330}
+              height={400}
+              className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
+              priority
+            />
           </div>
         </div>
-      </section>
 
-      {/* ── STICKY SUB-NAV TABS ── */}
-      <nav
-        aria-label="About sub navigation"
-        className="sticky top-0 z-30 w-full py-4 mb-16 bg-[var(--bg)]/95 backdrop-blur-md border-y border-[var(--ink-32)]"
-      >
-        <div className="flex items-center justify-center sm:justify-around flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm font-dm font-bold uppercase tracking-widest text-[var(--ink)]">
-          <button
-            type="button"
-            onClick={() => scrollTo('profile')}
-            className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-          >
-            <span className="text-[var(--accent)]">◆</span> 01. PROFILE <span className="text-[var(--accent)]">◆</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollTo('journey')}
-            className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-          >
-            <span className="text-[var(--accent)]">◆</span> 02. JOURNEY <span className="text-[var(--accent)]">◆</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollTo('expertise')}
-            className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-          >
-            <span className="text-[var(--accent)]">◆</span> 03. EXPERTISE <span className="text-[var(--accent)]">◆</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollTo('approach')}
-            className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
-          >
-            <span className="text-[var(--accent)]">◆</span> 04. DESIGN APPROACH <span className="text-[var(--accent)]">◆</span>
-          </button>
+        {/* Left Hero Content Layer */}
+        <div className="relative z-10 w-full max-w-[600px] lg:max-w-[650px] flex flex-col justify-center space-y-4 sm:space-y-5">
+          <h1 className="font-almarai sm:font-dm font-extrabold uppercase text-4xl sm:text-5xl lg:text-[56px] tracking-tight leading-none text-[var(--ink)]">
+            SEJUTI
+          </h1>
+
+          {/* Bengali Script, Pronunciation & Speaker */}
+          <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+            <span
+              className="font-bold text-2xl sm:text-3xl text-transparent bg-clip-text"
+              style={{
+                backgroundImage:
+                  "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+              }}
+            >
+              সেঁজুতি
+            </span>
+
+            <span
+              className="font-dm text-base sm:text-lg text-transparent bg-clip-text"
+              style={{
+                backgroundImage:
+                  "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+              }}
+            >
+              /shay.joo.tee/
+            </span>
+
+            {/* Pronunciation Sound Button */}
+            <button
+              onClick={playAudio}
+              type="button"
+              aria-label="Listen to pronunciation of Sejuti"
+              className="text-[#DE4313] hover:text-[#FEC163] transition-transform hover:scale-110 cursor-pointer ml-1 focus:outline-none focus:ring-0"
+              style={{ outline: "none" }}
+              title="Pronounce Sejuti"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M11 5L6 9H2V15H6L11 19V5Z"
+                  fill="url(#aboutSparkleGrad)"
+                  stroke="url(#aboutSparkleGrad)"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M15.54 8.46C16.48 9.4 17 10.67 17 12C17 13.33 16.48 14.6 15.54 15.54"
+                  stroke="url(#aboutSparkleGrad)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M19.07 4.93C20.94 6.8 22 9.35 22 12C22 14.65 20.94 17.2 19.07 19.07"
+                  stroke="url(#aboutSparkleGrad)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Meaning & Essence */}
+          <div className="space-y-1 font-dm text-xs sm:text-[13.5px] text-[var(--ink-78)] leading-[1.65] max-w-lg">
+            <p>
+              (Bengali) - evening light or lamp, light of the sunset, twilight.
+            </p>
+            <p>
+              A name that means light in the dark — reflecting the values
+              carried into work and beyond.
+            </p>
+            <p
+              className="font-medium pt-2 text-transparent bg-clip-text"
+              style={{
+                backgroundImage:
+                  "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+              }}
+            >
+              Also known as ERA.
+            </p>
+          </div>
+
+          {/* View Resume Button */}
+          <div className="pt-4 sm:pt-6">
+            <a
+              href="/assets/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <ActionSparkleButton label="VIEW RESUME" />
+            </a>
+          </div>
         </div>
-      </nav>
+      </div>
 
-      {/* ── SECTION 01: PROFILE ── */}
-      <section id="profile" className="relative w-full mb-24 scroll-mt-24">
-        <div className="flex items-baseline gap-4 mb-4 select-none">
-          <span className="font-concert text-[70px] sm:text-[90px] text-transparent leading-none" style={{ WebkitTextStroke: '1.5px var(--ink-32)' }}>
-            01
-          </span>
-          <span className="font-almarai font-bold text-[32px] sm:text-[40px] text-gradient">
-            PROFILE
-          </span>
+      {/* ── 02. STICKY SUB-NAVIGATION BAR (Top sticky on scroll) ── */}
+      <div className="sticky top-0 z-40 backdrop-blur-md pt-2 pb-1 select-none mb-12 border-b border-[#DE4313]/20">
+        <div className="w-full flex items-center justify-between sm:justify-center gap-2 sm:gap-6 lg:gap-10 overflow-x-auto no-scrollbar font-dm text-xs sm:text-sm tracking-wider uppercase px-2">
+          {TABS.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => scrollToSection(tab.id)}
+                className={`group relative shrink-0 flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-3 transition-all duration-200 cursor-pointer select-none focus:outline-none focus:ring-0 focus-visible:outline-none active:outline-none ring-0 ${
+                  isActive
+                    ? "font-bold text-[#DE4313]"
+                    : "font-semibold text-[var(--ink-64)] hover:text-[var(--ink)]"
+                }`}
+                style={{
+                  outline: "none",
+                  WebkitTapHighlightColor: "transparent",
+                }}
+              >
+                {/* Diamond icon before */}
+                <Image
+                  src="/btn-icon-dimond.png"
+                  alt=""
+                  width={18}
+                  height={17}
+                  className={`w-[11px] h-[10px] object-contain flex-shrink-0 transition-opacity ${
+                    isActive
+                      ? "opacity-100"
+                      : "opacity-40 group-hover:opacity-80"
+                  }`}
+                />
+
+                {/* Tab Label */}
+                <span
+                  className={
+                    isActive ? "text-transparent bg-clip-text" : "text-inherit"
+                  }
+                  style={
+                    isActive
+                      ? {
+                          backgroundImage:
+                            "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                        }
+                      : undefined
+                  }
+                >
+                  {tab.label}
+                </span>
+
+                {/* Diamond icon after */}
+                <Image
+                  src="/btn-icon-dimond.png"
+                  alt=""
+                  width={18}
+                  height={17}
+                  className={`w-[11px] h-[10px] object-contain flex-shrink-0 transition-opacity ${
+                    isActive
+                      ? "opacity-100"
+                      : "opacity-40 group-hover:opacity-80"
+                  }`}
+                />
+
+                {/* Active Indicator Underline directly on active tab */}
+                {isActive && (
+                  <div
+                    className="absolute bottom-0 left-2 right-2 h-[2.5px] rounded-full"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, #DE4313 0%, #FEC163 100%)",
+                      boxShadow: "0px 0px 8px rgba(222, 67, 19, 0.6)",
+                    }}
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
+      </div>
 
-        <div className="max-w-[850px] mb-12">
-          <h2 className="font-dm font-bold text-[24px] sm:text-[28px] text-[var(--ink)] mb-4">
-            A Quiet Visionary
-          </h2>
-          <p className="font-almarai text-[17px] sm:text-[18px] leading-[1.7] text-[var(--body-muted)]">
-            Being an UX &amp; UI designer feels like a natural extension of who I am — a space where I get to merge my tech roots with creative instincts. I see UX everywhere, finding inspiration in everyday moments and the subtle ways we interact with the world. A Bangladeshi native shaped by over a decade in Bangkok, I am currently freelancing in Dhaka, while exploring other creative outlets outside work.
-          </p>
-        </div>
+      {/* ── 03. SEQUENTIAL SECTIONS (One after another matching Figma) ── */}
+      <div className="space-y-20 sm:space-y-28">
+        {/* ══════════════ SECTION 01: PROFILE ══════════════ */}
+        <section id="profile" className="scroll-mt-28 space-y-10">
+          {/* Header Row: SectionBadge 01 PROFILE on Left, Intro on Right (Exact Home Page Match) */}
+          <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">
+            <SectionBadge num="01" label="PROFILE" className="flex-shrink-0" />
 
-        {/* Behind the Designs */}
-        <div>
-          <h3 className="font-dm font-bold text-[22px] sm:text-[26px] text-gradient mb-6">
-            Behind The Designs
-          </h3>
+            <div className="flex-1 max-w-3xl flex flex-col justify-center gap-4 lg:pt-2">
+              <h2 className="font-almarai text-2xl sm:text-3xl lg:text-[32px] font-bold text-[var(--ink)] leading-snug">
+                A Quiet Visionary
+              </h2>
+              <p className="font-almarai text-sm sm:text-base text-[var(--ink-78)] leading-relaxed">
+                Being an UX &amp; UI designer feels like a natural extension of
+                who I am — a space where I get to merge my tech roots with
+                creative instincts. I see UX everywhere, finding inspiration in
+                everyday moments and the subtle ways we interact with the world.
+                A Bangladeshi native shaped by over a decade in Bangkok, I am
+                currently freelancing in Dhaka, while exploring other creative
+                outlets outside work.
+              </p>
+            </div>
+          </div>
+
+          {/* Centered Heading: Behind The Designs */}
+          <div className="pt-4 text-center">
+            <h3
+              className="font-dm font-bold text-2xl sm:text-3xl text-transparent bg-clip-text inline-block"
+              style={{
+                backgroundImage:
+                  "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+              }}
+            >
+              Behind The Designs
+            </h3>
+          </div>
+
+          {/* Framed Container with 5 Traits */}
           <div
-            className="p-6 sm:p-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6"
+            className="p-6 sm:p-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 bg-transparent"
             style={{
-              background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-              border: '1.5px solid transparent',
+              border: "1.5px solid transparent",
+              borderImageSource:
+                "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+              borderImageSlice: 1,
             }}
           >
             {[
-              { img: asset('/assets/images/about-infj.png'), title: 'INFJ-A +\nNEURODIVERGENT' },
-              { img: asset('/assets/images/about-storyteller.png'), title: 'VISUAL\nSTORYTELLER' },
-              { img: asset('/assets/images/about-nature.png'), title: 'NATURE\nDREAMER' },
-              { img: asset('/assets/images/about-poetic.png'), title: 'POETIC\nTHINKER' },
-              { img: asset('/assets/images/about-curator.png'), title: 'AESTHETIC\nCURATOR' },
+              {
+                img: "/assets/about/infj.png",
+                title: "INFJ-A +\nNEURODIVERGENT",
+              },
+              {
+                img: "/assets/about/visual.png",
+                title: "VISUAL\nSTORYTELLER",
+              },
+              {
+                img: "/assets/about/nature.png",
+                title: "NATURE\nDREAMER",
+              },
+              {
+                img: "/assets/about/poetic.png",
+                title: "POETIC\nTHINKER",
+              },
+              {
+                img: "/assets/about/aesthetic.png",
+                title: "AESTHETIC\nCURATOR",
+              },
             ].map((item) => (
-              <div key={item.title} className="flex flex-col items-center text-center group">
-                <div className="relative w-28 h-28 mb-3 flex items-center justify-center">
+              <div
+                key={item.title}
+                className="flex flex-col items-center text-center gap-3 transition-transform hover:-translate-y-1 duration-300"
+              >
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24">
                   <Image
                     src={item.img}
-                    alt={item.title.replace('\n', ' ')}
-                    width={112}
-                    height={112}
-                    className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110"
+                    alt={item.title.replace("\n", " ")}
+                    fill
+                    className="object-contain"
                   />
                 </div>
-                <span className="font-dm font-bold text-[11px] sm:text-[12px] uppercase tracking-wider text-[var(--ink)] leading-tight whitespace-pre-line">
+                <span className="font-dm font-bold text-xs uppercase tracking-wider text-[var(--ink)] whitespace-pre-line leading-tight">
                   {item.title}
                 </span>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── SECTION 02: JOURNEY ── */}
-      <section id="journey" className="relative w-full mb-24 scroll-mt-24">
-        <div className="flex items-baseline gap-4 mb-4 select-none">
-          <span className="font-concert text-[70px] sm:text-[90px] text-transparent leading-none" style={{ WebkitTextStroke: '1.5px var(--ink-32)' }}>
-            02
-          </span>
-          <span className="font-almarai font-bold text-[32px] sm:text-[40px] text-gradient">
-            JOURNEY
-          </span>
-        </div>
+        {/* ══════════════ SECTION 02: JOURNEY ══════════════ */}
+        <section id="journey" className="scroll-mt-28 space-y-6">
+          {/* Header Row: SectionBadge 02 JOURNEY on Left, Intro on Right (Exact Home Page Match) */}
+          <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8 relative">
+            <SectionBadge num="02" label="JOURNEY" className="flex-shrink-0" />
 
-        <div className="max-w-[850px] mb-12">
-          <h2 className="font-dm font-bold text-[24px] sm:text-[28px] text-[var(--ink)] mb-4">
-            Education &amp; Experience
-          </h2>
-          <p className="font-almarai text-[17px] sm:text-[18px] leading-[1.7] text-[var(--body-muted)]">
-            With a background in IT, I stumbled upon UX/UI design while watching how digital products take shape. What intrigued me most was how every experience is first imagined, planned, and designed long before it’s built. That curiosity soon became my calling — and since then, it’s been a path of continuous learning and growth.
-          </p>
-        </div>
-
-        {/* Timeline Items */}
-        <div className="space-y-6 mb-16 max-w-[900px]">
-          {[
-            {
-              year: '2011 - 2015',
-              role: 'BSc - IT GRADUATE',
-              org: 'Assumption University of Thailand',
-              desc: 'During my senior thesis, where our team of three built an online beauty store, I naturally gravitated toward handling the structure and visuals rather than coding. Although I had briefly encountered the concepts in an HCI elective, I didn’t yet realize UX/UI design was its own field — I only knew this was the part of development I loved most.',
-            },
-            {
-              year: 'May 2016 - Mar 2017',
-              role: 'UX/UI DESIGN DISCOVERY',
-              org: 'My Network & Solutions Co., Ltd (MyNet)',
-              desc: 'My first full-time role in customer service and QA at this tech startup building a call and messaging app gave me a front-row view of how multiple teams collaborated to bring a product to life. Here, I discovered the UX/UI team — a turning point that sparked my decision to pivot to design.',
-            },
-            {
-              year: 'Apr 2017 - Oct 2017',
-              role: 'UX/UI DESIGN INTERN',
-              org: 'Web Courses Bangkok',
-              desc: 'An internship where I worked alongside senior designers, gaining real-world experience in every stage of the UX process — from research to final design. Further expanded skills through courses in graphic design and web design.',
-            },
-            {
-              year: 'Feb 2018 - Oct 2022',
-              role: 'UX/UI DESIGNER',
-              org: 'Arbree Limited',
-              desc: 'Serving as a one-person design team, I successfully led and delivered over 50 projects — from websites and apps to full-scale systems — while wearing many hats and single-handedly managing all company-wide design initiatives, from product to branding and marketing.',
-            },
-            {
-              year: '2023 - Present',
-              role: 'FREELANCE UX/UI DESIGNER',
-              org: 'Self-Employed',
-              desc: 'Working independently with clients across diverse creative projects, overseeing everything from design to administrative tasks.',
-            },
-          ].map((item) => (
-            <div
-              key={item.year}
-              className="p-6 sm:p-8 transition-transform duration-200 hover:translate-x-1"
-              style={{
-                background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-                border: '1.5px solid transparent',
-              }}
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                <span className="font-dm font-bold text-xs uppercase tracking-widest text-[var(--accent)] px-3 py-1 bg-[var(--accent)]/10 border border-[var(--accent)]/30">
-                  {item.year}
-                </span>
-                <span className="font-dm font-semibold text-xs text-[var(--body-muted)]">
-                  {item.org}
-                </span>
-              </div>
-              <h3 className="font-dm font-bold text-lg sm:text-xl text-[var(--ink)] mb-3">
-                {item.role}
-              </h3>
-              <p className="font-almarai text-[15px] sm:text-[16px] text-[var(--body-muted)] leading-relaxed">
-                {item.desc}
+            <div className="flex-1 max-w-3xl flex flex-col justify-center gap-3 lg:pt-1">
+              <h2 className="font-almarai text-2xl sm:text-3xl lg:text-[32px] font-bold text-[var(--ink)] leading-snug">
+                Education &amp; Experience
+              </h2>
+              <p className="font-almarai text-sm sm:text-base text-[var(--ink-78)] leading-relaxed">
+                With a background in IT, I stumbled upon UX/UI design while
+                watching how digital products take shape. What intrigued me most
+                was how every experience is first imagined, planned, and
+                designed long before it’s built. That curiosity soon became my
+                calling — and since then, it’s been a path of continuous
+                learning and growth.
               </p>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Certifications Card */}
-        <div>
-          <h3 className="font-dm font-bold text-[22px] sm:text-[26px] text-gradient mb-6">
-            Certifications
-          </h3>
-          <div
-            className="p-6 sm:p-10 flex items-center justify-center overflow-hidden"
-            style={{
-              background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-              border: '1.5px solid transparent',
-            }}
-          >
-            <div className="relative w-full max-w-[800px] h-[300px] sm:h-[400px]">
+          {/* ── Timeline with journey.png in the Center (Standard Milestone Architecture, Exact Node Alignment) ── */}
+          <div className="relative w-full max-w-5xl mx-auto py-2">
+            {/* Desktop Layout (Exact 120px Step Alignment with journey.png Circles) */}
+            <div className="hidden md:block relative w-full h-[640px]">
+              {/* Centered S-Curve Timeline Image */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[144px] h-[636px] flex items-center justify-center pointer-events-none select-none z-0">
+                <Image
+                  src="/assets/about/journey.png"
+                  alt="Career Journey Timeline (2015 - 2023)"
+                  width={144}
+                  height={636}
+                  priority
+                  className="w-[144px] h-[636px] object-contain block"
+                />
+              </div>
+
+              {/* 5 Milestones Aligned to Circle Nodes (Each step is exactly 120px) */}
+              {[
+                {
+                  year: "2015",
+                  side: "right",
+                  top: 20,
+                  date: "2011 - 2015",
+                  role: "BSc – IT GRADUATE",
+                  org: "Assumption University of Thailand",
+                  desc: "During my senior thesis, where our team of three built an online beauty store, I naturally gravitated toward handling the structure and visuals rather than coding. Although I had briefly encountered the concepts in an HCI elective, I didn’t yet realize UX/UI design was its own field— I only knew this was the part of development I loved most.",
+                },
+                {
+                  year: "2016",
+                  side: "left",
+                  top: 140,
+                  date: "May 2016 - Mar 2017",
+                  role: "UX/UI DESIGN DISCOVERY",
+                  org: "My Network & Solutions Co., Ltd (MyNet)",
+                  desc: "My first full-time role in customer service and QA at this tech startup building a call and messaging app gave me a front-row view of how multiple teams collaborated to bring a product to life. Here, I discovered the UX/UI team — a turning point that sparked my decision to pivot to design.",
+                },
+                {
+                  year: "2017",
+                  side: "right",
+                  top: 260,
+                  date: "Apr 2017 - Oct 2017",
+                  role: "UX/UI DESIGN INTERN",
+                  org: "Web Courses Bangkok",
+                  desc: "An internship where I worked alongside senior designers, gaining real-world experience in every stage of the UX process — from research to final design. Further expanded skills through courses in graphic design and web design.",
+                },
+                {
+                  year: "2018",
+                  side: "left",
+                  top: 380,
+                  date: "Feb 2018 - Oct 2022",
+                  role: "UX/UI DESIGNER",
+                  org: "Arbree Limited",
+                  desc: "Serving as a one-person design team, I successfully led and delivered over 50 projects— from websites and apps to full-scale systems— while wearing many hats and single-handedly managing all company-wide design initiatives, from product to branding and marketing.",
+                },
+                {
+                  year: "2023",
+                  side: "right",
+                  top: 500,
+                  date: "2023 - Present",
+                  role: "FREELANCE UX/UI DESIGNER",
+                  org: "Self-Employed",
+                  desc: "Working independently with clients across diverse creative projects, overseeing everything from design to administrative tasks.",
+                },
+              ].map((item) => {
+                const isLeft = item.side === "left";
+                return (
+                  <div
+                    key={item.year}
+                    className={`absolute space-y-1.5 z-10 ${
+                      isLeft
+                        ? "right-[calc(50%+85px)] left-0 text-right flex flex-col items-end"
+                        : "left-[calc(50%+85px)] right-0 text-left"
+                    }`}
+                    style={{ top: `${item.top}px` }}
+                  >
+                    <span
+                      className="inline-block px-3 py-0.5 rounded-full text-[13px] font-medium border border-[#DE4313] text-[var(--ink)] bg-[var(--bg)] card-badge-bg"
+                      style={{
+                        boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 0.4)",
+                      }}
+                    >
+                      {item.date}
+                    </span>
+                    <h4 className="font-dm font-bold text-sm sm:text-[15px] text-[var(--ink)] uppercase tracking-wide">
+                      {item.role}
+                    </h4>
+                    <p
+                      className="font-dm font-semibold text-xs sm:text-[13px] text-transparent bg-clip-text"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      }}
+                    >
+                      {item.org}
+                    </p>
+                    <p className="font-dm font-normal text-xs sm:text-[13.5px] leading-[1.6] text-[var(--ink-78)] max-w-sm lg:max-w-[400px]">
+                      {item.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile Stacked Layout (<768px, gap <= 20px) */}
+            <div className="md:hidden flex flex-col gap-4">
+              {[
+                {
+                  year: "2015",
+                  date: "2011 - 2015",
+                  role: "BSc – IT GRADUATE",
+                  org: "Assumption University of Thailand",
+                  desc: "During my senior thesis, where our team of three built an online beauty store, I naturally gravitated toward handling the structure and visuals rather than coding. Although I had briefly encountered the concepts in an HCI elective, I didn’t yet realize UX/UI design was its own field— I only knew this was the part of development I loved most.",
+                },
+                {
+                  year: "2016",
+                  date: "May 2016 - Mar 2017",
+                  role: "UX/UI DESIGN DISCOVERY",
+                  org: "My Network & Solutions Co., Ltd (MyNet)",
+                  desc: "My first full-time role in customer service and QA at this tech startup building a call and messaging app gave me a front-row view of how multiple teams collaborated to bring a product to life. Here, I discovered the UX/UI team — a turning point that sparked my decision to pivot to design.",
+                },
+                {
+                  year: "2017",
+                  date: "Apr 2017 - Oct 2017",
+                  role: "UX/UI DESIGN INTERN",
+                  org: "Web Courses Bangkok",
+                  desc: "An internship where I worked alongside senior designers, gaining real-world experience in every stage of the UX process — from research to final design. Further expanded skills through courses in graphic design and web design.",
+                },
+                {
+                  year: "2018",
+                  date: "Feb 2018 - Oct 2022",
+                  role: "UX/UI DESIGNER",
+                  org: "Arbree Limited",
+                  desc: "Serving as a one-person design team, I successfully led and delivered over 50 projects— from websites and apps to full-scale systems— while wearing many hats and single-handedly managing all company-wide design initiatives, from product to branding and marketing.",
+                },
+                {
+                  year: "2023",
+                  date: "2023 - Present",
+                  role: "FREELANCE UX/UI DESIGNER",
+                  org: "Self-Employed",
+                  desc: "Working independently with clients across diverse creative projects, overseeing everything from design to administrative tasks.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.year}
+                  className="p-4 sm:p-5 border border-[#DE4313]/50 rounded-xl space-y-2 bg-[var(--bg)] card-badge-bg shadow-sm"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className="inline-block px-3 py-0.5 rounded-full text-xs font-medium border border-[#DE4313] text-[var(--ink)] bg-[var(--bg)] card-badge-bg"
+                      style={{
+                        boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 0.35)",
+                      }}
+                    >
+                      {item.date}
+                    </span>
+                    <span className="font-dm font-bold text-xs text-[#DE4313] px-2 py-0.5 rounded bg-[#DE4313]/10">
+                      {item.year}
+                    </span>
+                  </div>
+                  <h4 className="font-dm font-bold text-sm sm:text-[15px] text-[var(--ink)] uppercase">
+                    {item.role}
+                  </h4>
+                  <p
+                    className="font-dm font-semibold text-xs sm:text-[13px] text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    {item.org}
+                  </p>
+                  <p className="font-dm font-normal text-xs sm:text-[13px] leading-relaxed text-[var(--ink-78)]">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Certifications Sub-Section (Gap <= 30px) ── */}
+          <div className="pt-6 space-y-6">
+            <div className="text-center">
+              <h3
+                className="font-dm font-bold text-2xl sm:text-3xl text-transparent bg-clip-text inline-block"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                }}
+              >
+                Certifications
+              </h3>
+            </div>
+
+            {/* Framed Container with All 5 Certificates (1, 2.1, 2.2, 3, 4) */}
+            <div
+              className="p-4 sm:p-6 lg:p-8 bg-transparent max-w-6xl mx-auto"
+              style={{
+                border: "1.5px solid transparent",
+                borderImageSource:
+                  "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                borderImageSlice: 1,
+              }}
+            >
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 lg:gap-5 w-full">
+                {/* 1. Assumption University Bachelor Degree */}
+                <div className="w-full sm:flex-[1.68] flex items-center justify-center">
+                  <div className="relative w-full overflow-hidden shadow-lg transition-transform hover:scale-[1.02] duration-300">
+                    <Image
+                      src="/assets/about/certificate/1.png"
+                      alt="Assumption University - Bachelor of Science Information Technology"
+                      width={348}
+                      height={288}
+                      className="w-full h-auto object-contain block"
+                      priority
+                    />
+                  </div>
+                </div>
+
+                {/* 2. Middle Column: Stack of 2 Certificates (2.1 & 2.2) */}
+                <div className="w-full sm:flex-[1] flex flex-col gap-2 sm:gap-2.5 lg:gap-3 justify-between">
+                  {/* 2.1 Green Certificate */}
+                  <div className="relative w-full overflow-hidden shadow-md transition-transform hover:scale-[1.02] duration-300">
+                    <Image
+                      src="/assets/about/certificate/2.1.png"
+                      alt="Certificate of Web Design - Sejuti Mehjabin"
+                      width={207}
+                      height={144}
+                      className="w-full h-auto object-contain block"
+                    />
+                  </div>
+
+                  {/* 2.2 Orange Certificate */}
+                  <div className="relative w-full overflow-hidden shadow-md transition-transform hover:scale-[1.02] duration-300">
+                    <Image
+                      src="/assets/about/certificate/2.2.png"
+                      alt="Certificate of Graphic Design - Sejuti Mehjabin"
+                      width={207}
+                      height={144}
+                      className="w-full h-auto object-contain block"
+                    />
+                  </div>
+                </div>
+
+                {/* 3. Recommendation Letter 1 */}
+                <div className="w-full sm:flex-[1.01] flex items-center justify-center">
+                  <div className="relative w-full overflow-hidden shadow-lg transition-transform hover:scale-[1.02] duration-300">
+                    <Image
+                      src="/assets/about/certificate/3.png"
+                      alt="Letter of Recommendation - Web Courses Bangkok"
+                      width={208}
+                      height={288}
+                      className="w-full h-auto object-contain block"
+                    />
+                  </div>
+                </div>
+
+                {/* 4. Arbree Limited Recommendation Letter */}
+                <div className="w-full sm:flex-[1] flex items-center justify-center">
+                  <div className="relative w-full overflow-hidden shadow-lg transition-transform hover:scale-[1.02] duration-300">
+                    <Image
+                      src="/assets/about/certificate/4.png"
+                      alt="Arbree Limited - Recommendation Letter"
+                      width={207}
+                      height={288}
+                      className="w-full h-auto object-contain block"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════ SECTION 03: EXPERTISE ══════════════ */}
+        <section id="expertise" className="scroll-mt-28 space-y-12">
+          {/* Header Row: SectionBadge 03 EXPERTISE on Left, Intro on Right (Exact Home Page Match) */}
+          <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">
+            <SectionBadge
+              num="03"
+              label="EXPERTISE"
+              className="flex-shrink-0"
+            />
+
+            <div className="flex-1 max-w-3xl flex flex-col justify-center gap-4 lg:pt-2">
+              <h2 className="font-almarai text-2xl sm:text-3xl lg:text-[32px] font-bold text-[var(--ink)] leading-snug">
+                Fueled by Passion, Defined by Skill
+              </h2>
+              <p className="font-almarai text-sm sm:text-base text-[var(--ink-78)] leading-relaxed">
+                My craft sits at the intersection of innate traits and acquired
+                capabilities. As a neurodivergent INFJ, I bring a balance of
+                paradoxical strengths that gives me a unique edge in UX/UI
+                design, allowing me to connect emotion with logic and structure
+                with creativity.
+              </p>
+            </div>
+          </div>
+
+          {/* ── Analytical & Creative Brain Infographic (Theme-aware inherited text) ── */}
+          <div className="relative w-full max-w-5xl mx-auto aspect-[2166/1230] flex items-center justify-center select-none overflow-hidden my-6">
+            {/* Center Vertical Dividing Line */}
+            <div
+              className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] pointer-events-none"
+              style={{
+                background: "linear-gradient(180deg, #FEC163 0%, #DE4313 100%)",
+              }}
+            />
+
+            {/* Left Horizontal Dividing Line */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 left-0 w-[36%] h-[1.5px] pointer-events-none"
+              style={{
+                background: "linear-gradient(90deg, #FEC163 0%, #DE4313 100%)",
+              }}
+            />
+
+            {/* Right Horizontal Dividing Line */}
+            <div
+              className="absolute top-1/2 -translate-y-1/2 right-0 w-[36%] h-[1.5px] pointer-events-none"
+              style={{
+                background: "linear-gradient(90deg, #DE4313 0%, #FEC163 100%)",
+              }}
+            />
+
+            {/* Center Brain Graphic (Clean, transparent illustration) */}
+            <div className="relative z-10 w-[42%] h-[93%] flex items-center justify-center pointer-events-none">
               <Image
-                src={asset("/assets/images/about-certifications.png")}
-                alt="Sejuti Certifications"
+                src="/assets/about/expertise.png"
+                alt="Analytical and Creative Brain Graphic"
                 fill
-                className="object-contain"
+                className="object-contain block drop-shadow-md"
+                priority
               />
             </div>
+
+            {/* ── 24 Expertise Skill & Mindset Labels (Inherits theme ink naturally) ── */}
+            <div className="absolute inset-0 pointer-events-none font-dm font-medium text-[9px] sm:text-xs md:text-sm lg:text-[14px] leading-none">
+              {/* Top-Left: UX & Product Skills */}
+              <span className="absolute top-[4.9%] left-[11.1%] whitespace-nowrap">
+                Interaction Design
+              </span>
+              <span className="absolute top-[15.4%] left-[21.2%] whitespace-nowrap">
+                Information Architecture
+              </span>
+              <span className="absolute top-[18.7%] left-[2.3%] whitespace-nowrap">
+                Wireframing
+              </span>
+              <span className="absolute top-[27.6%] left-[14.3%] whitespace-nowrap">
+                Prototyping
+              </span>
+              <span className="absolute top-[39.0%] left-[21.7%] whitespace-nowrap">
+                Usability Testing
+              </span>
+              <span className="absolute top-[42.3%] left-[4.2%] whitespace-nowrap">
+                User Research
+              </span>
+
+              {/* Bottom-Left: Analytical Mindset */}
+              <span className="absolute top-[56.9%] left-[12.9%] whitespace-nowrap">
+                Analytical
+              </span>
+              <span className="absolute top-[72.4%] left-[4.2%] whitespace-nowrap">
+                Orderly
+              </span>
+              <span className="absolute top-[74.8%] left-[18.0%] whitespace-nowrap">
+                Logical
+              </span>
+              <span className="absolute top-[83.7%] left-[28.2%] whitespace-nowrap">
+                Detail Oriented
+              </span>
+              <span className="absolute top-[90.2%] left-[5.5%] whitespace-nowrap">
+                Linear
+              </span>
+              <span className="absolute top-[95.1%] left-[18.5%] whitespace-nowrap">
+                Scientific
+              </span>
+
+              {/* Top-Right: Visual & Creative Skills */}
+              <span className="absolute top-[4.9%] left-[60.0%] whitespace-nowrap">
+                Visual Design
+              </span>
+              <span className="absolute top-[6.5%] left-[88.2%] whitespace-nowrap">
+                Typography
+              </span>
+              <span className="absolute top-[16.3%] left-[74.3%] whitespace-nowrap">
+                Color Theory
+              </span>
+              <span className="absolute top-[30.1%] left-[69.3%] whitespace-nowrap">
+                Design Systems
+              </span>
+              <span className="absolute top-[30.9%] left-[88.6%] whitespace-nowrap">
+                Layouts
+              </span>
+              <span className="absolute top-[42.3%] left-[78.5%] whitespace-nowrap">
+                Graphic Design
+              </span>
+
+              {/* Bottom-Right: Creative & Emotional Mindset */}
+              <span className="absolute top-[56.9%] left-[82.2%] whitespace-nowrap">
+                Imaginative
+              </span>
+              <span className="absolute top-[69.1%] left-[73.4%] whitespace-nowrap">
+                Emotional
+              </span>
+              <span className="absolute top-[79.7%] left-[81.3%] whitespace-nowrap">
+                Big Picture Thinker
+              </span>
+              <span className="absolute top-[80.5%] left-[65.6%] whitespace-nowrap">
+                Intuitive
+              </span>
+              <span className="absolute top-[90.2%] left-[74.8%] whitespace-nowrap">
+                Creative
+              </span>
+              <span className="absolute top-[95.1%] left-[58.6%] whitespace-nowrap">
+                Empathetic
+              </span>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* ── SECTION 03: EXPERTISE ── */}
-      <section id="expertise" className="relative w-full mb-24 scroll-mt-24">
-        <div className="flex items-baseline gap-4 mb-4 select-none">
-          <span className="font-concert text-[70px] sm:text-[90px] text-transparent leading-none" style={{ WebkitTextStroke: '1.5px var(--ink-32)' }}>
-            03
-          </span>
-          <span className="font-almarai font-bold text-[32px] sm:text-[40px] text-gradient">
-            EXPERTISE
-          </span>
-        </div>
+          {/* ── Tools Section with Authentic Icons & Framed Box ── */}
+          <div className="space-y-6 max-w-5xl mx-auto pt-6">
+            <div className="text-center">
+              <h3
+                className="font-dm font-bold text-2xl sm:text-3xl text-transparent bg-clip-text inline-block"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                }}
+              >
+                Tools
+              </h3>
+            </div>
 
-        <div className="max-w-[850px] mb-12">
-          <h2 className="font-dm font-bold text-[24px] sm:text-[28px] text-[var(--ink)] mb-4">
-            Fueled by Passion, Defined by Skill
-          </h2>
-          <p className="font-almarai text-[17px] sm:text-[18px] leading-[1.7] text-[var(--body-muted)]">
-            My craft sits at the intersection of innate traits and acquired capabilities. As a neurodivergent INFJ, I bring a balance of paradoxical strengths that gives me a unique edge in UX/UI design, allowing me to connect emotion with logic and structure with creativity.
-          </p>
-        </div>
+            {/* Framed Container with Tool Icons */}
+            <div
+              className="p-6 sm:p-8 bg-transparent"
+              style={{
+                border: "1.5px solid transparent",
+                borderImageSource:
+                  "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                borderImageSlice: 1,
+              }}
+            >
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center justify-center">
+                {[
+                  { name: "FIGMA", icon: "/assets/tools/figma.png" },
+                  { name: "SKETCH", icon: "/assets/tools/sketch.png" },
+                  { name: "INVISION", icon: "/assets/tools/invision.png" },
+                  { name: "ADOBE XD", icon: "/assets/tools/xd.png" },
+                  { name: "PHOTOSHOP", icon: "/assets/tools/ps.png" },
+                  { name: "ILLUSTRATOR", icon: "/assets/tools/ai.png" },
+                ].map((tool) => (
+                  <div
+                    key={tool.name}
+                    className="flex flex-col items-center justify-center gap-3 p-3 transition-transform hover:-translate-y-1 duration-300 group"
+                  >
+                    <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-transform group-hover:scale-110">
+                      <Image
+                        src={tool.icon}
+                        alt={tool.name}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="font-dm font-bold text-xs sm:text-sm uppercase tracking-wider text-[var(--ink)] text-center group-hover:text-[#FEC163] transition-colors">
+                      {tool.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {/* Brain Infographic Graphic */}
-        <div
-          className="p-6 sm:p-12 mb-16 flex items-center justify-center overflow-hidden"
-          style={{
-            background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-            border: '1.5px solid transparent',
-          }}
-        >
-          <div className="relative w-full max-w-[950px] h-[350px] sm:h-[500px]">
-            <Image
-              src={asset("/assets/images/about-brain.png")}
-              alt="Analytical and Creative Brain UX Infographic"
-              fill
-              className="object-contain"
+        {/* ══════════════ SECTION 04: DESIGN APPROACH ══════════════ */}
+        <section id="approach" className="scroll-mt-28 space-y-12">
+          {/* Header Row: SectionBadge 04 DESIGN APPROACH on Left, Intro on Right (Exact Figma Match) */}
+          <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">
+            <SectionBadge
+              num="04"
+              label="DESIGN<br/>APPROACH"
+              className="flex-shrink-0"
             />
-          </div>
-        </div>
 
-        {/* Tools Section */}
-        <div>
-          <h3 className="font-dm font-bold text-[22px] sm:text-[26px] text-gradient mb-6">
-            Tools
-          </h3>
+            <div className="flex-1 max-w-3xl flex flex-col justify-center gap-4 lg:pt-2">
+              <h2 className="font-almarai text-2xl sm:text-3xl lg:text-[32px] font-bold text-[var(--ink)] leading-snug">
+                The pursuit of intentional design
+              </h2>
+              <p className="font-almarai text-sm sm:text-base text-[var(--ink-78)] leading-relaxed">
+                I approach design as a way to solve problems elegantly. Every
+                project is driven by purpose and the goal of leaving things
+                better than I found them. It begins with understanding the
+                vision, which then guides the design phase, where ideas take
+                form through structure, interaction, and visual detail. The work
+                is then refined through iteration and feedback, and finally
+                brought to completion with a cohesive, well-executed design
+                prepared for development.
+              </p>
+
+              {/* Core Principles Heading (Aligned with text above) */}
+              <div className="pt-2">
+                <h3
+                  className="font-dm font-bold text-2xl sm:text-3xl text-transparent bg-clip-text inline-block"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                  }}
+                >
+                  Core Principles
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          {/* Single Bordered Container for Both Principles (Exact Figma Match) */}
           <div
-            className="p-6 sm:p-8 flex items-center justify-around flex-wrap gap-6"
+            className="w-full max-w-5xl mx-auto p-6 sm:p-8 lg:p-10 bg-transparent transition-transform hover:-translate-y-0.5 duration-300"
             style={{
-              background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-              border: '1.5px solid transparent',
+              border: "1.5px solid transparent",
+              borderImageSource:
+                "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+              borderImageSlice: 1,
             }}
           >
-            {['FIGMA', 'SKETCH', 'INVISION', 'ADOBE XD', 'PHOTOSHOP', 'ILLUSTRATOR'].map((tool) => (
-              <span
-                key={tool}
-                className="font-dm font-bold text-sm sm:text-base uppercase tracking-wider text-[var(--ink)] px-4 py-2 border border-[var(--ink-32)]"
-              >
-                {tool}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 04: DESIGN APPROACH ── */}
-      <section id="approach" className="relative w-full mb-16 scroll-mt-24">
-        <div className="flex items-baseline gap-4 mb-4 select-none">
-          <span className="font-concert text-[70px] sm:text-[90px] text-transparent leading-none" style={{ WebkitTextStroke: '1.5px var(--ink-32)' }}>
-            04
-          </span>
-          <span className="font-almarai font-bold text-[32px] sm:text-[40px] text-gradient">
-            DESIGN APPROACH
-          </span>
-        </div>
-
-        <div className="max-w-[850px] mb-12">
-          <h2 className="font-dm font-bold text-[24px] sm:text-[28px] text-[var(--ink)] mb-4">
-            The pursuit of intentional design
-          </h2>
-          <p className="font-almarai text-[17px] sm:text-[18px] leading-[1.7] text-[var(--body-muted)]">
-            I approach design as a way to solve problems elegantly. Every project is driven by purpose and the goal of leaving things better than I found them. It begins with understanding the vision, which then guides the design phase, where ideas take form through structure, interaction, and visual detail. The work is then refined through iteration and feedback, and finally brought to completion with a cohesive, well-executed design prepared for development.
-          </p>
-        </div>
-
-        {/* Core Principles Cards */}
-        <div>
-          <h3 className="font-dm font-bold text-[22px] sm:text-[26px] text-gradient mb-6">
-            Core Principles
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Meraki */}
-            <div
-              className="p-8 flex flex-col justify-between"
-              style={{
-                background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-                border: '1.5px solid transparent',
-              }}
-            >
-              <div className="relative w-28 h-28 mb-6 mx-auto">
-                <Image
-                  src={asset("/assets/images/about-meraki.png")}
-                  alt="Meraki Principle"
-                  fill
-                  className="object-contain"
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Principle 1: Meraki */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-5 sm:gap-6 lg:gap-8">
+                <div className="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-[155px] lg:h-[155px] flex-shrink-0">
+                  <Image
+                    src="/assets/tools/design-aproch/1.png"
+                    alt="Meraki Principle"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="space-y-2 text-center sm:text-left">
+                  <h4 className="font-dm font-bold text-base sm:text-lg lg:text-xl uppercase tracking-wider text-[var(--ink)]">
+                    MERAKI
+                  </h4>
+                  <p className="font-dm text-xs sm:text-sm text-[var(--ink-78)] leading-relaxed max-w-xs">
+                    Designing with passion, devotion, and meticulous care,
+                    ensuring the work is a true labor of love.
+                  </p>
+                </div>
               </div>
-              <h4 className="font-dm font-bold text-xl uppercase tracking-wider text-[var(--ink)] text-center mb-3">
-                MERAKI
-              </h4>
-              <p className="font-almarai text-[15px] sm:text-[16px] text-[var(--body-muted)] text-center leading-relaxed">
-                Designing with passion, devotion, and meticulous care, ensuring the work is a true labor of love.
-              </p>
-            </div>
 
-            {/* Simple yet significant */}
-            <div
-              className="p-8 flex flex-col justify-between"
-              style={{
-                background: 'linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(135deg, #FEC163 0%, #DE4313 100%) border-box',
-                border: '1.5px solid transparent',
-              }}
-            >
-              <div className="relative w-28 h-28 mb-6 mx-auto">
-                <Image
-                  src={asset("/assets/images/about-significant.png")}
-                  alt="Simple yet significant Principle"
-                  fill
-                  className="object-contain"
-                />
+              {/* Principle 2: Simple Yet Significant */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-5 sm:gap-6 lg:gap-8">
+                <div className="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-[155px] lg:h-[155px] flex-shrink-0">
+                  <Image
+                    src="/assets/tools/design-aproch/2.png"
+                    alt="Simple yet significant Principle"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="space-y-2 text-center sm:text-left">
+                  <h4 className="font-dm font-bold text-base sm:text-lg lg:text-xl uppercase tracking-wider text-[var(--ink)]">
+                    SIMPLE YET SIGNIFICANT
+                  </h4>
+                  <p className="font-dm text-xs sm:text-sm text-[var(--ink-78)] leading-relaxed max-w-xs">
+                    Striving for solutions that are radically clear and
+                    effortless, yet possess maximum impact, utility, and lasting
+                    value.
+                  </p>
+                </div>
               </div>
-              <h4 className="font-dm font-bold text-xl uppercase tracking-wider text-[var(--ink)] text-center mb-3">
-                SIMPLE YET SIGNIFICANT
-              </h4>
-              <p className="font-almarai text-[15px] sm:text-[16px] text-[var(--body-muted)] text-center leading-relaxed">
-                Striving for solutions that are radically clear and effortless, yet possess maximum impact, utility, and lasting value.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
