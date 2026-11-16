@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  // basePath: "/era",
-  basePath: "",
+  basePath: "/era",
+  // basePath: "",
   trailingSlash: true,
   images: {
     unoptimized: true,
