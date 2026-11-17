@@ -3,6 +3,7 @@
 import SectionBadge from "@/components/ui/SectionBadge";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { asset } from "@/utils/asset";
 
 const TABS = [
   { id: "profile", label: "01. PROFILE" },
@@ -296,7 +297,7 @@ export default function AboutPageView() {
           {/* View Resume Button */}
           <div className="pt-4 sm:pt-6">
             <a
-              href="/assets/resume.pdf"
+              href={asset("/assets/resume.pdf")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"

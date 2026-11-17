@@ -25,6 +25,8 @@ jobs:
         run: npm ci
 
       - name: Build Next.js (static export)
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ vars.NEXT_PUBLIC_BASE_PATH ?? '/era' }}
         run: npm run build
 
       - name: Deploy to ebnhost via FTP (lftp)

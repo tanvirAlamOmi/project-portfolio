@@ -5,6 +5,7 @@ import { ActiveSectionProvider } from "@/context/ActiveSectionContext";
 import SiteLoader from "@/components/ui/SiteLoader";
 import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
+import { asset } from "@/utils/asset";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -46,13 +47,13 @@ export const metadata: Metadata = {
     description: "Crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/assets/logo.png", width: 300, height: 300, alt: "Sejuti Mehjabin Logo" }],
+    images: [{ url: asset("/assets/logo.png"), width: 300, height: 300, alt: "Sejuti Mehjabin Logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sejuti Mehjabin | Multidisciplinary UX & UI Designer",
     description: "Crafting digital products from concept to launch with 9+ years experience and 60+ projects.",
-    images: ["/assets/logo.png"],
+    images: [asset("/assets/logo.png")],
   },
 };
 
@@ -66,7 +67,10 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${almarai.variable} ${merriweather.variable} ${concertOne.variable} scroll-smooth`}
     >
-      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-200">
+      <body
+        style={{ "--bg-noise": `url("${asset("/assets/bg-noise-tile.png")}")` } as React.CSSProperties}
+        className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-200"
+      >
         {/* Animated Custom Cursor (Follows mouse, expands to VIEW button over interactive elements) */}
         <CustomCursor />
         <LoaderProvider>

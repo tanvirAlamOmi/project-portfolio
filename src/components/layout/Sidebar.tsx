@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { asset } from "@/utils/asset";
 
 interface NavItem {
   id: string;
@@ -333,7 +334,7 @@ export default function Sidebar({
               <div
                 aria-hidden="true"
                 className="absolute inset-0 bg-repeat pointer-events-none opacity-20"
-                style={{ backgroundImage: 'url("/assets/bg-noise-tile.png")' }}
+                style={{ backgroundImage: `url("${asset('/assets/bg-noise-tile.png')}")` }}
               />
             )}
             <div className="relative z-10 flex items-center gap-1.5">
@@ -405,7 +406,7 @@ export default function Sidebar({
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-repeat pointer-events-none opacity-25 z-0"
-            style={{ backgroundImage: 'url("/assets/bg-noise-tile.png")' }}
+            style={{ backgroundImage: `url("${asset('/assets/bg-noise-tile.png')}")` }}
           />
         ) : (
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -670,7 +671,7 @@ export default function Sidebar({
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 rounded-full overflow-hidden opacity-20 bg-repeat"
                   style={{
-                    backgroundImage: 'url("/assets/bg-noise-tile.png")',
+                    backgroundImage: `url("${asset('/assets/bg-noise-tile.png')}")`,
                   }}
                 />
               )}
