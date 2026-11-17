@@ -6,7 +6,7 @@
  */
 const RAW_BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/era').trim();
 export const BASE_PATH =
-  RAW_BASE_PATH && RAW_BASE_PATH !== '/'
+  RAW_BASE_PATH && RAW_BASE_PATH !== '/' && RAW_BASE_PATH.toLowerCase() !== 'none'
     ? RAW_BASE_PATH.startsWith('/')
       ? RAW_BASE_PATH
       : `/${RAW_BASE_PATH}`

@@ -8,7 +8,10 @@ import type { NextConfig } from "next";
  */
 const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/era";
 const basePath = rawBasePath.trim();
-const normalizedBasePath = basePath && basePath !== "/" ? (basePath.startsWith("/") ? basePath : `/${basePath}`) : "";
+const normalizedBasePath =
+  basePath && basePath !== "/" && basePath.toLowerCase() !== "none"
+    ? (basePath.startsWith("/") ? basePath : `/${basePath}`)
+    : "";
 
 const nextConfig: NextConfig = {
   output: "export",

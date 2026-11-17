@@ -8,7 +8,7 @@
  */
 const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/era').trim();
 const normalizedBasePath =
-  BASE_PATH && BASE_PATH !== '/'
+  BASE_PATH && BASE_PATH !== '/' && BASE_PATH.toLowerCase() !== 'none'
     ? BASE_PATH.startsWith('/')
       ? BASE_PATH
       : `/${BASE_PATH}`
