@@ -57,9 +57,11 @@ export default function SectionBadge({
     num.length * 2
   );
 
-  // 180 for standard length (<= 7 chars like ABOUT, WORK, BLOGS, CONTACT, PROFILE, JOURNEY, DESIGN, APPROACH)
-  const viewBoxWidth =
-    maxLineLength > 7 ? Math.max(180, Math.ceil(maxLineLength * 25)) : 180;
+  // Compute viewBoxWidth to comfortably enclose both the Concert One number and label text
+  // Bold Almarai is ~30-32px per char; Concert One number needs ~180px
+  // Ensures words like CONTACT (7 chars) never bleed outside the SVG bounds or left padding on mobile
+  const textNeededWidth = Math.ceil(maxLineLength * 32) + 28;
+  const viewBoxWidth = Math.max(180, textNeededWidth);
 
   // ViewBox height: 200 for single-line, 235 for two lines (bigger numbers)
   const viewBoxHeight = isMultiLine ? 235 : 200;
@@ -110,27 +112,37 @@ export default function SectionBadge({
           {num}
         </text>
 
-        {/* Crisp Almarai text: 48px/42px - Smooth outline-to-fill transition */}
-        {lines.map((line, idx) => (
-          <text
-            key={idx}
-            x={centerX}
-            y={isMultiLine ? 165 + idx * 42 : 175}
-            textAnchor="middle"
-            fill={filled ? `url(#${labelGradId})` : "transparent"}
-            stroke={`url(#${labelGradId})`}
-            strokeWidth={filled ? "0.5" : "1.5"}
-            fontFamily="var(--font-almarai), sans-serif"
-            fontWeight="700"
-            fontSize={isMultiLine ? "42" : "48"}
-            letterSpacing="0"
-            style={{
-              transition: "fill 0.4s ease, stroke-width 0.4s ease",
-            }}
-          >
-            {line}
-          </text>
-        ))}
+        {/* Crisp Almarai text: Smooth outline-to-fill transition, perfectly fitted */}
+        {lines.map((line, idx) => {
+          const fontSize = isMultiLine
+            ? "42"
+            : line.length > 7
+            ? "38"
+            : line.length > 6
+            ? "42"
+            : "48";
+
+          return (
+            <text
+              key={idx}
+              x={centerX}
+              y={isMultiLine ? 165 + idx * 42 : 175}
+              textAnchor="middle"
+              fill={filled ? `url(#${labelGradId})` : "transparent"}
+              stroke={`url(#${labelGradId})`}
+              strokeWidth={filled ? "0.5" : "1.5"}
+              fontFamily="var(--font-almarai), sans-serif"
+              fontWeight="700"
+              fontSize={fontSize}
+              letterSpacing="0"
+              style={{
+                transition: "fill 0.4s ease, stroke-width 0.4s ease",
+              }}
+            >
+              {line}
+            </text>
+          );
+        })}
       </svg>
     </div>
   );

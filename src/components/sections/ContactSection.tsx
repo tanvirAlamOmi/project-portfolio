@@ -124,7 +124,7 @@ function TestimonialCard({
       />
 
       {/* Top Client Logos Strip */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 px-4 w-[94%] max-w-[880px] flex items-center justify-between sm:justify-around gap-6 sm:gap-10 md:gap-14 lg:gap-16 select-none">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 px-2 sm:px-4 w-[95%] max-w-[880px] flex items-center justify-between sm:justify-around gap-2 sm:gap-6 md:gap-10 lg:gap-16 select-none overflow-hidden">
         {stories.map((item, idx) => {
           const isActive = idx === currentIndex;
           return (
@@ -134,7 +134,7 @@ function TestimonialCard({
               onClick={() => onSelectStory(idx)}
               title={item.company}
               aria-label={`Select ${item.company} story`}
-              className={`flex items-center justify-center cursor-pointer transition-all duration-300 focus:outline-none ${
+              className={`flex items-center justify-center cursor-pointer transition-all duration-300 focus:outline-none flex-shrink ${
                 isActive
                   ? "grayscale-0 opacity-100 scale-105"
                   : "grayscale opacity-40 hover:opacity-85 hover:grayscale-0"
@@ -148,7 +148,7 @@ function TestimonialCard({
                 alt={item.company}
                 width={160}
                 height={56}
-                className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-all duration-300"
+                className="h-7 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[65px] sm:max-w-none object-contain transition-all duration-300"
                 priority
               />
             </button>
@@ -376,21 +376,23 @@ export default function ContactSection() {
     setTidx((i) => (i + 1) % stories.length);
 
   return (
-    <section id="contact" className="relative w-full py-16 sm:py-24">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute rounded-full z-0"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(222, 67, 19, 0.4) 0%, rgba(222, 67, 19, 0) 70%)",
-          width: "480px",
-          height: "480px",
-          top: "-60px",
-          right: "-180px",
-          filter: "blur(50px)",
-          transform: "translateZ(0)",
-        }}
-      />
+    <section id="contact" className="relative w-full py-16 sm:py-24 overflow-x-clip">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div
+          aria-hidden="true"
+          className="absolute rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(222, 67, 19, 0.4) 0%, rgba(222, 67, 19, 0) 70%)",
+            width: "480px",
+            height: "480px",
+            top: "-60px",
+            right: "-180px",
+            filter: "blur(50px)",
+            transform: "translateZ(0)",
+          }}
+        />
+      </div>
 
       <div className="w-full home-section-container relative z-10 flex flex-col gap-12 sm:gap-14">
         <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">

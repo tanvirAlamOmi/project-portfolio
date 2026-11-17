@@ -86,21 +86,23 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="relative w-full py-16 sm:py-24">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute rounded-full z-0"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(222, 67, 19, 0.42) 0%, rgba(222, 67, 19, 0) 70%)",
-          width: "480px",
-          height: "480px",
-          top: "-60px",
-          right: "-180px",
-          filter: "blur(50px)",
-          transform: "translateZ(0)",
-        }}
-      />
+    <section id="about" className="relative w-full py-16 sm:py-24 overflow-x-clip">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div
+          aria-hidden="true"
+          className="absolute rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(222, 67, 19, 0.42) 0%, rgba(222, 67, 19, 0) 70%)",
+            width: "480px",
+            height: "480px",
+            top: "-60px",
+            right: "-180px",
+            filter: "blur(50px)",
+            transform: "translateZ(0)",
+          }}
+        />
+      </div>
 
       <div className="w-full home-section-container relative z-10 flex flex-col gap-12 sm:gap-16">
         <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">
@@ -289,7 +291,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between gap-6">
+          <div className="flex flex-col justify-between gap-6 pl-4 sm:pl-5 lg:pl-0">
             <Link
               href="/work?discipline=branding"
               title="View Logo &amp; Branding work"
@@ -302,7 +304,7 @@ export default function AboutSection() {
               />
 
               <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="relative w-11 h-11 transition-transform duration-300 group-hover:scale-105">
+                <div className="relative w-10 sm:w-11 h-10 sm:h-11 transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src="/assets/icons/about-branding.png"
                     alt="Logo & Branding"
@@ -339,7 +341,7 @@ export default function AboutSection() {
               />
 
               <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="relative w-11 h-11 transition-transform duration-300 group-hover:scale-105">
+                <div className="relative w-10 sm:w-11 h-10 sm:h-11 transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src="/assets/icons/about-marketing.png"
                     alt="Print & Digital Marketing"

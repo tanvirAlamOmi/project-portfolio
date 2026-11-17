@@ -389,9 +389,9 @@ export default function Sidebar({
         </div>
       </header>
 
-      {/* ─── Mobile Fullscreen Drawer Overlay (Theme-Harmonized) ─── */}
+      {/* ─── Mobile Fullscreen Drawer Overlay (Short, Compact, Zero-Scrollbar) ─── */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 transition-all duration-300 flex flex-col justify-between overflow-y-auto ${
+        className={`lg:hidden fixed inset-0 z-40 transition-all duration-300 flex flex-col justify-between overflow-hidden no-scrollbar ${
           mobileOpen
             ? "opacity-100 pointer-events-auto visible"
             : "opacity-0 pointer-events-none invisible"
@@ -435,10 +435,10 @@ export default function Sidebar({
         )}
 
         {/* Top Spacer & Navigation Links */}
-        <div className="relative z-10 pt-20 px-6 sm:px-8">
+        <div className="relative z-10 pt-16 sm:pt-18 px-5 sm:px-6">
           {/* Subtle Top Gradient Divider Line */}
           <div
-            className="w-full h-[1.5px] mb-6"
+            className="w-full h-[1px] mb-2 sm:mb-3 opacity-60"
             style={{
               background:
                 "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
@@ -446,7 +446,7 @@ export default function Sidebar({
           />
 
           {/* Navigation Links List */}
-          <nav className="flex flex-col space-y-1.5">
+          <nav className="flex flex-col space-y-0.5 sm:space-y-1">
             {NAV_ITEMS.map((item) => {
               const isActive = active === item.id;
               const isWork = item.id === "work";
@@ -455,32 +455,32 @@ export default function Sidebar({
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`group flex items-center justify-between py-3 px-3 rounded-lg transition-all duration-200 ${
+                    className={`group flex items-center justify-between py-1.5 sm:py-2 px-2.5 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "bg-gradient-to-r from-[#DE4313]/15 to-transparent border-l-4 border-[#DE4313]"
-                        : "hover:bg-white/5 border-l-4 border-transparent"
+                        ? "bg-gradient-to-r from-[#DE4313]/15 to-transparent border-l-[3px] border-[#DE4313]"
+                        : "hover:bg-white/5 border-l-[3px] border-transparent"
                     }`}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       {/* Signature Icon Container */}
                       <div
-                        className={`w-11 h-11 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105 ${
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105 flex-shrink-0 ${
                           isActive
-                            ? "bg-gradient-to-br from-[#DE4313]/25 to-transparent border border-[#DE4313] shadow-[0_0_12px_rgba(222,67,19,0.4)]"
-                            : "border border-[#DE4313]/30 bg-[#0A0F24]/20"
+                            ? "bg-gradient-to-br from-[#DE4313]/25 to-transparent border border-[#DE4313] shadow-[0_0_10px_rgba(222,67,19,0.35)]"
+                            : "border border-[#DE4313]/25 bg-[#0A0F24]/10 dark:bg-white/5"
                         }`}
                       >
-                        <div className="scale-75">
+                        <div className="scale-[0.62] sm:scale-[0.68]">
                           <NavIcon id={item.id} isActive={isActive} />
                         </div>
                       </div>
 
                       {/* Text Label */}
                       <span
-                        className={`font-dm text-xl sm:text-2xl tracking-[0.12em] uppercase transition-colors ${
+                        className={`font-dm text-sm sm:text-base tracking-[0.14em] uppercase transition-colors ${
                           isActive
-                            ? "font-black text-transparent bg-clip-text"
-                            : "font-bold text-[var(--ink)] opacity-85 group-hover:opacity-100 group-hover:text-[#DE4313]"
+                            ? "font-extrabold text-transparent bg-clip-text"
+                            : "font-semibold text-[var(--ink)] opacity-85 group-hover:opacity-100 group-hover:text-[#DE4313]"
                         }`}
                         style={
                           isActive
@@ -497,11 +497,11 @@ export default function Sidebar({
 
                     {/* Active Indicator Arrow or Dot */}
                     {isActive ? (
-                      <span className="text-[#DE4313] text-lg font-bold">
+                      <span className="text-[#DE4313] text-sm font-bold">
                         ●
                       </span>
                     ) : (
-                      <span className="text-[var(--ink)] opacity-30 group-hover:opacity-100 group-hover:text-[#DE4313] transition-all group-hover:translate-x-1">
+                      <span className="text-[var(--ink)] opacity-30 group-hover:opacity-100 group-hover:text-[#DE4313] text-xs transition-all group-hover:translate-x-0.5">
                         →
                       </span>
                     )}
@@ -509,25 +509,25 @@ export default function Sidebar({
 
                   {/* Work Sub-Categories Links for Mobile */}
                   {isWork && (
-                    <div className="pl-16 pr-2 py-1.5 flex flex-wrap gap-2">
+                    <div className="pl-11 pr-2 py-0.5 flex flex-wrap gap-1.5">
                       <Link
                         href="/work/websites"
                         onClick={() => setMobileOpen(false)}
-                        className="text-[11px] font-dm font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-[#DE4313]/40 text-[var(--ink)] hover:text-[#FEC163] hover:border-[#FEC163] transition-colors"
+                        className="text-[10px] font-dm font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-[#DE4313]/35 text-[var(--ink)] hover:text-[#FEC163] hover:border-[#FEC163] transition-colors"
                       >
                         Websites
                       </Link>
                       <Link
                         href="/work/apps"
                         onClick={() => setMobileOpen(false)}
-                        className="text-[11px] font-dm font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-[#DE4313]/40 text-[var(--ink)] hover:text-[#FEC163] hover:border-[#FEC163] transition-colors"
+                        className="text-[10px] font-dm font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-[#DE4313]/35 text-[var(--ink)] hover:text-[#FEC163] hover:border-[#FEC163] transition-colors"
                       >
                         Apps
                       </Link>
                       <Link
                         href="/work/softwares"
                         onClick={() => setMobileOpen(false)}
-                        className="text-[11px] font-dm font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-[#DE4313]/40 text-[var(--ink)] hover:text-[#FEC163] hover:border-[#FEC163] transition-colors"
+                        className="text-[10px] font-dm font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-[#DE4313]/35 text-[var(--ink)] hover:text-[#FEC163] hover:border-[#FEC163] transition-colors"
                       >
                         Softwares
                       </Link>
@@ -540,21 +540,21 @@ export default function Sidebar({
         </div>
 
         {/* Drawer Bottom Section: Action CTA + Social + Brand */}
-        <div className="relative z-10 px-6 sm:px-8 pb-8 pt-4 flex flex-col space-y-4">
+        <div className="relative z-10 px-5 sm:px-6 pb-4 sm:pb-6 pt-2 flex flex-col gap-2.5">
           {/* Quick Action Contact Button */}
           <Link
             href="/contact"
             onClick={() => setMobileOpen(false)}
-            className="w-full py-3.5 rounded-[2px] font-dm font-bold text-xs uppercase tracking-[0.2em] text-white bg-gradient-to-r from-[#FEC163] to-[#DE4313] shadow-[0_0_20px_rgba(222,67,19,0.45)] text-center flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer"
+            className="w-full py-2.5 sm:py-3 rounded-[3px] font-dm font-bold text-xs uppercase tracking-[0.18em] text-white bg-gradient-to-r from-[#FEC163] to-[#DE4313] shadow-[0_0_15px_rgba(222,67,19,0.35)] text-center flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all cursor-pointer"
           >
-            <span>GET IN TOUCH / LET&apos;S TALK</span>
+            <span>LET&apos;S TALK / GET IN TOUCH</span>
             <span className="text-sm">→</span>
           </Link>
 
           {/* Social Profiles & Copyright */}
-          <div className="flex items-center justify-between text-[11px] font-dm text-[var(--ink)] opacity-70 border-t border-[var(--ink)]/15 pt-3">
-            <span>Sejuti Mehjabin</span>
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between text-[10.5px] font-dm text-[var(--ink)] opacity-70 border-t border-[var(--ink)]/10 pt-2">
+            <span>© Sejuti Mehjabin</span>
+            <div className="flex items-center gap-2.5">
               <a
                 href="https://linkedin.com"
                 target="_blank"

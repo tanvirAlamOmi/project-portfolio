@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col text-[var(--ink)]">
-      <div className="w-full max-w-[1440px] mx-auto flex-1 relative">
+    <div className="min-h-screen flex flex-col text-[var(--ink)] overflow-x-hidden">
+      <div className="w-full max-w-[1440px] mx-auto flex-1 relative overflow-x-hidden">
         <Sidebar />
 
-        <main className="w-full lg:pl-[var(--sidebar-w)] pt-14 lg:pt-0 pb-16 lg:pb-0">
+        <main className="w-full lg:pl-[var(--sidebar-w)] pt-14 lg:pt-0 pb-16 lg:pb-0 overflow-x-hidden">
           <HeroHeader />
           <AboutSection />
           <FeaturedWorkSection />

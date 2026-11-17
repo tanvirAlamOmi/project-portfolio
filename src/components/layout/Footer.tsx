@@ -29,11 +29,11 @@ export default function Footer() {
 
   return (
     <>
-      {/* Floating Back to Top Button */}
+      {/* Floating Back to Top Button (Hidden on Mobile, Visible on Desktop) */}
       <button
         onClick={scrollToTop}
         aria-label="Back to top"
-        className={`fixed right-6 bottom-14 z-50 w-12 h-12 flex items-center justify-center cursor-pointer transition-all duration-300 ease-out group ${
+        className={`fixed right-6 bottom-14 z-50 w-12 h-12 hidden lg:flex items-center justify-center cursor-pointer transition-all duration-300 ease-out group ${
           isVisible
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 translate-y-4 pointer-events-none"

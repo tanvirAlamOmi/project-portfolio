@@ -116,21 +116,23 @@ function BlogCard({ post }: { post: BlogPost }) {
 
 export default function BlogsSection() {
   return (
-    <section id="blogs" className="relative w-full py-16 sm:py-24">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute rounded-full z-0"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(222, 67, 19, 0.4) 0%, rgba(222, 67, 19, 0) 70%)",
-          width: "480px",
-          height: "480px",
-          top: "-60px",
-          right: "-180px",
-          filter: "blur(50px)",
-          transform: "translateZ(0)",
-        }}
-      />
+    <section id="blogs" className="relative w-full py-16 sm:py-24 overflow-x-clip">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div
+          aria-hidden="true"
+          className="absolute rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(222, 67, 19, 0.4) 0%, rgba(222, 67, 19, 0) 70%)",
+            width: "480px",
+            height: "480px",
+            top: "-60px",
+            right: "-180px",
+            filter: "blur(50px)",
+            transform: "translateZ(0)",
+          }}
+        />
+      </div>
 
       <div className="w-full home-section-container relative z-10 flex flex-col gap-12 sm:gap-14">
         <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">
