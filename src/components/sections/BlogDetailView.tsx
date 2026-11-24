@@ -37,9 +37,9 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
         ];
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-10 pt-6 sm:pt-10 pb-20">
+    <section className="w-full px-4 sm:px-6 lg:px-10 pt-6 sm:pt-10 pb-20 select-none">
       <div
-        className="relative w-full bg-transparent p-5 sm:p-8 lg:p-12"
+        className="relative w-full bg-[var(--bg)] p-5 sm:p-8 lg:p-12 shadow-[0_0_20px_rgba(222,67,19,0.06)]"
         style={{
           border: "1.5px solid transparent",
           borderImageSource:
@@ -57,7 +57,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
             }
           }}
           aria-label="Back to Blogs"
-          className="group absolute -top-4 -right-4 sm:-top-5 sm:-right-5 w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] hover:border-[#FEC163] bg-[var(--bg)] flex items-center justify-center transition-all duration-300 hover:scale-110 z-30 cursor-pointer shadow-sm"
+          className="group absolute -top-4 -right-4 sm:-top-5 sm:-right-5 w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] hover:border-[#FEC163] bg-[var(--bg)] flex items-center justify-center transition-all duration-300 hover:scale-110 z-30 cursor-pointer shadow-[0_0_8px_rgba(228,93,35,0.4)] hover:shadow-[0_0_16px_rgba(228,93,35,0.7)]"
           style={{ backgroundColor: "var(--bg)" }}
         >
           <X
@@ -66,14 +66,19 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
           />
         </button>
 
-        <h1 className="font-dm font-extrabold uppercase text-2xl sm:text-4xl lg:text-[44px] leading-[1.15] tracking-wide max-w-4xl text-[var(--ink)]">
+        <h1
+          className="font-dm uppercase text-2xl sm:text-4xl lg:text-[52px] xl:text-[60px] font-semibold leading-[1.08] tracking-tight max-w-4xl text-[var(--ink)]"
+          style={{
+            textShadow: "0px 0px 10px rgba(244, 115, 3, 0.40)",
+          }}
+        >
           {post.title}
         </h1>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-6 sm:mt-8 mb-8 sm:mb-10">
           <div>
             <span
-              className="block font-dm font-bold text-2xl sm:text-3xl text-transparent bg-clip-text"
+              className="block font-dm font-bold text-3xl sm:text-4xl lg:text-[44px] text-transparent bg-clip-text leading-tight"
               style={{
                 backgroundImage:
                   "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -82,7 +87,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
               {post.category}
             </span>
 
-            <p className="font-dm text-xs sm:text-sm text-[var(--ink-64)] mt-1.5">
+            <p className="font-dm text-xs sm:text-sm text-[var(--ink-64)] mt-2">
               Posted on{" "}
               <span
                 className="font-medium text-transparent bg-clip-text"
@@ -104,10 +109,10 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on Facebook"
-              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105"
+              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105 shadow-[0_0_8px_rgba(228,93,35,0.35)]"
             >
               <div
-                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90 shadow-sm"
+                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90"
                 style={{
                   background:
                     "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
@@ -131,10 +136,10 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on LinkedIn"
-              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105"
+              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105 shadow-[0_0_8px_rgba(228,93,35,0.35)]"
             >
               <div
-                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90 shadow-sm"
+                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90"
                 style={{
                   background:
                     "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
@@ -156,10 +161,10 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105"
+              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105 shadow-[0_0_8px_rgba(228,93,35,0.35)]"
             >
               <div
-                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90 shadow-sm"
+                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90"
                 style={{
                   background:
                     "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
@@ -189,10 +194,10 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Share on X"
-              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105"
+              className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] p-[2.5px] flex items-center justify-center transition-transform hover:scale-105 shadow-[0_0_8px_rgba(228,93,35,0.35)]"
             >
               <div
-                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90 shadow-sm"
+                className="w-full h-full rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90"
                 style={{
                   background:
                     "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
@@ -211,7 +216,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
           </div>
         </div>
 
-        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/9] overflow-hidden bg-black/10">
+        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/9] overflow-hidden bg-black/10 shadow-[0_4px_24px_rgba(222,67,19,0.12)] border border-[#DE4313]/30">
           <Image
             src={post.coverImage}
             alt={post.title}
@@ -222,7 +227,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
           />
         </div>
 
-        <div className="mt-8 sm:mt-12 space-y-6 font-dm text-[var(--ink-78)] text-sm sm:text-base leading-[1.75]">
+        <div className="mt-8 sm:mt-12 space-y-6 font-dm text-[var(--ink-78)] text-sm sm:text-base leading-[1.8]">
           <p>
             This post traces the road through day one — from discovering design
             beyond code, to taking the first steps into UX, learning through
@@ -314,7 +319,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
           <Link
             key={`${item.slug}-${idx}`}
             href={`/blogs/${item.slug}`}
-            className="group relative bg-transparent p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-6 transition-transform duration-300 hover:-translate-y-1"
+            className="group relative bg-[var(--bg)] p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-6 transition-all duration-300 hover:-translate-y-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
             style={{
               border: "1.5px solid transparent",
               borderImageSource:
@@ -322,29 +327,31 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
               borderImageSlice: 1,
             }}
           >
-            <div className="relative w-full sm:w-[140px] lg:w-[160px] aspect-square flex-shrink-0 overflow-hidden bg-black/10">
+            <div className="relative w-full sm:w-[150px] md:w-[180px] lg:w-[200px] aspect-square flex-shrink-0 overflow-hidden bg-black/10">
               <Image
                 src={item.coverImage}
                 alt={item.title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, 160px"
+                sizes="(max-width: 640px) 100vw, 200px"
               />
             </div>
 
             <div className="flex flex-col justify-center w-full pt-2 sm:pt-0">
               <span
-                className="inline-block px-4 py-0.5 rounded-full border border-[#DE4313] text-xs font-dm font-semibold text-transparent bg-clip-text w-fit mb-2.5"
+                className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text w-fit mb-2.5 transition-all"
                 style={{
                   backgroundImage:
                     "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                  backgroundColor: "var(--bg)",
+                  border: "1px solid rgba(228, 93, 35, 0.6)",
                   boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
                 }}
               >
                 {item.category}
               </span>
 
-              <h4 className="font-almarai font-extrabold text-sm sm:text-base text-[var(--ink)] tracking-wider uppercase leading-snug group-hover:text-[#FEC163] transition-colors">
+              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] tracking-normal uppercase leading-snug group-hover:text-[#FEC163] transition-colors">
                 {item.title}
               </h4>
 

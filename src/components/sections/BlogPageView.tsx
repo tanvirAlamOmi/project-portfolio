@@ -343,7 +343,7 @@ export default function BlogPageView() {
             </button>
 
             {showCatMenu && (
-              <div className="absolute top-full left-0 mt-2 w-40 bg-[var(--card-bg)] border border-[#DE4313]/60 shadow-xl z-30 py-1.5 rounded-sm">
+              <div className="absolute top-full left-0 mt-2 w-44 bg-[var(--card-bg)] border border-[#DE4313]/60 shadow-[0_8px_24px_rgba(0,0,0,0.5)] z-30 py-1.5 rounded-sm backdrop-blur-md">
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -351,10 +351,10 @@ export default function BlogPageView() {
                       setSelectedCategory(cat);
                       setShowCatMenu(false);
                     }}
-                    className={`w-full text-left px-3.5 py-2 text-sm font-dm transition-colors cursor-pointer ${
+                    className={`w-full text-left px-4 py-2 text-sm font-dm transition-colors cursor-pointer ${
                       selectedCategory === cat
                         ? "text-[#DE4313] font-bold bg-[#DE4313]/10"
-                        : "text-[var(--ink)] hover:bg-[#DE4313]/5"
+                        : "text-[var(--ink)] hover:bg-[#DE4313]/5 hover:text-[#DE4313]"
                     }`}
                   >
                     {cat}
@@ -400,7 +400,7 @@ export default function BlogPageView() {
             </button>
 
             {showSortMenu && (
-              <div className="absolute top-full right-0 mt-2 w-40 bg-[var(--card-bg)] border border-[#DE4313]/60 shadow-xl z-30 py-1.5 text-left rounded-sm">
+              <div className="absolute top-full right-0 mt-2 w-44 bg-[var(--card-bg)] border border-[#DE4313]/60 shadow-[0_8px_24px_rgba(0,0,0,0.5)] z-30 py-1.5 text-left rounded-sm backdrop-blur-md">
                 {sortOptions.map((sort) => (
                   <button
                     key={sort}
@@ -408,10 +408,10 @@ export default function BlogPageView() {
                       setSelectedSort(sort);
                       setShowSortMenu(false);
                     }}
-                    className={`w-full text-left px-3.5 py-2 text-sm font-dm transition-colors cursor-pointer ${
+                    className={`w-full text-left px-4 py-2 text-sm font-dm transition-colors cursor-pointer ${
                       selectedSort === sort
                         ? "text-[#DE4313] font-bold bg-[#DE4313]/10"
-                        : "text-[var(--ink)] hover:bg-[#DE4313]/5"
+                        : "text-[var(--ink)] hover:bg-[#DE4313]/5 hover:text-[#DE4313]"
                     }`}
                   >
                     {sort}
@@ -422,322 +422,462 @@ export default function BlogPageView() {
           </div>
         </div>
 
-        <div
-          className="relative w-full bg-transparent p-4 sm:p-6 lg:p-8 transition-transform duration-300 hover:-translate-y-1"
-          style={{
-            border: "1.5px solid transparent",
-            borderImageSource:
-              "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
-            borderImageSlice: 1,
-          }}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-            <Link
-              href="/blogs/navigating-road-to-ux-ui"
-              className="lg:col-span-6 relative w-full aspect-[16/10] overflow-hidden bg-black/10 group cursor-pointer"
-            >
-              <Image
-                src="/assets/images/blog-design.png"
-                alt="Make Things Happen"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
-            </Link>
+        {/* Featured Card (Design) - visible on 'All' or 'Design' */}
+        {(selectedCategory === "All" || selectedCategory === "Design") && (
+          <div
+            className="group relative w-full bg-[var(--bg)] p-5 sm:p-7 lg:p-9 transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(222,67,19,0.08)] hover:shadow-[0_0_25px_rgba(222,67,19,0.32)]"
+            style={{
+              border: "1.5px solid transparent",
+              borderImageSource:
+                "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+              borderImageSlice: 1,
+            }}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <Link
+                href="/blogs/navigating-road-to-ux-ui"
+                className="lg:col-span-6 relative w-full aspect-[16/10] overflow-hidden bg-black/10 group cursor-pointer"
+              >
+                <Image
+                  src="/assets/images/blog-design.png"
+                  alt="Make Things Happen"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              </Link>
 
-            <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-4">
-              <div>
-                <span
-                  className="inline-block px-4 py-0.5 rounded-full text-xs font-dm font-semibold tracking-wide border border-[#E45D23] text-transparent bg-clip-text mb-3"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                    boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
-                  }}
-                >
-                  Design
-                </span>
+              <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-4">
+                <div>
+                  <span
+                    className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text mb-3 transition-all"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      backgroundColor: "var(--bg)",
+                      border: "1px solid rgba(228, 93, 35, 0.6)",
+                      boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                    }}
+                  >
+                    Design
+                  </span>
 
-                <Link href="/blogs/navigating-road-to-ux-ui" className="block group">
-                  <h3 className="font-almarai font-extrabold text-base sm:text-lg lg:text-xl text-[var(--ink)] tracking-wider leading-snug uppercase group-hover:text-[#FEC163] transition-colors">
-                    NAVIGATING THE ROAD TO UX/UI DESIGN
-                  </h3>
-                </Link>
+                  <Link href="/blogs/navigating-road-to-ux-ui" className="block group">
+                    <h3 className="font-dm font-bold text-lg sm:text-xl lg:text-2xl text-[var(--ink)] tracking-normal leading-snug uppercase group-hover:text-[#FEC163] transition-colors">
+                      NAVIGATING THE ROAD TO UX/UI DESIGN
+                    </h3>
+                  </Link>
 
-                <p
-                  className="font-dm text-xs font-semibold mt-1 mb-3 text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  }}
-                >
-                  March 10, 2026
-                </p>
+                  <p
+                    className="font-dm text-xs sm:text-sm font-semibold mt-1.5 mb-3 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    February 17, 2026
+                  </p>
 
-                <p className="font-dm text-xs sm:text-sm text-[var(--body-text)] leading-relaxed">
-                  This post traces the road through day one — from discovering
-                  design beyond code, to taking the first steps into UX,
-                  learning through real projects, challenges, and growth. It is
-                  a reflection on the milestones, lessons, and defining moments
-                  that shaped the path toward becoming a UX/UI designer.
-                </p>
-              </div>
+                  <p className="font-dm text-xs sm:text-sm text-[var(--body-text)] leading-relaxed">
+                    This post traces the road through day one — from discovering
+                    design beyond code, to taking the first steps into UX,
+                    learning through real projects, challenges, and growth. It is
+                    a reflection on the milestones, lessons, and defining moments
+                    that shaped the path toward becoming a UX/UI designer.
+                  </p>
+                </div>
 
-              <div className="pt-2">
-                <Link href="/blogs/navigating-road-to-ux-ui">
-                  <ActionSparkleButton label="VIEW FULL BLOG" />
-                </Link>
+                <div className="pt-2">
+                  <Link href="/blogs/navigating-road-to-ux-ui">
+                    <ActionSparkleButton label="VIEW FULL BLOG" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
-          <Link
-            href="/blogs/sunsets-fleeting-beauty"
-            className="group relative bg-transparent p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1 h-full"
-            style={{
-              border: "1.5px solid transparent",
-              borderImageSource:
-                "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
-              borderImageSlice: 1,
-            }}
-          >
-            <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
-              <Image
-                src="/assets/images/blog-photography.png"
-                alt="Sunsets Skyline"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-
-            <div className="pt-4 sm:pt-6">
-              <span
-                className="inline-block px-4 py-0.5 rounded-full text-xs font-dm font-semibold tracking-wide border border-[#E45D23] text-transparent bg-clip-text mb-3"
+        {/* Masonry / Responsive Gallery: Layout matching Figma blogs_main (Node 1250:2158) */}
+        {selectedCategory === "All" && (
+          <>
+            {/* Row 1: Left Tall Photography Card (522x582) + Right Two Stacked Compact Writing Cards (522x273 each) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+              {/* Left Column: Tall Photography Card 1 */}
+              <Link
+                href="/blogs/sunsets-fleeting-beauty"
+                className="group relative bg-[var(--bg)] p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 h-full shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
                 style={{
-                  backgroundImage:
-                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                  border: "1.5px solid transparent",
+                  borderImageSource:
+                    "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                  borderImageSlice: 1,
                 }}
               >
-                Photography
-              </span>
+                <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
+                  <Image
+                    src="/assets/images/blog-photography.png"
+                    alt="Sunsets Skyline"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
 
-              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
-                SUNSETS – A CANVAS OF FLEETING BEAUTY
-              </h4>
+                <div className="pt-4 sm:pt-6">
+                  <span
+                    className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text mb-3 transition-all"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      backgroundColor: "var(--bg)",
+                      border: "1px solid rgba(228, 93, 35, 0.6)",
+                      boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                    }}
+                  >
+                    Photography
+                  </span>
 
-              <p
-                className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                  <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                    SUNSETS – A CANVAS OF FLEETING BEAUTY
+                  </h4>
+
+                  <p
+                    className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    March 4, 2026
+                  </p>
+                </div>
+              </Link>
+
+              {/* Right Column: Two Stacked Compact Writing Cards */}
+              <div className="flex flex-col gap-6 lg:gap-8 justify-between h-full">
+                <Link
+                  href="/blogs/verses-that-speak-to-soul"
+                  className="group relative bg-[var(--bg)] p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-6 transition-all duration-300 hover:-translate-y-1 flex-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
+                  style={{
+                    border: "1.5px solid transparent",
+                    borderImageSource:
+                      "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                    borderImageSlice: 1,
+                  }}
+                >
+                  <div className="relative w-full sm:w-[150px] md:w-[170px] lg:w-[180px] aspect-square flex-shrink-0 overflow-hidden bg-black/10">
+                    <Image
+                      src="/assets/images/blog-writing.png"
+                      alt="Emerald Companion"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, 180px"
+                    />
+                  </div>
+
+                  <div className="flex flex-col justify-center w-full pt-3 sm:pt-0">
+                    <span
+                      className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text w-fit mb-2.5 transition-all"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                        backgroundColor: "var(--bg)",
+                        border: "1px solid rgba(228, 93, 35, 0.6)",
+                        boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                      }}
+                    >
+                      Writing
+                    </span>
+
+                    <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                      INSPIRATION – VERSES THAT SPEAK TO THE SOUL
+                    </h4>
+
+                    <p
+                      className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      }}
+                    >
+                      March 4, 2026
+                    </p>
+                  </div>
+                </Link>
+
+                <Link
+                  href="/blogs/verses-that-speak-to-soul"
+                  className="group relative bg-[var(--bg)] p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-6 transition-all duration-300 hover:-translate-y-1 flex-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
+                  style={{
+                    border: "1.5px solid transparent",
+                    borderImageSource:
+                      "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                    borderImageSlice: 1,
+                  }}
+                >
+                  <div className="relative w-full sm:w-[150px] md:w-[170px] lg:w-[180px] aspect-square flex-shrink-0 overflow-hidden bg-black/10">
+                    <Image
+                      src="/assets/images/blog-writing.png"
+                      alt="Emerald Companion"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, 180px"
+                    />
+                  </div>
+
+                  <div className="flex flex-col justify-center w-full pt-3 sm:pt-0">
+                    <span
+                      className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text w-fit mb-2.5 transition-all"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                        backgroundColor: "var(--bg)",
+                        border: "1px solid rgba(228, 93, 35, 0.6)",
+                        boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                      }}
+                    >
+                      Writing
+                    </span>
+
+                    <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                      INSPIRATION – VERSES THAT SPEAK TO THE SOUL
+                    </h4>
+
+                    <p
+                      className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      }}
+                    >
+                      March 4, 2026
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Row 2: Two Tall Photography Cards (522x582 each) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+              <Link
+                href="/blogs/sunsets-fleeting-beauty"
+                className="group relative bg-[var(--bg)] p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
                 style={{
-                  backgroundImage:
-                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                  border: "1.5px solid transparent",
+                  borderImageSource:
+                    "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                  borderImageSlice: 1,
                 }}
               >
-                March 4, 2026
-              </p>
+                <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
+                  <Image
+                    src="/assets/images/blog-photography.png"
+                    alt="Sunsets Skyline"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+
+                <div className="pt-4 sm:pt-6">
+                  <span
+                    className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text mb-3 transition-all"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      backgroundColor: "var(--bg)",
+                      border: "1px solid rgba(228, 93, 35, 0.6)",
+                      boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                    }}
+                  >
+                    Photography
+                  </span>
+
+                  <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                    SUNSETS – A CANVAS OF FLEETING BEAUTY
+                  </h4>
+
+                  <p
+                    className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    March 4, 2026
+                  </p>
+                </div>
+              </Link>
+
+              <Link
+                href="/blogs/sunsets-fleeting-beauty"
+                className="group relative bg-[var(--bg)] p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
+                style={{
+                  border: "1.5px solid transparent",
+                  borderImageSource:
+                    "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                  borderImageSlice: 1,
+                }}
+              >
+                <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
+                  <Image
+                    src="/assets/images/blog-photography.png"
+                    alt="Sunsets Skyline"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+
+                <div className="pt-4 sm:pt-6">
+                  <span
+                    className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text mb-3 transition-all"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      backgroundColor: "var(--bg)",
+                      border: "1px solid rgba(228, 93, 35, 0.6)",
+                      boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                    }}
+                  >
+                    Photography
+                  </span>
+
+                  <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                    SUNSETS – A CANVAS OF FLEETING BEAUTY
+                  </h4>
+
+                  <p
+                    className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    March 4, 2026
+                  </p>
+                </div>
+              </Link>
             </div>
-          </Link>
+          </>
+        )}
 
-          <div className="flex flex-col gap-6 lg:gap-8 justify-between h-full">
-            <Link
-              href="/blogs/verses-that-speak-to-soul"
-              className="group relative bg-transparent p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-7 transition-transform duration-300 hover:-translate-y-1 flex-1"
-              style={{
-                border: "1.5px solid transparent",
-                borderImageSource:
-                  "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
-                borderImageSlice: 1,
-              }}
-            >
-              <div className="relative w-full sm:w-[140px] lg:w-[160px] aspect-[3/4] sm:aspect-[3/4] flex-shrink-0 overflow-hidden bg-black/10">
-                <Image
-                  src="/assets/images/blog-writing.png"
-                  alt="Emerald Companion"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 160px"
-                />
-              </div>
+        {/* When Category is 'Photography': Show Photography Grid */}
+        {selectedCategory === "Photography" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+            {[1, 2, 3, 4].map((id) => (
+              <Link
+                key={id}
+                href="/blogs/sunsets-fleeting-beauty"
+                className="group relative bg-[var(--bg)] p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
+                style={{
+                  border: "1.5px solid transparent",
+                  borderImageSource:
+                    "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                  borderImageSlice: 1,
+                }}
+              >
+                <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
+                  <Image
+                    src="/assets/images/blog-photography.png"
+                    alt="Sunsets Skyline"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
 
-              <div className="flex flex-col justify-center w-full pt-3 sm:pt-0">
-                <span
-                  className="inline-block px-4 py-0.5 rounded-full text-xs font-dm font-semibold tracking-wide border border-[#E45D23] text-transparent bg-clip-text w-fit mb-2"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                    boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
-                  }}
-                >
-                  Writing
-                </span>
+                <div className="pt-4 sm:pt-6">
+                  <span
+                    className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text mb-3 transition-all"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      backgroundColor: "var(--bg)",
+                      border: "1px solid rgba(228, 93, 35, 0.6)",
+                      boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                    }}
+                  >
+                    Photography
+                  </span>
 
-                <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
-                  INSPIRATION – VERSES THAT SPEAK TO THE SOUL
-                </h4>
+                  <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                    SUNSETS – A CANVAS OF FLEETING BEAUTY
+                  </h4>
 
-                <p
-                  className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  }}
-                >
-                  March 4, 2026
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              href="/blogs/verses-that-speak-to-soul"
-              className="group relative bg-transparent p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-7 transition-transform duration-300 hover:-translate-y-1 flex-1"
-              style={{
-                border: "1.5px solid transparent",
-                borderImageSource:
-                  "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
-                borderImageSlice: 1,
-              }}
-            >
-              <div className="relative w-full sm:w-[140px] lg:w-[160px] aspect-[3/4] sm:aspect-[3/4] flex-shrink-0 overflow-hidden bg-black/10">
-                <Image
-                  src="/assets/images/blog-writing.png"
-                  alt="Emerald Companion"
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 160px"
-                />
-              </div>
-
-              <div className="flex flex-col justify-center w-full pt-3 sm:pt-0">
-                <span
-                  className="inline-block px-4 py-0.5 rounded-full text-xs font-dm font-semibold tracking-wide border border-[#E45D23] text-transparent bg-clip-text w-fit mb-2"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                    boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
-                  }}
-                >
-                  Writing
-                </span>
-
-                <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
-                  INSPIRATION – VERSES THAT SPEAK TO THE SOUL
-                </h4>
-
-                <p
-                  className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  }}
-                >
-                  March 4, 2026
-                </p>
-              </div>
-            </Link>
+                  <p
+                    className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    March 4, 2026
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
-        </div>
+        )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          <Link
-            href="/blogs/sunsets-fleeting-beauty"
-            className="group relative bg-transparent p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1"
-            style={{
-              border: "1.5px solid transparent",
-              borderImageSource:
-                "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
-              borderImageSlice: 1,
-            }}
-          >
-            <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
-              <Image
-                src="/assets/images/blog-photography.png"
-                alt="Sunsets Skyline"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-
-            <div className="pt-4 sm:pt-6">
-              <span
-                className="inline-block px-4 py-0.5 rounded-full text-xs font-dm font-semibold tracking-wide border border-[#E45D23] text-transparent bg-clip-text mb-3"
+        {/* When Category is 'Writing': Show Writing Grid */}
+        {selectedCategory === "Writing" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+            {[1, 2, 3, 4].map((id) => (
+              <Link
+                key={id}
+                href="/blogs/verses-that-speak-to-soul"
+                className="group relative bg-[var(--bg)] p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 sm:gap-6 transition-all duration-300 hover:-translate-y-1 shadow-[0_0_12px_rgba(222,67,19,0.08)] hover:shadow-[0_0_24px_rgba(222,67,19,0.32)]"
                 style={{
-                  backgroundImage:
-                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                  border: "1.5px solid transparent",
+                  borderImageSource:
+                    "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
+                  borderImageSlice: 1,
                 }}
               >
-                Photography
-              </span>
+                <div className="relative w-full sm:w-[150px] md:w-[170px] lg:w-[180px] aspect-square flex-shrink-0 overflow-hidden bg-black/10">
+                  <Image
+                    src="/assets/images/blog-writing.png"
+                    alt="Emerald Companion"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, 180px"
+                  />
+                </div>
 
-              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
-                SUNSETS – A CANVAS OF FLEETING BEAUTY
-              </h4>
+                <div className="flex flex-col justify-center w-full pt-3 sm:pt-0">
+                  <span
+                    className="inline-block px-4 py-1 rounded-full text-xs font-dm font-bold tracking-wide uppercase text-transparent bg-clip-text w-fit mb-2.5 transition-all"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                      backgroundColor: "var(--bg)",
+                      border: "1px solid rgba(228, 93, 35, 0.6)",
+                      boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
+                    }}
+                  >
+                    Writing
+                  </span>
 
-              <p
-                className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                }}
-              >
-                March 4, 2026
-              </p>
-            </div>
-          </Link>
+                  <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase group-hover:text-[#FEC163] transition-colors">
+                    INSPIRATION – VERSES THAT SPEAK TO THE SOUL
+                  </h4>
 
-          <Link
-            href="/blogs/sunsets-fleeting-beauty"
-            className="group relative bg-transparent p-5 sm:p-6 lg:p-7 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1"
-            style={{
-              border: "1.5px solid transparent",
-              borderImageSource:
-                "linear-gradient(97.42deg, #FEC163 0%, #DE4313 95.67%)",
-              borderImageSlice: 1,
-            }}
-          >
-            <div className="relative w-full aspect-[16/11] overflow-hidden bg-black/10">
-              <Image
-                src="/assets/images/blog-photography.png"
-                alt="Sunsets Skyline"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-
-            <div className="pt-4 sm:pt-6">
-              <span
-                className="inline-block px-4 py-0.5 rounded-full text-xs font-dm font-semibold tracking-wide border border-[#E45D23] text-transparent bg-clip-text mb-3"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  boxShadow: "0px 0px 4px 0px rgba(228, 93, 35, 1)",
-                }}
-              >
-                Photography
-              </span>
-
-              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
-                SUNSETS – A CANVAS OF FLEETING BEAUTY
-              </h4>
-
-              <p
-                className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                }}
-              >
-                March 4, 2026
-              </p>
-            </div>
-          </Link>
-        </div>
+                  <p
+                    className="font-dm text-xs sm:text-sm font-semibold mt-2 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+                    }}
+                  >
+                    March 4, 2026
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
 
         <div className="pt-8 sm:pt-12 pb-6">
           <div className="w-full flex items-center select-none pt-2">
