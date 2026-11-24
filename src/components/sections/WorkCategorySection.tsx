@@ -54,12 +54,12 @@ export default function WorkCategorySection({
 
   return (
     <section id={id} className="w-full scroll-mt-28 select-none">
-      <div className="relative w-full flex flex-col xl:flex-row items-center xl:items-start justify-between gap-8 sm:gap-10">
+      <div className="relative w-full flex flex-col xl:flex-row items-center xl:items-start justify-between gap-4 sm:gap-8 xl:gap-10">
         {/* ════════════════════════════════════════════════════════════
             1. LEFT COLUMN: Reusable SectionBadge with fixed consistent width
                so all 3 sections align identically from left to right
             ════════════════════════════════════════════════════════════ */}
-        <div className="w-full xl:w-[220px] 2xl:w-[240px] flex items-center justify-center xl:justify-start flex-shrink-0 select-none pt-4 xl:pt-8">
+        <div className="w-full xl:w-[220px] 2xl:w-[240px] flex items-center justify-center xl:justify-start flex-shrink-0 select-none pt-1 sm:pt-4 xl:pt-8">
           <SectionBadge num={number} label={title} isFilled={isActive} />
         </div>
 
@@ -69,8 +69,12 @@ export default function WorkCategorySection({
         <div className="flex-1 w-full max-w-[850px] flex flex-col items-center xl:items-start">
           {/* ── ROW: Showcase Box (max-w 725px) + 20px Gap + Vertical Line + View All Button ── */}
           <div className="w-full flex items-stretch justify-center xl:justify-start gap-[20px]">
-            {/* ── MAIN BORDER BOX (Fixed Max-Width 725px, Flush Bottom Mockup) ── */}
-            <div className="relative w-full max-w-[725px] bg-transparent min-h-[400px] sm:min-h-[440px] md:min-h-[460px] flex flex-col justify-between pt-10 sm:pt-12 pb-0 px-4 sm:px-6">
+            {/* ── MAIN BORDER BOX (Clickable: Navigates to viewAllHref) ── */}
+            <Link
+              href={viewAllHref}
+              title={viewAllLabel}
+              className="group/showcase relative w-full max-w-[725px] bg-transparent min-h-0 sm:min-h-[440px] md:min-h-[510px] flex flex-col justify-between pt-8 sm:pt-12 pb-4 sm:pb-8 lg:pb-10 px-3 sm:px-6 cursor-pointer select-none transition-all duration-300 hover:shadow-[0_0_35px_rgba(222,67,19,0.18)] block focus:outline-none"
+            >
               {/* Top horizontal border line (with center gap for client logo notch) */}
               <div
                 className="absolute top-0 left-0 right-[calc(50%+85px)] sm:right-[calc(50%+105px)] h-[1.5px] pointer-events-none"
@@ -163,8 +167,8 @@ export default function WorkCategorySection({
                 </h4>
               </div>
 
-              {/* ── Mockup Display (sitting flush against the bottom border with 0 padding) ── */}
-              <div className="relative z-10 w-full flex-1 flex items-end justify-center pb-0 mb-0 overflow-visible mt-auto">
+              {/* ── Mockup Display (Properly padded above the bottom border) ── */}
+              <div className="relative z-10 w-full flex-1 flex items-center justify-center pb-1 sm:pb-3 overflow-visible my-2 sm:my-auto">
                 {currentSlide.mockupType === "laptop" ? (
                   <LaptopWebsitePreview
                     clientName={currentSlide.client}
@@ -176,23 +180,23 @@ export default function WorkCategorySection({
                 ) : currentSlide.mockupType === "phones-triplet" ? (
                   <EzeedropAppMockup />
                 ) : (
-                  <div className="relative w-full max-w-[560px] h-[260px] sm:h-[320px] flex items-end justify-center pb-0">
+                  <div className="relative w-full max-w-[560px] aspect-[16/10] sm:aspect-auto sm:h-[280px] md:h-[320px] flex items-center justify-center">
                     {currentSlide.coverImage && (
                       <Image
                         src={currentSlide.coverImage}
                         alt={currentSlide.title}
                         fill
-                        className="object-contain object-bottom drop-shadow-[0_16px_36px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-500"
+                        className="object-contain object-center drop-shadow-[0_16px_36px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-500"
                       />
                     )}
                   </div>
                 )}
               </div>
-            </div>
+            </Link>
 
-            {/* ── RIGHT COLUMN: Vertical Border Line (Matches Box Height) + Centered View All Button ── */}
+            {/* ── RIGHT COLUMN: Vertical Border Lines + Centered View All Button ── */}
             <div className="hidden sm:flex items-center gap-[20px] select-none flex-shrink-0">
-              {/* Vertical line matching box height */}
+              {/* Left vertical line matching box height */}
               <div
                 className="w-[1.5px] h-full"
                 style={{
@@ -213,12 +217,12 @@ export default function WorkCategorySection({
                   alt=""
                   width={18}
                   height={17}
-                  className="w-[14px] h-[13px] object-contain flex-shrink-0"
+                  className="w-[15px] h-[14px] object-contain flex-shrink-0"
                 />
 
                 {/* Vertical Rotated Text */}
                 <span
-                  className="text-xs font-dm font-bold tracking-[0.24em] text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap rotate-180"
+                  className="text-[16px] sm:text-[18px] font-dm font-bold tracking-[0.08em] text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap rotate-180"
                   style={{
                     backgroundImage:
                       "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -233,16 +237,25 @@ export default function WorkCategorySection({
                   alt=""
                   width={18}
                   height={17}
-                  className="w-[14px] h-[13px] object-contain flex-shrink-0"
+                  className="w-[15px] h-[14px] object-contain flex-shrink-0"
                 />
               </Link>
+
+              {/* Right vertical line matching box height */}
+              <div
+                className="w-[1.5px] h-full"
+                style={{
+                  background:
+                    "linear-gradient(180deg, #FEC163 0%, #DE4313 100%)",
+                }}
+              />
             </div>
           </div>
 
           {/* ════════════════════════════════════════════════════════════
               3. OUTSIDE BOTTOM SLIDER CONTROLS (Below the Box, matching screenshot)
               ════════════════════════════════════════════════════════════ */}
-          <div className="w-full max-w-[725px] flex items-center select-none pt-4 sm:pt-5">
+          <div className="w-full max-w-[725px] flex items-center select-none pt-4 sm:pt-6">
             {/* Prev arrow and gradient line */}
             <button
               type="button"
@@ -277,7 +290,7 @@ export default function WorkCategorySection({
             </button>
 
             {/* Slide number buttons: 01, 02, 03 */}
-            <div className="flex items-center gap-6 sm:gap-8 px-5 sm:px-7 flex-shrink-0">
+            <div className="flex items-center gap-4 sm:gap-8 px-3 sm:px-7 flex-shrink-0">
               {slides.map((_, i) => {
                 const isActive = i === currentSlideIndex;
                 return (
@@ -337,6 +350,34 @@ export default function WorkCategorySection({
                 />
               </svg>
             </button>
+          </div>
+
+          {/* Mobile View All Link */}
+          <div className="sm:hidden w-full flex justify-center pt-3 pb-1">
+            <Link
+              href={viewAllHref}
+              className="inline-flex items-center gap-2 text-xs font-dm font-bold tracking-wider text-transparent bg-clip-text uppercase hover:opacity-85 transition-opacity"
+              style={{
+                backgroundImage:
+                  "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
+              }}
+            >
+              <Image
+                src="/btn-icon-dimond.png"
+                alt=""
+                width={12}
+                height={11}
+                className="w-[10px] h-[9px] object-contain flex-shrink-0"
+              />
+              <span>{viewAllLabel}</span>
+              <Image
+                src="/btn-icon-dimond.png"
+                alt=""
+                width={12}
+                height={11}
+                className="w-[10px] h-[9px] object-contain flex-shrink-0"
+              />
+            </Link>
           </div>
         </div>
       </div>

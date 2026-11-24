@@ -1,6 +1,7 @@
 "use client";
 
 import { useActiveSection } from "@/context/ActiveSectionContext";
+import { useTheme } from "@/components/providers/ThemeProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -184,19 +185,8 @@ export default function Sidebar({
 }: { defaultActive?: string } = {}) {
   const pathname = usePathname();
   const { activeSection } = useActiveSection();
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme, setTheme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("sejuti-theme") as
-      | "light"
-      | "dark"
-      | null;
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.setAttribute("data-theme", saved);
-    }
-  }, []);
 
   // Synchronously compute active navigation item strictly based on pathname (page changes only)
   let active = "home";
@@ -247,13 +237,8 @@ export default function Sidebar({
     };
   }, [mobileOpen]);
 
-  const applyTheme = (t: "light" | "dark") => {
-    setTheme(t);
-    localStorage.setItem("sejuti-theme", t);
-    document.documentElement.setAttribute("data-theme", t);
-  };
-
-  const toggle = () => applyTheme(theme === "light" ? "dark" : "light");
+  const applyTheme = (t: "light" | "dark") => setTheme(t);
+  const toggle = () => toggleTheme();
 
   return (
     <>
@@ -308,10 +293,10 @@ export default function Sidebar({
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-almarai font-extrabold tracking-[0.22em] text-xs sm:text-sm leading-tight text-[var(--ink)]">
+            <span className="font-almarai font-extrabold tracking-normal text-xs sm:text-sm leading-tight text-[var(--ink)]">
               SEJUTI
             </span>
-            <span className="font-dm font-bold text-[8.5px] tracking-[0.18em] text-[#DE4313] uppercase">
+            <span className="font-almarai font-bold text-[8.5px] tracking-normal text-[#DE4313] uppercase">
               Portfolio
             </span>
           </div>
@@ -325,9 +310,9 @@ export default function Sidebar({
             onClick={toggle}
             style={{
               backgroundColor: theme === "light" ? "#FFF7E7" : "#0A0F24",
-              boxShadow: "0 0 5px 0 rgba(228, 93, 35, 0.4)",
+              boxShadow: "0px 0px 4px 0px #E45D23",
             }}
-            className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-[#E45D23]/70 text-xs font-dm font-bold text-[var(--ink)] cursor-pointer overflow-hidden transition-transform duration-200 active:scale-95"
+            className="relative flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-[11px] font-dm font-bold text-[var(--ink)] cursor-pointer overflow-hidden transition-transform duration-200 active:scale-95"
             aria-label="Toggle dark/light mode"
           >
             {theme === "light" && (
@@ -341,14 +326,14 @@ export default function Sidebar({
               {theme === "light" ? (
                 <>
                   <SunIcon isActive={true} />
-                  <span className="font-dm tracking-normal text-gradient font-extrabold text-xs sm:text-sm">
+                  <span className="font-dm tracking-normal text-gradient font-bold text-[10px] sm:text-[11px]">
                     LIGHT
                   </span>
                 </>
               ) : (
                 <>
                   <MoonIcon isActive={true} />
-                  <span className="font-dm tracking-normal text-[var(--ink)] font-normal text-xs sm:text-sm">
+                  <span className="font-dm tracking-normal text-[var(--ink)] font-normal text-[10px] sm:text-[11px]">
                     DARK
                   </span>
                 </>
@@ -638,7 +623,7 @@ export default function Sidebar({
             {/* DARK text: Extrabold gradient when dark, Normal 400 when light */}
             <button
               onClick={() => applyTheme("dark")}
-              className={`font-dm leading-none transition-all cursor-pointer [writing-mode:vertical-rl] rotate-180 tracking-normal text-[13px] sm:text-[14px] lg:text-[15px] xl:text-[18px] ${
+              className={`font-dm leading-none transition-all cursor-pointer [writing-mode:vertical-rl] rotate-180 tracking-wider text-[11px] sm:text-[12px] lg:text-[12px] xl:text-[13px] ${
                 theme === "dark"
                   ? "font-extrabold text-transparent bg-clip-text"
                   : "font-normal text-[var(--ink)] opacity-60 hover:opacity-100"
@@ -660,9 +645,9 @@ export default function Sidebar({
               onClick={toggle}
               style={{
                 backgroundColor: theme === "light" ? "#FFF7E7" : "#0A0F24",
-                boxShadow: "0 0 4px 0 #E45D23",
+                boxShadow: "0px 0px 4px 0px #E45D23",
               }}
-              className="relative w-[24px] h-[56px] rounded-full border border-[#E45D23]/60 flex flex-col items-center justify-between py-2 cursor-pointer transition-colors duration-200 overflow-hidden"
+              className="relative w-[24px] h-[56px] rounded-full flex flex-col items-center justify-between py-2 cursor-pointer transition-colors duration-200 overflow-hidden"
               title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
             >
               {/* Subtle texture only in light mode */}
@@ -688,7 +673,7 @@ export default function Sidebar({
             {/* LIGHT text: Extrabold gradient when light, Normal 400 when dark */}
             <button
               onClick={() => applyTheme("light")}
-              className={`font-dm leading-none transition-all cursor-pointer [writing-mode:vertical-rl] rotate-180 tracking-normal text-[13px] sm:text-[14px] lg:text-[15px] xl:text-[18px] ${
+              className={`font-dm leading-none transition-all cursor-pointer [writing-mode:vertical-rl] rotate-180 tracking-wider text-[11px] sm:text-[12px] lg:text-[12px] xl:text-[13px] ${
                 theme === "light"
                   ? "font-extrabold text-transparent bg-clip-text"
                   : "font-normal text-[var(--ink)] opacity-60 hover:opacity-100"

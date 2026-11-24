@@ -176,9 +176,9 @@ export default function CategoryGridView({
   }, [filteredProjects, columnCount]);
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-10 pt-16 sm:pt-20 lg:pt-24 pb-24">
+    <div className="w-full px-3 sm:px-6 lg:px-10 pt-12 sm:pt-18 lg:pt-24 pb-12 sm:pb-16 lg:pb-24">
       {/* ── 01. HERO CARD (Matching Main Work Hero Frame 100%) ── */}
-      <div className="relative w-full bg-transparent min-h-[460px] sm:min-h-[500px] lg:min-h-[520px] flex items-center pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20 pl-6 sm:pl-10 lg:pl-14 pr-6 sm:pr-10 lg:pr-14 mb-8">
+      <div className="relative w-full bg-transparent min-h-0 lg:min-h-[520px] flex flex-col lg:flex-row items-center pt-10 sm:pt-14 lg:pt-20 pb-8 sm:pb-12 lg:pb-20 pl-4 sm:pl-10 lg:pl-14 pr-4 sm:pr-10 lg:pr-14 mb-8">
         {/* Left vertical border line */}
         <div
           className="absolute top-0 left-0 bottom-0 w-[1.5px] pointer-events-none"
@@ -369,12 +369,12 @@ export default function CategoryGridView({
         </div>
 
         {/* ── Main Hero Content Grid ── */}
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           {/* Left Column: Heading + Subtitle Links */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-3">
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-2 sm:space-y-3">
             {activeDiscipline === "ux" ? (
               <>
-                <h1 className="font-dm font-bold text-3xl sm:text-4xl lg:text-[50px] leading-[1.08] text-[var(--ink)] uppercase tracking-tight">
+                <h1 className="font-dm font-bold text-2xl sm:text-4xl lg:text-[50px] leading-[1.08] text-[var(--ink)] uppercase tracking-tight">
                   UX & UI DESIGN
                 </h1>
 
@@ -386,7 +386,7 @@ export default function CategoryGridView({
                       <Link
                         key={sub.id}
                         href={sub.href}
-                        className={`font-dm font-bold text-2xl sm:text-3xl lg:text-[40px] leading-tight transition-all text-left w-fit ${
+                        className={`font-dm font-bold text-xl sm:text-3xl lg:text-[40px] leading-tight transition-all text-left w-fit ${
                           isActive
                             ? "text-transparent bg-clip-text font-bold"
                             : "hover:opacity-100 transition-opacity"
@@ -412,37 +412,39 @@ export default function CategoryGridView({
               </>
             ) : (
               <>
-                <h1 className="font-dm font-bold text-3xl sm:text-4xl lg:text-[48px] leading-[1.08] text-[var(--ink)] uppercase tracking-tight">
+                <h1 className="font-dm font-bold text-2xl sm:text-4xl lg:text-[48px] leading-[1.08] text-[var(--ink)] uppercase tracking-tight">
                   {meta.title}
                 </h1>
-                <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed max-w-md pt-1">
+                <p className="font-dm text-xs sm:text-sm lg:text-base text-gray-300 leading-relaxed max-w-md pt-1">
                   {meta.description}
                 </p>
               </>
             )}
           </div>
 
-          {/* Right Column: Hero Graphic Preview */}
-          <div className="lg:col-span-7 w-full flex items-center justify-center lg:justify-end">
-            {categoryKey === "websites" && (
-              <LaptopWebsitePreview
-                clientName="ELEVATE SOLUTIONS"
-                headline="UNLOCKING EXCELLENCE"
-                subheadline="WITH MICROSOFT:"
-              />
-            )}
-            {categoryKey === "apps" && (
-              <AppHeroPhoneMockup className="w-full max-w-[500px]" />
-            )}
-            {categoryKey === "softwares" && (
-              <HospitalDashboardMockup className="w-full max-w-[540px]" />
-            )}
-            {categoryKey === "branding" && (
-              <BrandingMonitorMockup className="w-full max-w-[540px]" />
-            )}
-            {categoryKey === "marketing" && (
-              <MarketingMonitorMockup className="w-full max-w-[540px]" />
-            )}
+          {/* Right Column: Hero Graphic Preview (Sits cleanly below text on mobile) */}
+          <div className="lg:col-span-7 w-full flex items-center justify-center lg:justify-end mt-4 sm:mt-6 lg:mt-0">
+            <div className="w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[580px] mx-auto lg:mr-0 flex items-center justify-center">
+              {categoryKey === "websites" && (
+                <LaptopWebsitePreview
+                  clientName="ELEVATE SOLUTIONS"
+                  headline="UNLOCKING EXCELLENCE"
+                  subheadline="WITH MICROSOFT:"
+                />
+              )}
+              {categoryKey === "apps" && (
+                <AppHeroPhoneMockup className="w-full max-w-[280px] sm:max-w-[310px]" />
+              )}
+              {categoryKey === "softwares" && (
+                <HospitalDashboardMockup className="w-full" />
+              )}
+              {categoryKey === "branding" && (
+                <BrandingMonitorMockup className="w-full" />
+              )}
+              {categoryKey === "marketing" && (
+                <MarketingMonitorMockup className="w-full" />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -465,7 +467,7 @@ export default function CategoryGridView({
                 setTypeOpen(false);
                 setIndOpen(false);
               }}
-              className="w-full flex items-center justify-between text-left text-sm sm:text-base font-dm font-medium text-white hover:text-[#FEC163] transition-colors py-1 cursor-pointer"
+              className="w-full flex items-center justify-between text-left text-sm sm:text-base font-dm font-medium text-[var(--ink)] hover:text-[#DE4313] dark:hover:text-[#FEC163] transition-colors py-1 cursor-pointer"
             >
               <span className="truncate">{selectedCategoryFilter}</span>
               <span
@@ -486,7 +488,7 @@ export default function CategoryGridView({
 
             {/* Dropdown Menu */}
             {catOpen && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#0A0F24] border border-[#DE4313]/60 rounded-[2px] shadow-2xl z-40 max-h-60 overflow-y-auto py-1 backdrop-blur-md">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[var(--card-bg)] border border-[#DE4313]/60 rounded-[2px] shadow-2xl z-40 max-h-60 overflow-y-auto py-1 backdrop-blur-md">
                 {categoryOptions.map((opt) => (
                   <button
                     key={opt}
@@ -497,8 +499,8 @@ export default function CategoryGridView({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs sm:text-sm font-dm transition-colors flex items-center justify-between ${
                       selectedCategoryFilter === opt
-                        ? "text-[#FEC163] font-bold bg-white/5"
-                        : "text-gray-300 hover:text-white hover:bg-white/5"
+                        ? "text-[#FEC163] font-bold bg-[#DE4313]/10"
+                        : "text-[var(--ink)] hover:bg-[#DE4313]/5"
                     }`}
                   >
                     <span>{opt}</span>
@@ -523,7 +525,7 @@ export default function CategoryGridView({
                 setCatOpen(false);
                 setIndOpen(false);
               }}
-              className="w-full flex items-center justify-between text-left text-sm sm:text-base font-dm font-medium text-white hover:text-[#FEC163] transition-colors py-1 cursor-pointer"
+              className="w-full flex items-center justify-between text-left text-sm sm:text-base font-dm font-medium text-[var(--ink)] hover:text-[#DE4313] dark:hover:text-[#FEC163] transition-colors py-1 cursor-pointer"
             >
               <span className="truncate">{selectedWorkTypeFilter}</span>
               <span
@@ -544,7 +546,7 @@ export default function CategoryGridView({
 
             {/* Dropdown Menu */}
             {typeOpen && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#0A0F24] border border-[#DE4313]/60 rounded-[2px] shadow-2xl z-40 max-h-60 overflow-y-auto py-1 backdrop-blur-md">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[var(--card-bg)] border border-[#DE4313]/60 rounded-[2px] shadow-2xl z-40 max-h-60 overflow-y-auto py-1 backdrop-blur-md">
                 {workTypeOptions.map((opt) => (
                   <button
                     key={opt}
@@ -555,8 +557,8 @@ export default function CategoryGridView({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs sm:text-sm font-dm transition-colors flex items-center justify-between ${
                       selectedWorkTypeFilter === opt
-                        ? "text-[#FEC163] font-bold bg-white/5"
-                        : "text-gray-300 hover:text-white hover:bg-white/5"
+                        ? "text-[#FEC163] font-bold bg-[#DE4313]/10"
+                        : "text-[var(--ink)] hover:bg-[#DE4313]/5"
                     }`}
                   >
                     <span>{opt}</span>
@@ -581,7 +583,7 @@ export default function CategoryGridView({
                 setCatOpen(false);
                 setTypeOpen(false);
               }}
-              className="w-full flex items-center justify-between text-left text-sm sm:text-base font-dm font-medium text-white hover:text-[#FEC163] transition-colors py-1 cursor-pointer"
+              className="w-full flex items-center justify-between text-left text-sm sm:text-base font-dm font-medium text-[var(--ink)] hover:text-[#DE4313] dark:hover:text-[#FEC163] transition-colors py-1 cursor-pointer"
             >
               <span className="truncate">{selectedIndustryFilter}</span>
               <span
@@ -602,7 +604,7 @@ export default function CategoryGridView({
 
             {/* Dropdown Menu */}
             {indOpen && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#0A0F24] border border-[#DE4313]/60 rounded-[2px] shadow-2xl z-40 max-h-60 overflow-y-auto py-1 backdrop-blur-md">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[var(--card-bg)] border border-[#DE4313]/60 rounded-[2px] shadow-2xl z-40 max-h-60 overflow-y-auto py-1 backdrop-blur-md">
                 {industryOptions.map((opt) => (
                   <button
                     key={opt}
@@ -613,8 +615,8 @@ export default function CategoryGridView({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs sm:text-sm font-dm transition-colors flex items-center justify-between ${
                       selectedIndustryFilter === opt
-                        ? "text-[#FEC163] font-bold bg-white/5"
-                        : "text-gray-300 hover:text-white hover:bg-white/5"
+                        ? "text-[#FEC163] font-bold bg-[#DE4313]/10"
+                        : "text-[var(--ink)] hover:bg-[#DE4313]/5"
                     }`}
                   >
                     <span>{opt}</span>

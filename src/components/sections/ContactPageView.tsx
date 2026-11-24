@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
+import { asset } from "@/utils/asset";
 
 /**
  * Signature Notched Sparkle Action Button for Submit (Exact Figma Match)
@@ -16,35 +18,42 @@ function ActionSparkleSubmitButton({
     <button
       type="submit"
       disabled={loading}
-      className="group inline-flex items-center cursor-pointer select-none border-0 bg-transparent p-0 disabled:opacity-60 transition-transform active:scale-95"
+      className="group inline-flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none border-0 bg-transparent p-0 disabled:opacity-60 transition-transform active:scale-95"
     >
-      <div className="relative w-20 h-20 sm:w-22 sm:h-22 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+      <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 flex-shrink-0">
         <svg
-          width="78"
-          height="78"
-          viewBox="0 0 82 84"
+          width="54"
+          height="58"
+          viewBox="0 0 54 58"
           fill="none"
-          className="overflow-visible"
+          className="absolute inset-0 w-full h-full pointer-events-none"
         >
-          {/* Notched outer ring with gap on the right (Radius = 37, Gap to icon = 37 - 20 = 17px) */}
           <path
-            d="M 70 64 A 37 37 0 1 1 70 20"
+            d="M 46 44.5 A 25 25 0 1 1 46 13.5"
             stroke="url(#contactSparkleGrad)"
             strokeWidth="1.8"
             strokeLinecap="round"
           />
-          {/* Inner filled circle (Radius = 20, enlarged icon) */}
-          <circle cx="40" cy="42" r="20" fill="url(#contactSparkleGrad)" />
-          {/* Sparkle 4-point star (Enlarged proportionally) */}
-          <path
-            d="M 40 30 L 42.2 39.8 L 52 42 L 42.2 44.2 L 40 54 L 37.8 44.2 L 28 42 L 37.8 39.8 Z"
-            fill="#FFF7E7"
-          />
         </svg>
+
+        <div
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-[0_0_12px_rgba(222,67,19,0.55)]"
+          style={{
+            background: "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
+          }}
+        >
+          <Image
+            src={asset("/btn-icon-dimond.png")}
+            alt=""
+            width={18}
+            height={17}
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain brightness-0 invert flex-shrink-0"
+          />
+        </div>
       </div>
 
       <span
-        className="font-dm font-bold text-base sm:text-lg text-transparent bg-clip-text transition-all uppercase whitespace-nowrap -translate-x-3 sm:-translate-x-4"
+        className="font-dm font-bold text-base sm:text-[18px] leading-tight tracking-[0.02em] text-transparent bg-clip-text transition-all uppercase whitespace-nowrap"
         style={{
           backgroundImage:
             "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -279,7 +288,7 @@ export default function ContactPageView() {
                 <p>
                   Connect through{" "}
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/sejutimehjabin"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -292,7 +301,7 @@ export default function ContactPageView() {
                   </a>{" "}
                   or{" "}
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/sejutimehjabin"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{

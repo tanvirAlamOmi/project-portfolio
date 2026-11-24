@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
+    "build:era": "node -e \"process.env.NEXT_PUBLIC_BASE_PATH='/era'; const { execSync } = require('child_process'); execSync('next build --webpack', { stdio: 'inherit', env: process.env });\"",
     "start": "next start",
     "lint": "eslint"
   },

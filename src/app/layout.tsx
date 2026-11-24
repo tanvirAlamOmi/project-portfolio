@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Almarai, Merriweather, Concert_One } from "next/font/google";
 import { LoaderProvider } from "@/context/LoaderContext";
 import { ActiveSectionProvider } from "@/context/ActiveSectionContext";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import SiteLoader from "@/components/ui/SiteLoader";
 import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
@@ -65,19 +66,51 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${dmSans.variable} ${almarai.variable} ${merriweather.variable} ${concertOne.variable} scroll-smooth`}
     >
-      <body
-        style={{ "--bg-noise": `url("${asset("/assets/bg-noise-tile.png")}")` } as React.CSSProperties}
-        className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-200"
-      >
-        {/* Animated Custom Cursor (Follows mouse, expands to VIEW button over interactive elements) */}
-        <CustomCursor />
-        <LoaderProvider>
-          {/* Global Site Loader (Transparent BG, Static Logo, 360deg Spinning Gradient Border) */}
-          <SiteLoader />
-          <ActiveSectionProvider>{children}</ActiveSectionProvider>
-        </LoaderProvider>
+      <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              :root {
+                --bg-noise: url("${asset("/assets/bg-noise-tile.png")}");
+              }
+              [data-theme="dark"], html[data-theme="dark"], body[data-theme="dark"] {
+                --bg-noise: none !important;
+              }
+            `,
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('sejuti-theme');
+                  var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-200">
+        <ThemeProvider>
+          {/* Animated Custom Cursor (Follows mouse, expands to VIEW button over interactive elements) */}
+          <CustomCursor />
+          <LoaderProvider>
+            {/* Global Site Loader (Transparent BG, Static Logo, 360deg Spinning Gradient Border) */}
+            <SiteLoader />
+            <ActiveSectionProvider>{children}</ActiveSectionProvider>
+          </LoaderProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

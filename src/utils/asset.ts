@@ -2,9 +2,9 @@
  * Dynamic Asset Path Resolver
  * Automatically resolves asset paths dynamically based on NEXT_PUBLIC_BASE_PATH.
  * - Subfolder deployment (e.g. /era): returns '/era/assets/...'
- * - Root Domain deployment (custom domain): returns '/assets/...'
+ * - Root Domain deployment (custom domain / local dev): returns '/assets/...'
  */
-const RAW_BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/era').trim();
+const RAW_BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH || '').trim();
 export const BASE_PATH =
   RAW_BASE_PATH && RAW_BASE_PATH !== '/' && RAW_BASE_PATH.toLowerCase() !== 'none'
     ? RAW_BASE_PATH.startsWith('/')

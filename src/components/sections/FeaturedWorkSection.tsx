@@ -12,17 +12,9 @@ function VerticalWorkTab() {
     <div className="hidden lg:flex flex-shrink-0 pt-2 lg:absolute lg:left-[calc(100%-1.5px)] lg:top-2">
       <Link
         href="/work"
-        className="group flex items-center gap-3.5 select-none hover:opacity-85 transition-opacity"
+        className="group flex items-center select-none hover:opacity-85 transition-opacity"
         title="View All Work"
       >
-        <div
-          className="w-[1.5px] h-[210px]"
-          style={{
-            background:
-              "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
-          }}
-        />
-
         <div className="flex flex-col items-center justify-between h-[210px] py-1">
           <Image
             src="/btn-icon-dimond.png"
@@ -33,7 +25,7 @@ function VerticalWorkTab() {
           />
 
           <span
-            className="text-xs font-dm font-bold tracking-[0.2em] text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap"
+            className="text-base sm:text-[18px] font-dm font-bold tracking-[0.08em] uppercase text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap"
             style={{
               backgroundImage:
                 "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -59,41 +51,43 @@ function CaseStudyButton({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="group/btn inline-flex items-center gap-3 select-none cursor-pointer"
+      className="group/btn inline-flex items-center gap-2.5 sm:gap-3 select-none cursor-pointer"
       title={label}
     >
-      <div className="relative w-[54px] h-[54px] flex items-center justify-center flex-shrink-0">
+      <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover/btn:scale-105">
         <svg
           width="54"
-          height="54"
-          viewBox="0 0 58 58"
+          height="58"
+          viewBox="0 0 54 58"
           fill="none"
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full pointer-events-none"
         >
           <path
-            d="M 51.1 13.5 A 27 27 0 1 0 51.1 44.5"
+            d="M 46 44.5 A 25 25 0 1 1 46 13.5"
             stroke="url(#workBtnRingGrad)"
-            strokeWidth="1.5"
+            strokeWidth="1.8"
             strokeLinecap="round"
-            fill="none"
-            className="transition-all duration-300 group-hover/btn:stroke-[2]"
           />
         </svg>
 
         <div
-          className="w-[36px] h-[36px] rounded-full flex items-center justify-center shadow-[0_0_14px_rgba(222,67,19,0.55)] transition-transform duration-300 group-hover/btn:scale-105"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-[0_0_12px_rgba(222,67,19,0.55)]"
           style={{
             background: "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
           }}
         >
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="white">
-            <path d="M8 0C8 4.41828 4.41828 8 0 8C4.41828 8 8 11.5817 8 16C8 11.5817 11.5817 8 16 8C11.5817 8 8 4.41828 8 0Z" />
-          </svg>
+          <Image
+            src="/btn-icon-dimond.png"
+            alt=""
+            width={18}
+            height={17}
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain brightness-0 invert flex-shrink-0"
+          />
         </div>
       </div>
 
       <span
-        className="font-dm font-bold text-xs sm:text-sm tracking-wider uppercase text-transparent bg-clip-text transition-opacity duration-200 group-hover/btn:opacity-85"
+        className="font-dm font-bold text-base sm:text-[18px] leading-tight tracking-[0.02em] uppercase text-transparent bg-clip-text transition-opacity duration-200 group-hover/btn:opacity-85 whitespace-nowrap"
         style={{
           backgroundImage:
             "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -202,10 +196,10 @@ function ProjectCard({ project }: { project: Project }) {
           } group-hover:w-full group-hover:lg:w-[54%] group-hover:lg:justify-end`}
         >
           <div
-            className={`relative transition-all duration-500 ease-out ${
+            className={`relative transition-all duration-500 ease-out flex items-center justify-center ${
               isHovered
                 ? "w-full h-[280px] sm:h-[360px] lg:h-[420px]"
-                : "w-full max-w-[580px] sm:max-w-[660px] lg:max-w-[720px] h-[300px] sm:h-[380px] lg:h-[440px] mx-auto"
+                : "w-full max-w-[620px] sm:max-w-[700px] lg:max-w-[780px] h-[320px] sm:h-[400px] lg:h-[460px] mx-auto"
             } group-hover:w-full group-hover:h-[280px] group-hover:sm:h-[360px] group-hover:lg:h-[420px]`}
           >
             <Image
@@ -214,7 +208,7 @@ function ProjectCard({ project }: { project: Project }) {
               }
               alt={project.client}
               fill
-              className="object-contain"
+              className="object-contain object-center drop-shadow-xl"
               priority
             />
           </div>

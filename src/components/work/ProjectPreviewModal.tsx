@@ -308,27 +308,23 @@ export default function ProjectPreviewModal({
                   >
                     {/* Orange Sparkle Icon Circle */}
                     <div
-                      className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                      className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-[0_0_12px_rgba(222,67,19,0.55)]"
                       style={{
                         background:
                           "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
                       }}
                     >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                      >
-                        <path
-                          d="M7 0L8.8 5.2L14 7L8.8 8.8L7 14L5.2 8.8L0 7L5.2 5.2L7 0Z"
-                          fill="white"
-                        />
-                      </svg>
+                      <Image
+                        src="/btn-icon-dimond.png"
+                        alt=""
+                        width={18}
+                        height={17}
+                        className="w-4 h-4 object-contain brightness-0 invert flex-shrink-0"
+                      />
                     </div>
 
                     {/* Text */}
-                    <span className="font-dm font-bold text-xs uppercase tracking-wider text-white group-hover:text-[#FEC163] transition-colors">
+                    <span className="font-dm font-bold text-sm sm:text-base uppercase tracking-[0.02em] text-white group-hover:text-[#FEC163] transition-colors whitespace-nowrap">
                       VIEW CASE STUDY
                     </span>
                   </Link>

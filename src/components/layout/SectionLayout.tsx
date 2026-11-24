@@ -108,7 +108,7 @@ export default function SectionLayout({
 
             {/* Vertical text label */}
             <span
-              className="my-5 select-none font-dm font-bold text-[16px] tracking-[0.16em] uppercase text-gradient"
+              className="my-5 select-none font-dm font-bold text-[18px] tracking-[0.08em] uppercase text-gradient"
               style={{
                 writingMode: 'vertical-rl',
                 transform: 'rotate(180deg)',

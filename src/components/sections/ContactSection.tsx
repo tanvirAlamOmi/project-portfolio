@@ -22,17 +22,9 @@ function VerticalContactTab() {
     <div className="hidden lg:flex flex-shrink-0 pt-2 lg:absolute lg:left-[calc(100%-1.5px)] lg:top-2">
       <Link
         href="/contact"
-        className="group flex items-center gap-3.5 select-none hover:opacity-85 transition-opacity"
+        className="group flex items-center select-none hover:opacity-85 transition-opacity"
         title="Get In Touch"
       >
-        <div
-          className="w-[1.5px] h-[190px]"
-          style={{
-            background:
-              "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
-          }}
-        />
-
         <div className="flex flex-col items-center justify-between h-[190px] py-1">
           <Image
             src="/btn-icon-dimond.png"
@@ -43,7 +35,7 @@ function VerticalContactTab() {
           />
 
           <span
-            className="text-xs font-dm font-bold tracking-[0.22em] text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap"
+            className="text-base sm:text-[18px] font-dm font-bold tracking-[0.08em] uppercase text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap"
             style={{
               backgroundImage:
                 "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",

@@ -9,8 +9,10 @@ export default function Footer() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button after scrolling past 300px or half the viewport
-      if (window.scrollY > 300) {
+      // Show button only when scrolled towards the bottom of the page (>= 65%)
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight > 0 && window.scrollY >= scrollHeight * 0.65) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -91,7 +93,7 @@ export default function Footer() {
               <Mail size={18} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/sejutimehjabin"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -108,7 +110,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/sejutimehjabin"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"

@@ -4,9 +4,9 @@
  * Dynamic Next.js Image Loader
  * Automatically resolves image paths dynamically based on NEXT_PUBLIC_BASE_PATH.
  * - Subfolder (e.g. /era): prefixes with /era
- * - Root Domain (e.g. custom domain): returns clean root path
+ * - Root Domain (e.g. custom domain / local dev): returns clean root path
  */
-const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH ?? '/era').trim();
+const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH || '').trim();
 const normalizedBasePath =
   BASE_PATH && BASE_PATH !== '/' && BASE_PATH.toLowerCase() !== 'none'
     ? BASE_PATH.startsWith('/')

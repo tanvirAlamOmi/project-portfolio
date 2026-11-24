@@ -3,7 +3,7 @@
 import CaseStudyFullPageMockup from "@/components/ui/CaseStudyFullPageMockup";
 import CaseStudyHeroCascade from "@/components/ui/CaseStudyHeroCascade";
 import SectionBadge from "@/components/ui/SectionBadge";
-import { WorkProject } from "@/data/workProjects";
+import { WorkProject, WORK_PROJECTS } from "@/data/workProjects";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,16 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
   const router = useRouter();
   const cs = project.caseStudyData;
   const [activeTab, setActiveTab] = useState("overview");
+
+  // Dynamic previous and next case studies across all projects
+  const caseStudies = WORK_PROJECTS.filter((p) => p.hasCaseStudy);
+  const currentCsIdx = caseStudies.findIndex((p) => p.slug === project.slug);
+  const safeCsIdx = currentCsIdx !== -1 ? currentCsIdx : 0;
+  const prevCs =
+    caseStudies[(safeCsIdx - 1 + caseStudies.length) % caseStudies.length] ||
+    project;
+  const nextCs =
+    caseStudies[(safeCsIdx + 1) % caseStudies.length] || project;
 
   // Back button functionality requested by user ("cose button ta back button er moto kaj korbe")
   const handleBack = () => {
@@ -89,18 +99,18 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
 
       {/* ── 01. HERO CARD (Pixel-perfect matching user's Figma screenshot: ME+ at top-left, Close/Back button at top-right, 5-sheet mockup centered) ── */}
       <div className="relative w-full bg-transparent min-h-[440px] sm:min-h-[500px] lg:min-h-[560px] flex items-end justify-center pt-12 sm:pt-14 pb-0 px-4 sm:px-8 mb-10">
-        {/* Top-Left Notch: "ME+" Logo/Title directly sitting on the top border line */}
-        <div className="absolute top-0 left-0 -translate-y-1/2 flex items-center gap-2.5 sm:gap-3 select-none z-20">
+        {/* Top-Left Notch: Client Logo/Title directly sitting on the top border line */}
+        <div className="absolute top-0 left-0 -translate-y-1/2 flex items-center gap-2.5 sm:gap-3 select-none z-20 bg-[var(--bg)] card-badge-bg dark:bg-[#070B19] pr-3">
           {/* Subtle curved accent / glowing dot on the far left */}
           <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#FEC163] to-[#DE4313] shadow-[0_0_10px_rgba(222,67,19,0.9)]" />
-          <span className="font-dm font-bold text-3xl sm:text-4xl lg:text-[42px] text-white tracking-tight leading-none">
-            ME+
+          <span className="font-dm font-black text-2xl sm:text-3xl lg:text-[34px] text-white tracking-tight leading-none uppercase">
+            {project.client || cs?.client || "CASE STUDY"}
           </span>
         </div>
 
-        {/* Top horizontal border line: starts after ME+ and stops before the circular close button */}
+        {/* Top horizontal border line */}
         <div
-          className="absolute top-0 left-[100px] sm:left-[125px] lg:left-[140px] right-[22px] sm:right-[24px] h-[1.5px] pointer-events-none"
+          className="absolute top-0 left-0 right-[22px] sm:right-[24px] h-[1.5px] pointer-events-none"
           style={{
             background:
               "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
@@ -261,18 +271,17 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
                 PROJECT OVERVIEW
               </span>
               <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
-                {cs?.overview ||
-                  "The primary objective of this project was to design a comprehensive digital mental wellness platform that bridges the gap between certified clinical therapists and patients in need of accessible, stigma-free counseling."}
+                {cs?.overview || project.description}
               </p>
             </div>
 
             <div>
               <h3 className="font-dm font-bold text-base sm:text-lg text-white mb-2">
-                Problem
+                Problem &amp; Challenge
               </h3>
               <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
                 {cs?.challenge ||
-                  "Existing telemedicine solutions were cluttered, clinical, and intimidating for patients experiencing acute anxiety or seeking their first psychological consultation. Complex registration funnels and unclear therapist credentials created high drop-off rates before the initial booking."}
+                  "Existing digital solutions were cluttered, unintuitive, and intimidating for end users. Complex registration funnels and unclear information architecture created friction and high drop-off rates."}
               </p>
             </div>
 
@@ -286,6 +295,10 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
               >
                 Project Goal &amp; Solution
               </span>
+              <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed mt-2">
+                {cs?.solution ||
+                  "Designed an intuitive, human-centered experience with modern visual hierarchy, responsive layouts, and robust design system tokens."}
+              </p>
             </div>
           </div>
         </div>
@@ -302,18 +315,18 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
           </div>
           <div>
             <span className="block text-[10px] sm:text-xs text-[#FEC163] uppercase tracking-wider font-bold">
-              TIMELINE
+              YEAR
             </span>
             <strong className="block text-xs sm:text-sm text-white mt-1">
-              4 Months (2024)
+              {cs?.year || project.year || "2024"}
             </strong>
           </div>
           <div>
             <span className="block text-[10px] sm:text-xs text-[#FEC163] uppercase tracking-wider font-bold">
-              PLATFORM
+              CATEGORY
             </span>
             <strong className="block text-xs sm:text-sm text-white mt-1">
-              iOS, Android &amp; Web
+              {project.categoryLabel || "UX & UI Design"}
             </strong>
           </div>
           <div>
@@ -321,7 +334,7 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
               CLIENT
             </span>
             <strong className="block text-xs sm:text-sm text-white mt-1">
-              {cs?.client || "Me+ Healthcare"}
+              {project.client || cs?.client || "Enterprise Client"}
             </strong>
           </div>
         </div>
@@ -343,50 +356,37 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
 
           {/* Right Column: Research Methodology & Wireframing */}
           <div className="flex-1 space-y-6 text-left max-w-3xl">
-            <div>
-              <h3 className="font-dm font-bold text-base sm:text-lg text-white mb-2">
-                Understanding the User &amp; Pain Points
-              </h3>
-              <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
-                We conducted in-depth qualitative interviews with 24 individuals
-                seeking therapy and 8 licensed psychologists. Users expressed
-                vulnerability about data privacy, hesitation regarding session
-                pricing transparency, and frustration with clinical jargon.
-              </p>
-              <div className="mt-3">
-                <span
-                  className="font-dm font-bold text-xs uppercase tracking-wider text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  }}
-                >
-                  User Personas &amp; Journey Mapping
-                </span>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-[#DE4313]/25">
-              <h3 className="font-dm font-bold text-base sm:text-lg text-white mb-2">
-                User Journey &amp; Wireframes
-              </h3>
-              <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
-                Low-fidelity sketches were transformed into rapid Figma
-                interactive prototypes, mapping every touchpoint from initial
-                mental state check-in to post-session homework assignments.
-              </p>
-              <div className="mt-3">
-                <span
-                  className="font-dm font-bold text-xs uppercase tracking-wider text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
-                  }}
-                >
-                  Wireframe Flow &amp; Testing
-                </span>
-              </div>
-            </div>
+            {cs?.designProcess && cs.designProcess.length > 0 ? (
+              cs.designProcess.map((proc, pIdx) => (
+                <div key={pIdx} className={pIdx > 0 ? "pt-4 border-t border-[#DE4313]/25" : ""}>
+                  <h3 className="font-dm font-bold text-base sm:text-lg text-white mb-2">
+                    {proc.phase}
+                  </h3>
+                  <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
+                    {proc.description}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <>
+                <div>
+                  <h3 className="font-dm font-bold text-base sm:text-lg text-white mb-2">
+                    Understanding the User &amp; Pain Points
+                  </h3>
+                  <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
+                    We conducted in-depth qualitative interviews and competitive audits to uncover critical user friction points and workflow bottlenecks.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-[#DE4313]/25">
+                  <h3 className="font-dm font-bold text-base sm:text-lg text-white mb-2">
+                    Information Architecture &amp; Wireframing
+                  </h3>
+                  <p className="font-dm text-sm sm:text-base text-gray-300 leading-relaxed">
+                    Low-fidelity sketches were transformed into rapid interactive prototypes, testing every touchpoint with key stakeholders before high-fidelity visual design.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -540,41 +540,41 @@ export default function CaseStudyView({ project }: CaseStudyViewProps) {
           </div>
         </div>
 
-        {/* ── Bottom Prev / Next Project Navigation (Matching Screenshot Split Cards) ── */}
+        {/* ── Bottom Prev / Next Project Navigation (Dynamic) ── */}
         <div className="w-full max-w-[740px] mx-auto grid grid-cols-1 sm:grid-cols-2 border border-[#DE4313]/60 bg-[#070B19] divide-y sm:divide-y-0 sm:divide-x divide-[#DE4313]/60 rounded-xs overflow-hidden">
           {/* Left: Previous Project */}
           <Link
-            href="/work/case-study/elevate-solutions-brand"
+            href={`/work/case-study/${prevCs.slug}`}
             className="group p-5 flex items-center gap-4 hover:bg-white/5 transition-colors"
           >
-            <div className="w-16 h-12 bg-slate-800 rounded-xs flex items-center justify-center text-xs flex-shrink-0">
-              💻
+            <div className="w-12 h-10 bg-gradient-to-br from-[#FEC163]/20 to-[#DE4313]/30 border border-[#DE4313]/40 rounded-xs flex items-center justify-center text-xs flex-shrink-0 text-[#FEC163]">
+              ‹
             </div>
-            <div>
+            <div className="overflow-hidden">
               <span className="block text-[10px] text-gray-400 uppercase tracking-wider font-dm">
                 ‹ Previous Case Study
               </span>
-              <strong className="block text-xs sm:text-sm text-white group-hover:text-[#FEC163] transition-colors font-dm">
-                Elevate Solutions Brand
+              <strong className="block text-xs sm:text-sm text-white group-hover:text-[#FEC163] transition-colors font-dm line-clamp-1">
+                {prevCs.title}
               </strong>
             </div>
           </Link>
 
           {/* Right: Next Project */}
           <Link
-            href="/work/case-study/arbree-analytics"
+            href={`/work/case-study/${nextCs.slug}`}
             className="group p-5 flex items-center justify-between sm:justify-end gap-4 hover:bg-white/5 transition-colors text-right"
           >
-            <div>
+            <div className="overflow-hidden text-right">
               <span className="block text-[10px] text-gray-400 uppercase tracking-wider font-dm">
                 Next Case Study ›
               </span>
-              <strong className="block text-xs sm:text-sm text-white group-hover:text-[#FEC163] transition-colors font-dm">
-                Arbree Solutions Analytics
+              <strong className="block text-xs sm:text-sm text-white group-hover:text-[#FEC163] transition-colors font-dm line-clamp-1">
+                {nextCs.title}
               </strong>
             </div>
-            <div className="w-16 h-12 bg-slate-800 rounded-xs flex items-center justify-center text-xs flex-shrink-0">
-              📊
+            <div className="w-12 h-10 bg-gradient-to-br from-[#FEC163]/20 to-[#DE4313]/30 border border-[#DE4313]/40 rounded-xs flex items-center justify-center text-xs flex-shrink-0 text-[#FEC163]">
+              ›
             </div>
           </Link>
         </div>

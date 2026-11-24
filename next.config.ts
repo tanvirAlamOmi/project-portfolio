@@ -2,15 +2,15 @@ import type { NextConfig } from "next";
 
 /**
  * Dynamic basePath configuration:
- * - Subfolder deployment (current ebnhost: https://sejuti.com/era/): NEXT_PUBLIC_BASE_PATH = "/era"
- * - Custom domain root (future domain: https://example.com/): NEXT_PUBLIC_BASE_PATH = ""
- * Defaults to "/era" if not explicitly specified.
+ * - Subfolder deployment (ebnhost cPanel: https://sejuti.com/era/): NEXT_PUBLIC_BASE_PATH = "/era"
+ * - Custom domain root (local dev / root domain): NEXT_PUBLIC_BASE_PATH = "" (default)
+ * Defaults to "" (root) so local development (npm run dev) works seamlessly at http://localhost:3000/.
+ * In GitHub Actions CI (deploy.yml) or when running 'npm run build:era', NEXT_PUBLIC_BASE_PATH is set to '/era'.
  */
-const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "/era";
-const basePath = rawBasePath.trim();
+const rawBasePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").trim();
 const normalizedBasePath =
-  basePath && basePath !== "/" && basePath.toLowerCase() !== "none"
-    ? (basePath.startsWith("/") ? basePath : `/${basePath}`)
+  rawBasePath && rawBasePath !== "/" && rawBasePath.toLowerCase() !== "none"
+    ? (rawBasePath.startsWith("/") ? rawBasePath : `/${rawBasePath}`)
     : "";
 
 const nextConfig: NextConfig = {

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { asset } from "@/utils/asset";
 
 function ActionSparkleButton({
   label,
@@ -22,26 +23,35 @@ function ActionSparkleButton({
       }}
       role="button"
       tabIndex={0}
-      className="group inline-flex items-center cursor-pointer select-none"
+      className="group inline-flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none"
     >
-      <div className="relative w-13 h-13 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-        <svg width="52" height="58" viewBox="0 0 52 58" fill="none">
+      <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 flex-shrink-0">
+        <svg width="52" height="58" viewBox="0 0 52 58" fill="none" className="absolute inset-0 w-full h-full pointer-events-none">
           <path
             d="M 46 44.5 A 25 25 0 1 1 46 13.5"
             stroke="url(#blogSparkleGrad)"
             strokeWidth="1.8"
             strokeLinecap="round"
           />
-          <circle cx="26" cy="29" r="17" fill="url(#blogSparkleGrad)" />
-          <path
-            d="M26 20L27.6 27.4L35 29L27.6 30.6L26 38L24.4 30.6L17 29L24.4 27.4L26 20Z"
-            fill="#FFF7E7"
-          />
         </svg>
+        <div
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-[0_0_12px_rgba(222,67,19,0.55)]"
+          style={{
+            background: "linear-gradient(135deg, #FEC163 0%, #DE4313 100%)",
+          }}
+        >
+          <Image
+            src={asset("/btn-icon-dimond.png")}
+            alt=""
+            width={18}
+            height={17}
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain brightness-0 invert flex-shrink-0"
+          />
+        </div>
       </div>
 
       <span
-        className="font-almarai font-extrabold text-xs sm:text-sm tracking-[0.2em] text-transparent bg-clip-text transition-all uppercase whitespace-nowrap"
+        className="font-dm font-bold text-base sm:text-[18px] leading-tight tracking-[0.02em] text-transparent bg-clip-text transition-all uppercase whitespace-nowrap"
         style={{
           backgroundImage:
             "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -101,9 +111,9 @@ export default function BlogPageView() {
       </svg>
 
       <div className="w-full max-w-[1240px] mx-auto space-y-10 sm:space-y-14">
-        <div className="relative w-full bg-transparent min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] flex items-center pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20 pl-6 sm:pl-10 lg:pl-14 pr-6 sm:pr-10 lg:pr-14 mb-10">
+        <div className="relative w-full bg-transparent min-h-0 md:min-h-[520px] lg:min-h-[540px] flex flex-col md:flex-row items-start md:items-center pt-8 sm:pt-14 lg:pt-20 pb-8 sm:pb-12 lg:pb-16 pl-4 sm:pl-10 lg:pl-14 pr-4 sm:pr-10 lg:pr-14 mb-10">
           <div
-            className="absolute top-0 left-0 right-[150px] sm:right-[180px] h-[1.5px] pointer-events-none"
+            className="absolute top-0 left-0 right-[120px] sm:right-[180px] h-[1.5px] pointer-events-none"
             style={{
               background:
                 "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
@@ -132,8 +142,8 @@ export default function BlogPageView() {
             }}
           />
 
-          <div className="absolute top-0 right-4 sm:right-8 -translate-y-1/2 flex items-center select-none z-20">
-            <span className="font-dm font-medium text-3xl sm:text-4xl lg:text-[40px] text-[var(--ink)] tracking-tight leading-none">
+          <div className="absolute top-0 right-3 sm:right-8 -translate-y-1/2 flex items-center select-none z-20">
+            <span className="font-dm font-medium text-2xl sm:text-4xl lg:text-[40px] text-[var(--ink)] tracking-tight leading-none">
               Blogs
             </span>
           </div>
@@ -165,31 +175,19 @@ export default function BlogPageView() {
                 top: "60px",
               }}
             />
-
-            <div className="absolute right-4 sm:right-8 lg:right-[-40px] bottom-[-40px] sm:bottom-[-120px] w-[320px] sm:w-[420px] md:w-[460px] lg:w-[500px] flex items-end justify-end">
-              <Image
-                src="/assets/blogs/blog-hero.png"
-                alt="Off Canvas Journal Workspace"
-                width={500}
-                height={400}
-                className="w-full h-auto object-contain object-right-bottom drop-shadow-xl"
-                priority
-              />
-            </div>
           </div>
 
           <div className="relative z-10 w-full max-w-[620px] lg:max-w-[700px] xl:max-w-[780px] flex flex-col justify-center space-y-1 sm:space-y-1">
             <h1
-              className="font-dm uppercase whitespace-nowrap text-[var(--ink)]"
+              className="font-dm uppercase whitespace-normal sm:whitespace-nowrap break-words text-[var(--ink)]"
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontWeight: 600,
-                fontSize: "clamp(30px, 4.2vw, 72px)",
+                fontSize: "clamp(30px, 4.8vw, 72px)",
                 lineHeight: "100%",
                 letterSpacing: "0%",
                 color: "var(--ink)",
-                textShadow: "0px 0px 10px rgba(244, 115, 3, 0.25)",
-                filter: "drop-shadow(0px 0px 8px rgba(244, 115, 3, 0.35))",
+                textShadow: "0px 0px 10px rgba(244, 115, 3, 0.40)",
               }}
             >
               OFF CANVAS JOURNAL
@@ -280,6 +278,32 @@ export default function BlogPageView() {
               )}
             </div>
           </div>
+
+          {/* Hero Illustration for Desktop (>=768px): Clipped cleanly within the border-box bounds so bottom circle is cropped at bottom border line without clipping 'Blogs' */}
+          <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none z-10">
+            <div className="absolute md:right-[-10px] lg:right-[-30px] xl:right-[-50px] md:bottom-[-20px] lg:bottom-[-50px] md:w-[400px] lg:w-[460px] xl:w-[520px] flex justify-end items-end">
+              <Image
+                src="/assets/blogs/blog-hero.png"
+                alt="Off Canvas Journal Workspace"
+                width={520}
+                height={420}
+                className="w-full h-auto object-contain object-bottom drop-shadow-xl"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Hero Illustration for Mobile (<768px): In-flow below subscribe button */}
+          <div className="md:hidden relative w-full max-w-[280px] sm:max-w-[340px] mx-auto flex justify-center items-end z-10 mt-8 pointer-events-none">
+            <Image
+              src="/assets/blogs/blog-hero.png"
+              alt="Off Canvas Journal Workspace"
+              width={340}
+              height={280}
+              className="w-full h-auto object-contain object-bottom drop-shadow-xl"
+              priority
+            />
+          </div>
         </div>
 
         <div className="w-full flex items-center justify-between px-1 font-dm">
@@ -296,8 +320,7 @@ export default function BlogPageView() {
 
             <button
               onClick={() => setShowCatMenu(!showCatMenu)}
-              className="flex items-center gap-4 sm:gap-6 text-sm sm:text-base font-normal transition-colors mt-1 cursor-pointer"
-              style={{ color: "rgba(255, 247, 231, 0.8)" }}
+              className="flex items-center gap-4 sm:gap-6 text-sm sm:text-base font-normal text-[var(--ink)] hover:text-[#DE4313] transition-colors mt-1 cursor-pointer"
             >
               <span>{selectedCategory}</span>
               <svg
@@ -354,8 +377,7 @@ export default function BlogPageView() {
 
             <button
               onClick={() => setShowSortMenu(!showSortMenu)}
-              className="flex items-center justify-end gap-4 sm:gap-6 text-sm sm:text-base font-normal transition-colors mt-1 ml-auto cursor-pointer"
-              style={{ color: "rgba(255, 247, 231, 0.8)" }}
+              className="flex items-center justify-end gap-4 sm:gap-6 text-sm sm:text-base font-normal text-[var(--ink)] hover:text-[#DE4313] transition-colors mt-1 ml-auto cursor-pointer"
             >
               <span>{selectedSort}</span>
               <svg
@@ -504,7 +526,7 @@ export default function BlogPageView() {
                 Photography
               </span>
 
-              <h4 className="font-almarai font-extrabold text-sm sm:text-base text-[var(--ink)] tracking-wider uppercase">
+              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
                 SUNSETS – A CANVAS OF FLEETING BEAUTY
               </h4>
 
@@ -553,7 +575,7 @@ export default function BlogPageView() {
                   Writing
                 </span>
 
-                <h4 className="font-almarai font-extrabold text-sm sm:text-base text-[var(--ink)] tracking-wider uppercase leading-snug">
+                <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
                   INSPIRATION – VERSES THAT SPEAK TO THE SOUL
                 </h4>
 
@@ -601,7 +623,7 @@ export default function BlogPageView() {
                   Writing
                 </span>
 
-                <h4 className="font-almarai font-extrabold text-sm sm:text-base text-[var(--ink)] tracking-wider uppercase leading-snug">
+                <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
                   INSPIRATION – VERSES THAT SPEAK TO THE SOUL
                 </h4>
 
@@ -652,7 +674,7 @@ export default function BlogPageView() {
                 Photography
               </span>
 
-              <h4 className="font-almarai font-extrabold text-sm sm:text-base text-[var(--ink)] tracking-wider uppercase">
+              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
                 SUNSETS – A CANVAS OF FLEETING BEAUTY
               </h4>
 
@@ -700,7 +722,7 @@ export default function BlogPageView() {
                 Photography
               </span>
 
-              <h4 className="font-almarai font-extrabold text-sm sm:text-base text-[var(--ink)] tracking-wider uppercase">
+              <h4 className="font-dm font-bold text-base sm:text-[18px] text-[var(--ink)] leading-snug tracking-normal uppercase">
                 SUNSETS – A CANVAS OF FLEETING BEAUTY
               </h4>
 

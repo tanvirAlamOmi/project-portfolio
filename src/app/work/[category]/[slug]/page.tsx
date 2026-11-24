@@ -91,16 +91,14 @@ export default async function WorkProjectSinglePage({
   }
 
   return (
-    <div className="min-h-screen flex flex-col text-[var(--ink)]">
-      <div className="w-full max-w-[1440px] mx-auto flex-1 relative">
+    <div className="h-screen max-h-screen overflow-hidden flex flex-col justify-center text-[var(--ink)]">
+      <div className="w-full max-w-[1440px] mx-auto flex-1 h-full relative flex flex-col justify-center items-center">
         <Sidebar defaultActive="work" />
 
-        <main className="w-full lg:pl-[var(--sidebar-w)] pt-14 lg:pt-0">
+        <main className="w-full h-full lg:pl-[var(--sidebar-w)] flex items-center justify-center p-2 sm:p-4">
           <WorkProjectDetailView project={project} />
         </main>
       </div>
-
-      <Footer />
     </div>
   );
 }

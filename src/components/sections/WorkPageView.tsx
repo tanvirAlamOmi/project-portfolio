@@ -109,7 +109,7 @@ export default function WorkPageView() {
   );
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-10 pt-16 sm:pt-20 lg:pt-24 pb-24">
+    <div className="w-full px-3 sm:px-6 lg:px-10 pt-12 sm:pt-18 lg:pt-24 pb-12 sm:pb-16 lg:pb-24">
       {/* ── Global SVG Gradient Defs ── */}
       <svg
         width="0"
@@ -145,7 +145,7 @@ export default function WorkPageView() {
       </svg>
 
       {/* ── 01. WORK HERO CARD (Pixel-perfect matching About & Blogs Hero Layout) ── */}
-      <div className="relative w-full bg-transparent min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] flex items-center pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20 pl-6 sm:pl-10 lg:pl-14 pr-6 sm:pr-10 lg:pr-14 mb-10">
+      <div className="relative w-full bg-transparent min-h-0 lg:min-h-[540px] flex flex-col lg:flex-row items-center pt-10 sm:pt-14 lg:pt-20 pb-8 sm:pb-12 lg:pb-20 pl-4 sm:pl-10 lg:pl-14 pr-4 sm:pr-10 lg:pr-14 mb-6 sm:mb-10">
         {/* Left vertical border line (starts at 0,0 to bottom) */}
         <div
           className="absolute top-0 left-0 bottom-0 w-[1.5px] pointer-events-none"
@@ -338,14 +338,14 @@ export default function WorkPageView() {
         </div>
 
         {/* ── Main Hero Content Grid: Left Title + Right Mockup ── */}
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           {/* Left Column: Heading + Subtitle */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-3">
-            <h1 className="font-dm font-bold text-3xl sm:text-4xl lg:text-[50px] leading-[1.08] text-[var(--ink)] uppercase tracking-tight">
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-2 sm:space-y-3">
+            <h1 className="font-dm font-bold text-2xl sm:text-4xl lg:text-[50px] leading-[1.08] text-[var(--ink)] uppercase tracking-tight">
               {currentDiscipline.title}
             </h1>
             <h2
-              className="font-dm font-bold text-2xl sm:text-3xl lg:text-[32px] leading-tight text-transparent bg-clip-text"
+              className="font-dm font-bold text-xl sm:text-2xl lg:text-[32px] leading-tight text-transparent bg-clip-text"
               style={{
                 backgroundImage:
                   "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -355,17 +355,19 @@ export default function WorkPageView() {
             </h2>
           </div>
 
-          {/* Right Column: Multi-device Responsive Mockup Graphic */}
-          <div className="lg:col-span-7 w-full flex items-center justify-center lg:justify-end">
-            {activeDiscipline === "ux" && (
-              <WorkDeviceMockup className="w-full max-w-[540px] lg:max-w-[580px]" />
-            )}
-            {activeDiscipline === "branding" && (
-              <BrandingMonitorMockup className="w-full max-w-[540px] lg:max-w-[580px]" />
-            )}
-            {activeDiscipline === "marketing" && (
-              <MarketingMonitorMockup className="w-full max-w-[540px] lg:max-w-[580px]" />
-            )}
+          {/* Right Column: Multi-device Responsive Mockup Graphic (Sits cleanly below text on mobile) */}
+          <div className="lg:col-span-7 w-full flex items-center justify-center lg:justify-end mt-4 sm:mt-6 lg:mt-0">
+            <div className="w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[580px] mx-auto lg:mr-0 flex items-center justify-center">
+              {activeDiscipline === "ux" && (
+                <WorkDeviceMockup className="w-full" />
+              )}
+              {activeDiscipline === "branding" && (
+                <BrandingMonitorMockup className="w-full" />
+              )}
+              {activeDiscipline === "marketing" && (
+                <MarketingMonitorMockup className="w-full" />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -374,8 +376,8 @@ export default function WorkPageView() {
       {activeDiscipline === "ux" && (
         <>
           {/* Sticky Sub-Navigation Bar for UX tabs */}
-          <div className="sticky top-0 z-40 backdrop-blur-md pt-3 pb-2 select-none mb-14">
-            <div className="w-full grid grid-cols-3 gap-2 sm:gap-4 items-center text-center font-dm font-bold text-xs sm:text-sm tracking-wider uppercase">
+          <div className="sticky top-0 z-40 backdrop-blur-md pt-2 sm:pt-3 pb-2 select-none mb-8 sm:mb-12 lg:mb-14">
+            <div className="w-full grid grid-cols-3 gap-1 sm:gap-3 md:gap-4 items-center text-center font-dm font-bold text-[9.5px] min-[380px]:text-[11px] sm:text-xs md:text-sm tracking-tight sm:tracking-wider uppercase">
               {WORK_TABS.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -383,7 +385,7 @@ export default function WorkPageView() {
                     key={tab.id}
                     type="button"
                     onClick={() => scrollToSection(tab.id)}
-                    className={`group flex items-center justify-center gap-2 sm:gap-2.5 py-3 transition-opacity cursor-pointer ${
+                    className={`group flex items-center justify-center gap-1 sm:gap-2 md:gap-2.5 py-2 sm:py-3 px-0.5 sm:px-2 transition-opacity cursor-pointer ${
                       isActive ? "opacity-100" : "opacity-75 hover:opacity-100"
                     }`}
                   >
@@ -393,12 +395,12 @@ export default function WorkPageView() {
                       alt=""
                       width={18}
                       height={17}
-                      className="w-[11px] h-[10px] object-contain flex-shrink-0"
+                      className="w-[8px] h-[7px] sm:w-[11px] sm:h-[10px] object-contain flex-shrink-0"
                     />
 
                     {/* Tab Label */}
                     <span
-                      className="text-transparent bg-clip-text"
+                      className="text-transparent bg-clip-text whitespace-nowrap"
                       style={{
                         backgroundImage:
                           "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -413,7 +415,7 @@ export default function WorkPageView() {
                       alt=""
                       width={18}
                       height={17}
-                      className="w-[11px] h-[10px] object-contain flex-shrink-0"
+                      className="w-[8px] h-[7px] sm:w-[11px] sm:h-[10px] object-contain flex-shrink-0"
                     />
                   </button>
                 );
@@ -434,7 +436,7 @@ export default function WorkPageView() {
           </div>
 
           {/* ── 03. CATEGORY SHOWCASE SECTIONS (UX & UI DESIGN) ── */}
-          <div className="space-y-16 sm:space-y-24">
+          <div className="space-y-10 sm:space-y-16 lg:space-y-24">
             {/* ── SECTION 01: WEBSITES ── */}
             <WorkCategorySection
               id="websites"

@@ -104,7 +104,7 @@ export default function AboutSection() {
         />
       </div>
 
-      <div className="w-full home-section-container relative z-10 flex flex-col gap-12 sm:gap-16">
+      <div className="w-full home-section-container relative z-10 flex flex-col gap-8 sm:gap-10">
         <div className="w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 relative">
           <SectionBadge num="01" label="ABOUT" />
 
@@ -139,17 +139,9 @@ export default function AboutSection() {
           <div className="hidden lg:flex flex-shrink-0 pt-2 lg:absolute lg:left-[calc(100%-1.5px)] lg:top-2">
             <Link
               href="/about"
-              className="group flex items-center gap-3.5 select-none hover:opacity-85 transition-opacity"
+              className="group flex items-center select-none hover:opacity-85 transition-opacity"
               title="Know More About Sejuti"
             >
-              <div
-                className="w-[1.5px] h-[170px]"
-                style={{
-                  background:
-                    "linear-gradient(97.51deg, #FEC163 -37.59%, #DE4313 94.05%)",
-                }}
-              />
-
               <div className="flex flex-col items-center justify-between h-[170px] py-1">
                 <Image
                   src="/btn-icon-dimond.png"
@@ -160,7 +152,7 @@ export default function AboutSection() {
                 />
 
                 <span
-                  className="text-xs font-dm font-bold tracking-[0.24em] text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap"
+                  className="text-base sm:text-[18px] font-dm font-bold tracking-[0.08em] text-transparent bg-clip-text [writing-mode:vertical-rl] whitespace-nowrap"
                   style={{
                     backgroundImage:
                       "linear-gradient(129.89deg, #FEC163 -29.32%, #DE4313 100%)",
@@ -184,6 +176,7 @@ export default function AboutSection() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch relative">
           <div
             style={cardBorderStyle}
+            data-cursor="view"
             className="group relative p-6 sm:p-8 pt-14 sm:pt-16 flex flex-col justify-between"
           >
             <div
@@ -226,13 +219,6 @@ export default function AboutSection() {
                 DESIGN
               </span>
             </Link>
-
-            <div className="absolute top-3 right-3 sm:top-5 sm:right-6 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-              <ViewButton
-                href="/work"
-                title="View UX &amp; UI Design work"
-              />
-            </div>
 
             <div className="relative z-10 grid grid-cols-3 gap-4 items-end text-center pt-4 sm:pt-6">
               <Link
@@ -296,6 +282,7 @@ export default function AboutSection() {
               href="/work?discipline=branding"
               title="View Logo &amp; Branding work"
               style={cardBorderStyle}
+              data-cursor="view"
               className="group relative p-6 sm:p-7 flex items-center justify-between min-h-[140px] cursor-pointer"
             >
               <div
@@ -320,19 +307,13 @@ export default function AboutSection() {
                 <br />
                 BRANDING
               </h3>
-
-              <div className="flex-shrink-0 pr-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <ViewButton
-                  title="View Logo &amp; Branding work"
-                  asDiv
-                />
-              </div>
             </Link>
 
             <Link
               href="/work?discipline=marketing"
               title="View Print &amp; Digital Marketing work"
               style={cardBorderStyle}
+              data-cursor="view"
               className="group relative p-6 sm:p-7 flex items-center justify-between min-h-[140px] cursor-pointer"
             >
               <div
@@ -357,13 +338,6 @@ export default function AboutSection() {
                 <br />
                 MARKETING
               </h3>
-
-              <div className="flex-shrink-0 pr-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <ViewButton
-                  title="View Print &amp; Digital Marketing work"
-                  asDiv
-                />
-              </div>
             </Link>
           </div>
         </div>

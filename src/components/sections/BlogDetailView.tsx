@@ -47,8 +47,15 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
           borderImageSlice: 1,
         }}
       >
-        <Link
-          href="/blogs"
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== "undefined" && window.history.length > 1) {
+              window.history.back();
+            } else {
+              window.location.href = "/blogs";
+            }
+          }}
           aria-label="Back to Blogs"
           className="group absolute -top-4 -right-4 sm:-top-5 sm:-right-5 w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#DE4313] hover:border-[#FEC163] bg-[var(--bg)] flex items-center justify-center transition-all duration-300 hover:scale-110 z-30 cursor-pointer shadow-sm"
           style={{ backgroundColor: "var(--bg)" }}
@@ -57,7 +64,7 @@ export default function BlogDetailView({ post }: BlogDetailViewProps) {
             className="w-4 h-4 sm:w-5 sm:h-5 text-[#DE4313] group-hover:text-[#FEC163] transition-colors"
             strokeWidth={2}
           />
-        </Link>
+        </button>
 
         <h1 className="font-dm font-extrabold uppercase text-2xl sm:text-4xl lg:text-[44px] leading-[1.15] tracking-wide max-w-4xl text-[var(--ink)]">
           {post.title}
